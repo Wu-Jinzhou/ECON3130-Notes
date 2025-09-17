@@ -1,0 +1,9 @@
+# LaTeX intermediate and output files
+*.aux
+*.log
+*.out
+*.toc
+*.synctex.gz
+
+# macOS system files
+.DS_Store
