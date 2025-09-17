@@ -1,0 +1,117 @@
+\section{Probabilities and Events}
+\textbf{Date:} \underline{Aug 27, 2025}
+
+\begin{definition}[Experiment]
+A process that results in uncertain outcomes.
+\end{definition}
+\begin{definition}[Outcome]
+A possible result of the experiment.
+\end{definition}
+\begin{definition}[Sample Space]
+The set of all possible basic outcomes.
+\end{definition}
+
+\subsection{Events}
+An \textbf{event} is a set of basic outcomes, i.e., a subset of the sample space.
+\begin{itemize}
+    \item Example 1: $\{\text{Tails}\}$
+    \item Example 2: $\{\text{Admitted}\}$
+    \item Example 3: $\{\text{Dog, Cat}\}$
+\end{itemize}
+
+\subsection{Probabilities}
+\begin{definition}[Probability]
+A numerical measure of the chance that an event will occur.
+\end{definition}
+\begin{itemize}
+    \item $\Pr(E) = 1$ $\implies$ Event $E$ is certain to occur.
+    \item $\Pr(E) = 0$ $\implies$ Event $E$ cannot occur.
+    \item $\Pr(E) = 0.5$ $\implies$ Event $E$ is equally likely to occur or not.
+\end{itemize}
+
+\subsection{Interpretations of Probability}
+\paragraph{Relative Frequency Viewpoint}
+\[
+    \Pr(E) = \lim_{n \to \infty} \frac{\text{Number of times } E \text{ occurs}}{n}
+\]
+Probabilities represent long-run relative frequencies when an experiment is repeated independently.
+
+\paragraph{Subjective Probability}
+Probability can also represent an individual’s degree of belief about an event.
+\begin{itemize}
+    \item Example: ``Will Lisa Cook be a Fed Governor on October 1?''
+    \item Example: ``Which city is further west: Reno or Las Vegas?''
+\end{itemize}
+
+\subsection{Probability Distributions}
+\begin{definition}[Probability Distribution]
+A table assigning probabilities to all basic outcomes of an experiment, where the probabilities sum to $1$.
+\end{definition}
+
+\paragraph{Example: Preferred Pet}
+\[
+\begin{array}{c|c}
+\text{Pet} & \Pr(\text{Pet}) \\ \hline
+\text{Dog} & 0.44 \\
+\text{Cat} & 0.30 \\
+\text{Other} & 0.07 \\
+\text{None} & 0.19 \\ \hline
+\textbf{Total} & 1.00
+\end{array}
+\]
+
+\subsection{Probability Tables}
+When analyzing multiple attributes (e.g., gender and pet preference), we summarize data in a \textbf{probability table}.
+
+\paragraph{Rules:}
+\begin{enumerate}
+    \item Two attributes: one on rows, one on columns.
+    \item Events are mutually exclusive and exhaustive.
+    \item Joint probabilities go in cells; marginal probabilities go in row and column totals.
+\end{enumerate}
+
+\paragraph{Example Table: Preferred Pet vs. Gender}
+\[
+\begin{array}{c|cccc|c}
+ & \text{Dog} & \text{Cat} & \text{Other} & \text{None} & \Pr(\text{Gender}) \\ \hline
+\text{Female} & 0.18 & 0.12 & 0.04 & 0.05 & 0.38 \\
+\text{Male} & 0.32 & 0.15 & 0.05 & 0.09 & 0.62 \\
+\text{Refuse/Other} & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 \\ \hline
+\Pr(\text{Pet}) & 0.50 & 0.27 & 0.09 & 0.14 & 1.00
+\end{array}
+\]
+
+\subsection{Set Theory and Venn Diagrams}
+Events can be represented as sets within a sample space.
+\begin{itemize}
+    \item $A \cap B$ = Event that both $A$ and $B$ occur.
+    \item $A \cup B$ = Event that $A$ or $B$ (or both) occur.
+    \item $A^c$ = Complement of $A$, i.e., $A$ does not occur.
+\end{itemize}
+
+\subsection{Three Useful Probability Rules}
+\paragraph{Rule 1: Intersection}
+\[
+    \Pr(A \cap B) = \Pr(A \mid B) \Pr(B)
+\]
+\paragraph{Rule 2: Union}
+\[
+    \Pr(A \cup B) = \Pr(A) + \Pr(B) - \Pr(A \cap B)
+\]
+\paragraph{Rule 3: Complement}
+\[
+    \Pr(A^c) = 1 - \Pr(A)
+\]
+
+\subsection{Conditional Probability}
+\begin{definition}[Conditional Probability]
+The probability of event $A$ given event $B$:
+\[
+    \Pr(A \mid B) = \frac{\Pr(A \cap B)}{\Pr(B)}, \quad \Pr(B) > 0
+\]
+\end{definition}
+
+\paragraph{Multiplication Rule}
+\[
+    \Pr(A \cap B) = \Pr(A \mid B)\Pr(B)
+\]

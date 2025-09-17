@@ -1,0 +1,54 @@
+\section{Continuous Random Variables}
+\textbf{Date:} \underline{Sep 10, 2025}
+
+\begin{definition}[Continuous Random Variable]
+A random variable $X$ is said to be continuous if there exists a function $f(x)$ such that for any set $A$,
+\[ P(X \in A) = \int_A f(x) \, dx \]
+where $f(x)$ is called the probability density function (pdf) of $X$.
+Key properties of a legal pdf: $f(x) \geq 0$ $\forall x \in S$ \text{ and } $\int_S f(x)dx = 1$.
+\end{definition}
+
+\paragraph{Cumulative Distribution Function (CDF)}
+\[
+F(a) = \Pr(X \leq a) = \int_{-\infty}^{a} f(x) dx
+\]
+
+\paragraph{Expected Value}
+The expected value (mean) of a continuous random variable $X$ with pdf $f(x)$ is defined as:
+\[
+E[X] = \int_{-\infty}^{+\infty} x f(x) \, dx
+\]
+
+\paragraph{Variance}
+The variance of a continuous random variable $X$ with pdf $f(x)$ is defined as:
+\[
+\mathrm{Var}[X] = \int_{-\infty}^{+\infty} (x - E[X])^2 f(x) \, dx
+\]
+
+\paragraph{Moment-Generating Function (MGF)}
+
+The moment-generating function (MGF) of a continuous random variable $X$ with pdf $f(x)$ is defined as:
+\[
+M(t) = \int_{-\infty}^{+\infty} e^{tx} f(x) \, dx, \qquad -h < t < h
+\]
+where $h$ is a constant such that $M(t)$ is finite for $t$ in $(-h, h)$.
+
+For discrete random variables, the MGF is:
+\[
+M(t) = \sum_{x \in S} e^{tx} f(x)
+\]
+
+The MGF characterizes the distribution if it is finite in some neighborhood around $t$.
+
+The $r$-th moment of $X$ can be obtained by differentiating $M(t)$ $r$ times and evaluating at $t=0$:
+\[
+M^{(r)}(0) = E[X^r]
+\]
+
+
+\paragraph{Quantiles}
+
+The $p$'th quantile $\pi_p$ is defined as the value such that
+\[
+p = \int_{-\infty}^{\pi_p} f(x) \, dx
+\]

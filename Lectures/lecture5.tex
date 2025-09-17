@@ -1,0 +1,65 @@
+\section{Normal Random Variables}
+\textbf{Date:} \underline{Sep 15, 2025}
+
+\subsection{Definition and Properties}
+
+\begin{definition}[Normal Random Variable]
+A normal random variable is a continuous random variable whose probability density function (pdf) is given by:
+\[
+f(x; \mu, \sigma^2) = \frac{1}{\sqrt{2\pi\sigma^2}} \exp\left( -\frac{(x-\mu)^2}{2\sigma^2} \right)
+\]
+where $\mu$ is the mean and $\sigma^2$ is the variance ($\sigma$ is the standard deviation).
+\end{definition}
+
+\begin{itemize}
+    \item The normal distribution is symmetric about its mean $\mu$.
+    \item The total area under the pdf is 1.
+    \item The standard normal distribution has $\mu = 0$ and $\sigma^2 = 1$.
+    \item Probabilities are computed as areas under the curve:
+    \[
+    \Pr(a < X < b) = \int_a^b f(x) dx
+    \]
+    \item $\mathbb{E}(X) = \mu$
+    \item $\mathrm{Var}(X) = \sigma^2$ (and thus $\mathrm{SD}(X) = \sigma$)
+    \item 68\%, 95\%, 99.7\% of outcomes are within 1, 2, 3 standard deviations of the mean, respectively.
+\end{itemize}
+
+% \subsection{Notation and Properties}
+
+A normal random variable $X$ is denoted by:
+\[
+X \sim N(\mu, \sigma^2)
+\]
+which we read as ``$X$ is normally distributed with mean $\mu$ and variance $\sigma^2$.''
+
+If $\mu = 0$ and $\sigma = 1$, then the random variable is a \textbf{standard normal}, denoted $Z$.
+
+\subsection{Moment Generating Function (mgf) of the Normal}
+
+In general, the moment generating function (mgf) of a random variable $X$ is:
+\[
+M(t) = \mathbb{E}[e^{tX}] = \int_{-\infty}^{+\infty} e^{tx} f(x) dx
+\]
+
+For the normal distribution:
+\[
+M(t) = \int_{-\infty}^{+\infty} \frac{e^{tx}}{\sigma\sqrt{2\pi}} \exp\left[ -\frac{(x-\mu)^2}{2\sigma^2} \right] dx
+\]
+
+This simplifies to:
+\[
+M(t) = \exp\left( \mu t + \frac{\sigma^2 t^2}{2} \right)
+\]
+
+The mgf can be used to compute all moments of the normal distribution by differentiating $M(t)$ with respect to $t$ and evaluating at $t=0$.
+
+\subsection{Linear Combinations of Independent Normals}
+
+\begin{enumerate}
+    \item \textbf{Sums.} The sum of independent normally distributed random variables is also normally distributed.\\
+    \textit{Example:} If $X$ and $Y$ are independent and $X \sim N(\mu_1, \sigma_1^2)$, $Y \sim N(\mu_2, \sigma_2^2)$, then $W = X + Y \sim N(\mu_1 + \mu_2, \sigma_1^2 + \sigma_2^2)$.
+    
+    \item \textbf{Constants.} If $Z \sim N(0,1)$, then for constants $a$ and $b$, $a + bZ \sim N(a, b^2)$. In general, multiplying a normal random variable by a constant and/or adding a constant yields another normal random variable.
+    
+    \item \textbf{Standardizing.} If $X \sim N(\mu, \sigma^2)$, then the standardized variable $Z = \frac{X - \mu}{\sigma}$ follows a standard normal distribution: $Z \sim N(0,1)$.
+\end{enumerate}

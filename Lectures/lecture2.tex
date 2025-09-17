@@ -1,0 +1,129 @@
+\section{Discrete Random Variables}
+\textbf{Date:} \underline{Sep 3, 2025}
+
+\subsection{Independence}
+\begin{definition}[Independence]
+Two events $A$ and $B$ are \textbf{independent} if and only if
+$$\Pr(A \cap B) = \Pr(A)\Pr(B).$$
+\end{definition}
+
+\begin{theorem}[Independence and Joint Events]
+    If A and B are independent, then
+    $$Prob(A | B) = Prob(A)$$
+The conditional probability = the marginal probability
+(of the unconditioned event).
+\end{theorem}
+
+\subsection{Probability Trees}
+A way of deriving probabilities from conditional information. They are most useful when one has information that can be arranged sequentially.
+
+Probability Tree Rules:
+\begin{itemize}
+    \item The tree is drawn on its side.
+    \item It starts from a circle called a chance node.
+    \item The branches of the tree at each node correspond to possible outcomes. We label the
+    branches with conditional probabilities.
+    \item The probabilities at the end of the tree are joint probabilities obtained by multiplication.
+\end{itemize}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.6\textwidth]{Images/probability_tree.png}
+    \caption{Example of a probability tree.}
+    \label{fig:probability_tree}
+\end{figure}
+
+\subsection{The Monty Hall Problem}
+A classic probability puzzle based on a game show:
+
+\begin{itemize}
+    \item Three doors: behind one is a \textbf{car}, behind two are \textbf{goats}.
+    \item You choose one door (say Door 1).
+    \item The host, Monty Hall, who knows where the car is, opens another door showing a goat.
+    \item You are given the choice to \textbf{stay} or \textbf{switch}.
+\end{itemize}
+Should you switch?
+
+\paragraph{Solution}
+Let $C_i$ = event that the car is behind door $i$.  Let $H$ = event that Monty opens \textbf{Door 3}.
+Initially:
+\[
+    \Pr(C_1) = \Pr(C_2) = \Pr(C_3) = \tfrac{1}{3}.
+\]
+Assume you pick Door 1 and Monty opens Door 3 revealing a goat.  
+By Bayes' theorem:
+\[
+    \Pr(C_i \mid H) = \frac{\Pr(H \mid C_i)\Pr(C_i)}{\Pr(H)}.
+\]
+Monty's behavior:
+\[
+    \Pr(H \mid C_1) = \tfrac12, \qquad
+    \Pr(H \mid C_2) = 1, \qquad
+    \Pr(H \mid C_3) = 0.
+\]
+Thus, the total probability of $H$:
+\[
+    \Pr(H) = \Pr(H \mid C_1)\Pr(C_1) + \Pr(H \mid C_2)\Pr(C_2) + \Pr(H \mid C_3)\Pr(C_3),
+\]
+\[
+    \Pr(H) = \tfrac12\cdot\tfrac13 + 1\cdot\tfrac13 + 0 = \tfrac12.
+\]
+Finally, the posterior probabilities:
+\[
+    \Pr(C_1 \mid H) = \frac{\tfrac12\cdot\tfrac13}{\tfrac12} = \tfrac13,
+    \qquad
+    \Pr(C_2 \mid H) = \frac{1\cdot\tfrac13}{\tfrac12} = \tfrac23.
+\]
+The probability that your original choice is correct is $\tfrac13$, while switching gives $\tfrac23$.  
+\textbf{Always switch.}
+
+\subsection{Random Variables}
+\begin{definition}[Random Variable]
+An experiment with numerical outcomes (or outcomes that can be mapped to numbers).
+\end{definition}
+\paragraph{Notation} We denote a random variable with a capital letter, like $X$ or $Y$.
+\paragraph{Probability Mass Function (PMF)}
+$$f(x) = Pr(X = x)$$
+Every discrete random variable has a PMF that describes the probability of each possible value.
+
+\subsection{Measures of Central Tendency}
+\paragraph{Expected Value}
+    $$E[X] = \sum_{x \in S} x \cdot f(x)$$
+
+\paragraph{Mode}
+    $$Mode[X] = \text{value (or values) that maximize } f(x)$$
+
+\paragraph{Median}
+    $$Median[X] = \text{value } m \text{ such that } Pr(X \leq m) = Pr(X \geq m) = 0.5$$
+
+\subsection{Measures of Dispersion}
+\paragraph{Variance}
+$$Var[X] = E[(X - E[X])^2]$$
+$$Var[X] = \sum_{x \in S} (x - E[X])^2 \cdot f(x)$$
+A Variance Identity
+\begin{align*}
+    Var[X] &= E[(X - E[X])^2] \\
+    &= E[X^2 - 2X E[X] + (E[X])^2] \\
+    &= E[X^2] - E[2XE[X]] + E[(E[X])^2] \\
+    &= E[X^2] - 2E[X]E[X] + (E[X])^2 \\
+    &= \boxed{E[X^2] - (E[X])^2}
+\end{align*}
+Variance of a Linear Function of X
+\begin{align*}
+    Var[aX + b] &= E[(aX + b - E[aX + b])^2] \\
+    &= E[(aX + b - aE[X] - b)^2] \\
+    &= E[(aX - aE[X])^2] \\
+    &= E[a^2(X - E[X])^2] \\
+    &= a^2E[(X - E[X])^2] \\
+    &= \boxed{a^2Var[X]}
+\end{align*}
+
+
+\paragraph{Standard Deviation}
+$$\text{SD}[X] = \sqrt{\text{Var}[X]}$$
+
+\subsection{Conditional Expectations}
+\begin{definition}[Conditional Expectations]
+    The conditional expectation of a random variable $X$ given another random variable $Y$ is defined as:
+    $$E[X \mid Y] = \sum_{y \in S_Y} E[X \mid Y = y] \cdot P(Y = y)$$
+\end{definition}

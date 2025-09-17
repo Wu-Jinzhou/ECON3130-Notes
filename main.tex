@@ -1,0 +1,83 @@
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath, amssymb}
+\usepackage{enumitem}
+\usepackage{geometry}
+\geometry{margin=1in}
+\usepackage{hyperref}
+\usepackage{color}
+\usepackage{tcolorbox}
+\usepackage{amsthm}
+\usepackage{caption}
+\usepackage{graphicx}
+
+\theoremstyle{definition}
+\newtheorem*{definition}{Definition}
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+
+\theoremstyle{plain}
+\newtheorem*{theorem}{Theorem}
+
+\newtheoremstyle{solutionstyle} % Define a custom style
+  {6pt}   % Space above
+  {6pt}   % Space below
+  {}      % Body font
+  {0pt}      % Indent amount
+  {\bfseries} % Theorem head font (bold)
+  {.}     % Punctuation after theorem head
+  {0.3em}   % Space after theorem head
+  {}      % Theorem head specification
+
+\theoremstyle{solutionstyle}
+\newtheorem*{solution}{Solution}
+
+\newtcolorbox{embox}{
+    % colback=red!5!white,
+    colframe=gray!75!black,
+    % fonttitle=\bfseries,
+    % title=Goal
+}
+
+\newtcolorbox{defbox}{
+    colback=red!5!white,
+    colframe=red!75!black,
+    fonttitle=\bfseries,
+    title=Definition
+}
+
+\newtcolorbox{algobox}{
+    colback=blue!5!white,
+    colframe=blue!75!black,
+    fonttitle=\bfseries,
+    title=Algorithm
+}
+
+\title{ECON 3130 Notes}
+\author{Jinzhou Wu}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\setcounter{tocdepth}{1}
+
+\tableofcontents
+
+\newpage
+
+\include{Lectures/lecture1}
+
+\include{Lectures/lecture2}
+
+\include{Lectures/lecture3}
+
+\include{Lectures/lecture4}
+
+\include{Lectures/lecture5}
+
+\include{Lectures/lecture6}
+
+\end{document}

@@ -1,0 +1,94 @@
+\section{More Discrete Random Variables}
+\textbf{Date:} \underline{Sep 8, 2025}
+
+\subsection{Moments}
+\begin{definition}[Moment]
+    Numbers that represent qualities of a particular distribution.
+    Expected values of a random variables raised to a different powers.
+    $r$th moment centered around $b$ of a random variable $X$ is defined as
+    $$\mu_r = E[(X - b)^r]$$
+\end{definition}
+
+The mean is the first moment centered around zero.
+The variance is the second moment centered around E[X].
+
+\subsection{Moment-generating function (MGF)}
+\begin{definition}[Moment-generating function]
+    The moment-generating function (MGF) of a random variable $X$ is defined as
+
+    $$M_X(t) = E[e^{tX}] = \sum_x e^{tx} f(x) \quad \text{(pmf)}$$
+    
+    for all $t$ in an open interval containing 0 such that the expectation exists.
+\end{definition}
+
+The mgf is not always defined for a random variable.
+If two random variables have the same mgf, then they
+also have the same pmf.
+
+\paragraph{Finding moments using MGF}
+The $r$th moment of a random variable $X$ can be found by taking the $r$th derivative of the mgf and evaluating it at $t = 0$:
+\begin{align*}
+\mu_r = E[X^r] = M_X^{(r)}(0) = \sum_x x^r f(x)
+\end{align*}
+
+\subsection{Standardized moments}
+$$\hat{\mu}_k = \frac{E[(X-\mu)^k]}{E[(X-\mu)^2]^{k/2}}$$
+kth centered moment divided by the standard
+deviation raised to the k.
+Standardized moments are unit-invariant.
+
+Skew is standardized third moment. Negative skew = left tail. Positive skew = right tail.
+Kurtosis is standardized fourth moment.
+
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.3\textwidth]{Images/kurtosis}
+    \caption*{}
+    \label{fig:kurtosis}
+\end{figure}
+Kurtosis measures how fat the tails are.
+Positive means more extreme values.
+Negative means fewer extreme values.
+Note that all three of these random
+variables have the same variance.
+
+
+\subsection{Bernoulli distribution}
+\begin{definition}[Beroulli distribution]
+    A Bernoulli random variable $X$ takes the value 1 with probability $p$ and the value 0 with probability $1-p$.
+    $$P(X=1) = p, \quad P(X=0) = 1-p$$
+    The mean of a Bernoulli random variable is $E[X] = p$.
+    The variance of a Bernoulli random variable is $Var(X) = p(1-p)$.
+\end{definition}
+
+\subsection{Binomial distribution}
+\begin{definition}[Binomial distribution]
+    A Binomial random variable $X$ with parameters $n$ and $p$ counts the number of successes in $n$ independent Bernoulli trials, each with success probability $p$.
+    
+    The mean of a Binomial random variable is $E[X] = np$.
+    The variance of a Binomial random variable is $Var(X) = np(1-p)$ (by the linearity of expectation).
+\end{definition}
+
+\begin{itemize}
+    \item There are a fixed number of independent trials.
+    \item Each trial has two basic outcomes (e.g., “success”/“failure”).
+    \item The probability of a success, p, is constant across trials.
+\end{itemize}
+
+\paragraph{Binomial probability mass function (pmf)}
+The probability mass function (pmf) for a Binomial random variable $X$ is:
+\begin{align*}
+    \Pr(X = k \mid n, p) = \frac{n!}{k!(n-k)!} p^k (1-p)^{n-k} = \binom{n}{k} p^k (1-p)^{n-k}
+\end{align*}
+where:
+\begin{itemize}
+    \item $n$ = number of trials (maximum possible number of successes)
+    \item $k$ = number of successes
+    \item $n-k$ = number of failures
+    \item $p$ = probability of a success on each trial
+    \item $1-p$ = probability of a failure on each trial
+\end{itemize}
+
+$X$ can also be defined as the sum of $n$ independent Bernoulli random variables, each with parameter $p$:
+$$X = \sum_{i=1}^n X_i, \quad X_i \sim \text{Bernoulli}(p)$$
