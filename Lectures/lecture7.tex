@@ -1,0 +1,98 @@
+\section{Even More Random Variables}
+\textbf{Date:} \underline{Sep 22, 2025}
+
+\subsection{Exponential Random Variables}
+An \textbf{exponential random variable} $W$ with rate parameter $\lambda > 0$ is a continuous random variable with cumulative distribution function (CDF)
+\[
+F(w) = 
+\begin{cases}
+0 & \text{if } w < 0 \\
+1 - e^{-\lambda w} & \text{if } w \geq 0
+\end{cases}
+\]
+and probability density function (PDF)
+\[
+f(w) = 
+\begin{cases}
+\lambda e^{-\lambda w} & \text{if } w \geq 0 \\
+0 & \text{otherwise}
+\end{cases}
+\]
+The expected value and variance of $W$ are given by
+\[
+\mathbb{E}[W] = \frac{1}{\lambda}, \qquad \mathrm{Var}[W] = \frac{1}{\lambda^2}
+\]
+The exponential distribution is commonly used to model the time between independent events that occur at a constant average rate.
+It is the time until the first event in a Poisson process.
+
+\subsection{Gamma Random Variables}
+A \textbf{gamma random variable} $X$ with shape parameter $\alpha > 0$ and scale parameter $\theta > 0$ has pdf
+\[
+f(x) = \frac{1}{\Gamma(\alpha)\theta^\alpha} x^{\alpha-1} e^{-x/\theta}, \quad 0 \leq x < \infty
+\]
+The gamma distribution generalizes the exponential distribution. If $\alpha=1$, the gamma distribution reduces to the exponential distribution.
+The gamma distribution models the waiting time until the $\alpha$-th event in a Poisson process with rate $\lambda = 1/\theta$.
+
+The mean and variance are:
+\[
+\mathbb{E}[X] = \frac{t}{\lambda} = \alpha\theta, \qquad \mathrm{Var}[X] = \frac{t}{\lambda^2} = \alpha\theta^2
+\]
+
+where $\Gamma(t)$ is the \textbf{gamma function}:
+\[
+\Gamma(t) = \int_0^\infty y^{t-1} e^{-y} dy, \quad t > 0
+\]
+
+\textbf{Derivation of the gamma function:}
+
+We use integration by parts:
+\[
+\int u\, dv = uv - \int v\, du
+\]
+Let $u = y^{t-1}$, $dv = e^{-y} dy$, so $du = (t-1)y^{t-2} dy$, $v = -e^{-y}$.
+
+Applying integration by parts:
+\[
+\Gamma(t) = \int_0^\infty y^{t-1} e^{-y} dy = \left[ -y^{t-1} e^{-y} \right]_0^\infty + \int_0^\infty (t-1) y^{t-2} e^{-y} dy
+\]
+
+The boundary term vanishes for $t > 1$, so:
+\[
+\Gamma(t) = (t-1) \int_0^\infty y^{t-2} e^{-y} dy = (t-1)\Gamma(t-1)
+\]
+
+This gives the recurrence relation:
+\[
+\Gamma(t) = (t-1)\Gamma(t-1)
+\]
+
+For $t=1$:
+\[
+\Gamma(1) = \int_0^\infty e^{-y} dy = 1
+\]
+
+\paragraph{Gamma Random Variables When $\alpha$ is an Integer}
+
+If $\alpha$ is a positive integer, the gamma distribution describes the waiting time until the $\alpha$-th event in a Poisson process with rate $\lambda = 1/\theta$.
+
+The cumulative distribution function (cdf) is:
+\[
+F(x) = \Pr(X \leq x) = 1 - \Pr(X > x)
+\]
+This is equivalent to the probability that at least $\alpha$ events have occurred by time $x$:
+\[
+F(x) = 1 - \Pr(\text{fewer than } \alpha \text{ occurrences in } [0, x])
+\]
+For a Poisson process, the probability of $k$ events in $[0, x]$ is:
+\[
+\Pr(\text{$k$ events in } [0, x]) = \frac{(\lambda x)^k e^{-\lambda x}}{k!}
+\]
+So,
+\[
+F(x) = 1 - \sum_{k=0}^{\alpha-1} \frac{(\lambda x)^k e^{-\lambda x}}{k!}
+\]
+Or, equivalently, using $\theta = 1/\lambda$:
+\[
+F(x) = 1 - \sum_{k=0}^{\alpha-1} \frac{(x/\theta)^k e^{-x/\theta}}{k!}
+\]
+This expresses the cdf of the gamma distribution when $\alpha$ is an integer in terms of the Poisson distribution.

@@ -1,3 +1,140 @@
 \section{More Random Variables}
 \textbf{Date:} \underline{Sep 17, 2025}
 
+\subsection{Negative Binomial Random Variables}
+
+\begin{definition}[Negative Binomial Random Variable]
+A random variable $X$ is said to have a \textbf{negative binomial distribution} with parameters $r$ and $p$, denoted $X \sim \mathrm{NegBin}(r, p)$, if it represents the number of independent Bernoulli trials needed to achieve \textbf{exactly $r$ successes}, where each trial has two possible outcomes (success or failure) and the probability of success on each trial is constant and equal to $p$.
+
+The probability mass function is given by:
+\[
+f(x; r, p) = \binom{x-1}{r-1} p^r (1-p)^{x-r}
+\]
+for $x = r, r+1, r+2, \ldots$
+\end{definition}
+
+\begin{itemize}
+    \item $f(x; r, p)$: The probability that the $r$-th success occurs on the $x$-th trial.
+    \item $\binom{x-1}{r-1}$: The number of ways to arrange $r-1$ successes in the first $x-1$ trials.
+    \item $p^r$: Probability of $r$ successes.
+    \item $(1-p)^{x-r}$: Probability of $x-r$ failures.
+\end{itemize}
+
+The mean and variance of a negative binomial random variable $X \sim \mathrm{NegBin}(r, p)$ are:
+\[
+E[X] = \frac{r}{p}
+\]
+\[
+\mathrm{Var}[X] = \frac{r(1-p)}{p^2}
+\]
+
+\textbf{Derivation:}
+
+Let $X$ be the number of trials needed to get $r$ successes. $X$ can be written as the sum of $r$ independent geometric random variables $Y_i$ (each representing the number of trials needed to get the $i$-th success after the $(i-1)$-th success):
+\[
+X = Y_1 + Y_2 + \cdots + Y_r
+\]
+Each $Y_i$ is $\mathrm{Geom}(p)$, so $E[Y_i] = 1/p$ and $\mathrm{Var}[Y_i] = (1-p)/p^2$. By linearity of expectation and independence:
+\[
+E[X] = r \cdot E[Y_1] = \frac{r}{p}
+\]
+\[
+\mathrm{Var}[X] = r \cdot \mathrm{Var}[Y_1] = \frac{r(1-p)}{p^2}
+\]
+
+\subsection{Geometric Random Variables}
+
+A \textbf{geometric random variable} is a special case of the negative binomial distribution where $r=1$. That is, it counts the number of trials needed to get the first success.
+
+The probability mass function is:
+\[
+f(x; p) = \binom{x-1}{1-1} p^1 (1-p)^{x-1} = p(1-p)^{x-1}
+\]
+for $x = 1, 2, 3, \ldots$
+
+The mean and variance are:
+\[
+E[X] = \frac{1}{p}
+\]
+\[
+\mathrm{Var}[X] = \frac{1-p}{p^2}
+\]
+
+\textbf{Derivation:}
+
+For $X \sim \mathrm{Geom}(p)$,
+\[
+E[X] = \sum_{x=1}^\infty x p (1-p)^{x-1}
+\]
+This is a standard result and can be shown using the formula for the expectation of a geometric series:
+\[
+E[X] = \frac{1}{p}
+\]
+Similarly, for the variance:
+\[
+\mathrm{Var}[X] = \frac{1-p}{p^2}
+\]
+
+\subsection{Poisson Random Variables}
+
+A \textbf{Poisson random variable} is defined by a single parameter $\lambda$ that represents the rate of occurrences.
+
+\begin{definition}[Poisson Random Variable]
+A random variable $X$ is said to have a \textbf{Poisson distribution} with parameter $\lambda > 0$, denoted $X \sim \mathrm{Poisson}(\lambda)$, if it represents the number of occurrences of an event in a fixed interval of time or space, where occurrences happen independently and at a constant average rate $\lambda$.
+
+The probability mass function is:
+\[
+P(X = k) = \frac{\lambda^k e^{-\lambda}}{k!}
+\]
+for $k = 0, 1, 2, \ldots$
+\end{definition}
+
+\textbf{Derivation from Binomial:}
+
+Suppose we divide a unit interval into $n$ subintervals, each of length $1/n$. In each subinterval, the probability of an occurrence is $\lambda/n$, so the total expected number of occurrences in the unit interval is $\lambda$.
+
+Let $Y \sim \mathrm{Bin}(n, \lambda/n)$ be the number of occurrences in $n$ subintervals.
+
+The probability mass function is:
+\[
+P(Y = x) = \binom{n}{x} \left(\frac{\lambda}{n}\right)^x \left(1 - \frac{\lambda}{n}\right)^{n-x}
+\]
+
+As $n \to \infty$, the binomial distribution converges to the Poisson distribution:
+\[
+P(X = x) = \lim_{n \to \infty} \binom{n}{x} \left(\frac{\lambda}{n}\right)^x \left(1 - \frac{\lambda}{n}\right)^{n-x} = \frac{\lambda^x e^{-\lambda}}{x!}
+\]
+
+This shows that the Poisson distribution can be viewed as the limiting case of the binomial distribution when the number of trials is large and the probability of success is small, but the expected number of successes remains fixed.
+
+\textbf{Conditions for a Poisson process:}
+\begin{itemize}
+    \item Numbers of occurrences in nonoverlapping subintervals are independent.
+    \item Probability of exactly one occurrence in a sufficiently short subinterval of length $h$ is approximately $\lambda h$.
+    \item Probability of two or more occurrences in a sufficiently short subinterval is essentially zero.
+\end{itemize}
+
+The mean and variance of a Poisson random variable $X \sim \mathrm{Poisson}(\lambda)$ are:
+\[
+E[X] = \lambda
+\]
+\[
+\mathrm{Var}[X] = \lambda
+\]
+
+\textbf{Derivation:}
+
+The mean is
+\[
+E[X] = \sum_{k=0}^\infty k \frac{\lambda^k e^{-\lambda}}{k!}
+\]
+This can be shown to equal $\lambda$ (using properties of the exponential and the fact that $\sum_{k=1}^\infty k \frac{\lambda^k}{k!} = \lambda \sum_{k=1}^\infty \frac{\lambda^{k-1}}{(k-1)!} = \lambda e^{\lambda}$).
+
+The variance is
+\[
+\mathrm{Var}[X] = E[X^2] - (E[X])^2
+\]
+It can be shown that $E[X^2] = \lambda^2 + \lambda$, so
+\[
+\mathrm{Var}[X] = (\lambda^2 + \lambda) - \lambda^2 = \lambda
+\]

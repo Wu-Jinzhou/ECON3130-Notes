@@ -123,7 +123,30 @@ Variance of a Linear Function of X
 $$\text{SD}[X] = \sqrt{\text{Var}[X]}$$
 
 \subsection{Conditional Expectations}
-\begin{definition}[Conditional Expectations]
-    The conditional expectation of a random variable $X$ given another random variable $Y$ is defined as:
-    $$E[X \mid Y] = \sum_{y \in S_Y} E[X \mid Y = y] \cdot P(Y = y)$$
-\end{definition}
+\textbf{Conditional Expectations.} If $X$ and $Y$ are random variables, the \textit{conditional expectation} of $X$ given that $Y$ takes on a certain value $y$ is:
+\[
+    E[X \mid Y = y] = \sum_{x} x \cdot \Pr(X = x \mid Y = y)
+\]
+\begin{itemize}
+    \item This is the same formula as the one for expected value, except that we have replaced the marginal probability with a conditional probability.
+    \item The conditional expectation of $X$ given $Y = y$ is the probability-weighted average of $X$ given $Y = y$.
+    \item $E[X \mid Y = y]$ is a function that operates on values of $Y$.
+\end{itemize}
+
+\subsection{Law of Iterated Expectations}
+\begin{theorem}[Law of Iterated Expectations]
+    \[
+        E[E[X \mid Y]] = E[X]
+    \]
+    The expected value of the conditional expectation of $X$ given $Y$ is equal to the expected value of $X$.
+\end{theorem}
+\begin{itemize}
+    \item This is also called the \textbf{law of total expectation}.
+    \item It is useful when you know the distribution of $X$ conditional on $Y$, but not the marginal distribution of $X$.
+    \item You can compute $E[X]$ by first computing $E[X \mid Y]$ for each value of $Y$, then taking the expectation over $Y$.
+\end{itemize}
+
+
+\[
+    E[X] = \sum_{y} E[X \mid Y = y] \cdot \Pr(Y = y) = \sum_{y} \sum_{x} x \cdot \Pr(X = x \mid Y = y) \cdot \Pr(Y = y)
+\]

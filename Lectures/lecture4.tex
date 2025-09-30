@@ -8,24 +8,55 @@ where $f(x)$ is called the probability density function (pdf) of $X$.
 Key properties of a legal pdf: $f(x) \geq 0$ $\forall x \in S$ \text{ and } $\int_S f(x)dx = 1$.
 \end{definition}
 
-\paragraph{Cumulative Distribution Function (CDF)}
+\subsection{Cumulative Distribution Function (CDF)}
 \[
 F(a) = \Pr(X \leq a) = \int_{-\infty}^{a} f(x) dx
 \]
 
-\paragraph{Expected Value}
+\subsection{Uniform Random Variable}
+
+If $X \sim \text{Uniform}(a, b)$, then every value between $a$ and $b$ is equally likely. The probability density function (pdf) is:
+\[
+f(x) = 
+\begin{cases}
+\frac{1}{b-a} & \text{if } a < x < b \\
+0 & \text{otherwise}
+\end{cases}
+\]
+
+The cumulative distribution function (CDF) is:
+\[
+F(x) = 
+\begin{cases}
+0 & \text{if } x < a \\
+\frac{x-a}{b-a} & \text{if } a \leq x < b \\
+1 & \text{if } x \geq b
+\end{cases}
+\]
+
+The probability that $X$ falls between $a$ and $b$ is:
+\[
+\Pr(a < X < b) = \int_a^b \frac{1}{b-a} dx = 1
+\]
+
+The expected value and variance of a uniform random variable are:
+\[
+E[X] = \frac{a+b}{2}, \quad \mathrm{Var}[X] = \frac{(b-a)^2}{12}
+\]
+
+\subsection{Expected Value}
 The expected value (mean) of a continuous random variable $X$ with pdf $f(x)$ is defined as:
 \[
 E[X] = \int_{-\infty}^{+\infty} x f(x) \, dx
 \]
 
-\paragraph{Variance}
+\subsection{Variance}
 The variance of a continuous random variable $X$ with pdf $f(x)$ is defined as:
 \[
 \mathrm{Var}[X] = \int_{-\infty}^{+\infty} (x - E[X])^2 f(x) \, dx
 \]
 
-\paragraph{Moment-Generating Function (MGF)}
+\subsection{Moment-Generating Function (MGF)}
 
 The moment-generating function (MGF) of a continuous random variable $X$ with pdf $f(x)$ is defined as:
 \[
@@ -46,7 +77,7 @@ M^{(r)}(0) = E[X^r]
 \]
 
 
-\paragraph{Quantiles}
+\subsection{Quantiles}
 
 The $p$'th quantile $\pi_p$ is defined as the value such that
 \[

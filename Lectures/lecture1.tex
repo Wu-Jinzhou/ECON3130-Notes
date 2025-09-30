@@ -1,6 +1,8 @@
 \section{Probabilities and Events}
 \textbf{Date:} \underline{Aug 27, 2025}
 
+\subsection{Definitions}
+
 \begin{definition}[Experiment]
 A process that results in uncertain outcomes.
 \end{definition}
@@ -11,37 +13,29 @@ A possible result of the experiment.
 The set of all possible basic outcomes.
 \end{definition}
 
-\subsection{Events}
-An \textbf{event} is a set of basic outcomes, i.e., a subset of the sample space.
-\begin{itemize}
-    \item Example 1: $\{\text{Tails}\}$
-    \item Example 2: $\{\text{Admitted}\}$
-    \item Example 3: $\{\text{Dog, Cat}\}$
-\end{itemize}
+\begin{definition}[Event]
+A set of basic outcomes, i.e., a subset of the sample space.
+\end{definition}
 
-\subsection{Probabilities}
 \begin{definition}[Probability]
 A numerical measure of the chance that an event will occur.
 \end{definition}
-\begin{itemize}
-    \item $\Pr(E) = 1$ $\implies$ Event $E$ is certain to occur.
-    \item $\Pr(E) = 0$ $\implies$ Event $E$ cannot occur.
-    \item $\Pr(E) = 0.5$ $\implies$ Event $E$ is equally likely to occur or not.
-\end{itemize}
 
-\subsection{Interpretations of Probability}
-\paragraph{Relative Frequency Viewpoint}
-\[
-    \Pr(E) = \lim_{n \to \infty} \frac{\text{Number of times } E \text{ occurs}}{n}
-\]
-Probabilities represent long-run relative frequencies when an experiment is repeated independently.
+% \paragraph{Interpretations of Probability}
 
-\paragraph{Subjective Probability}
-Probability can also represent an individual’s degree of belief about an event.
-\begin{itemize}
-    \item Example: ``Will Lisa Cook be a Fed Governor on October 1?''
-    \item Example: ``Which city is further west: Reno or Las Vegas?''
-\end{itemize}
+
+% \textbf{Relative Frequency Viewpoint}
+% \[
+%     \Pr(E) = \lim_{n \to \infty} \frac{\text{Number of times } E \text{ occurs}}{n}
+% \]
+% Probabilities represent long-run relative frequencies when an experiment is repeated independently.
+
+% \textbf{Subjective Probability}
+% Probability can also represent an individual’s degree of belief about an event.
+% \begin{itemize}
+%     \item Example: ``Will Lisa Cook be a Fed Governor on October 1?''
+%     \item Example: ``Which city is further west: Reno or Las Vegas?''
+% \end{itemize}
 
 \subsection{Probability Distributions}
 \begin{definition}[Probability Distribution]
@@ -60,17 +54,17 @@ A table assigning probabilities to all basic outcomes of an experiment, where th
 \end{array}
 \]
 
-\subsection{Probability Tables}
+\paragraph{Probability Tables}
 When analyzing multiple attributes (e.g., gender and pet preference), we summarize data in a \textbf{probability table}.
 
-\paragraph{Rules:}
+\textbf{Rules:}
 \begin{enumerate}
     \item Two attributes: one on rows, one on columns.
     \item Events are mutually exclusive and exhaustive.
     \item Joint probabilities go in cells; marginal probabilities go in row and column totals.
 \end{enumerate}
 
-\paragraph{Example Table: Preferred Pet vs. Gender}
+\textbf{Example Table: Preferred Pet vs. Gender}
 \[
 \begin{array}{c|cccc|c}
  & \text{Dog} & \text{Cat} & \text{Other} & \text{None} & \Pr(\text{Gender}) \\ \hline
@@ -81,15 +75,40 @@ When analyzing multiple attributes (e.g., gender and pet preference), we summari
 \end{array}
 \]
 
-\subsection{Set Theory and Venn Diagrams}
+\subsection{Set Theory}
 Events can be represented as sets within a sample space.
 \begin{itemize}
     \item $A \cap B$ = Event that both $A$ and $B$ occur.
     \item $A \cup B$ = Event that $A$ or $B$ (or both) occur.
     \item $A^c$ = Complement of $A$, i.e., $A$ does not occur.
 \end{itemize}
+\paragraph{Rules for operations on sets:}
+\begin{itemize}
+    \item \textbf{Commutativity:}
+    \[
+        A \cup B = B \cup A, \quad A \cap B = B \cap A
+    \]
+    \item \textbf{Associativity:}
+    \[
+        A \cup (B \cup C) = (A \cup B) \cup C, \quad A \cap (B \cap C) = (A \cap B) \cap C
+    \]
+    \item \textbf{Distributive laws:}
+    \[
+        A \cap (B \cup C) = (A \cap B) \cup (A \cap C)
+    \]
+    \[
+        A \cup (B \cap C) = (A \cup B) \cap (A \cup C)
+    \]
+    \item \textbf{DeMorgan's Laws:}
+    \[
+        (A \cup B)^c = A^c \cap B^c
+    \]
+    \[
+        (A \cap B)^c = A^c \cup B^c
+    \]
+\end{itemize}
 
-\subsection{Three Useful Probability Rules}
+\subsection{Probability Rules}
 \paragraph{Rule 1: Intersection}
 \[
     \Pr(A \cap B) = \Pr(A \mid B) \Pr(B)
