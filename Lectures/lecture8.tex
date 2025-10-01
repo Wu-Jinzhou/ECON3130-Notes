@@ -1,0 +1,88 @@
+\section{Bivariate Distributions}
+\textbf{Date:} \underline{Oct 1, 2025}
+
+\subsection{Linearity of Expectation:} For random variables $A$ and $B$, $\mathbb{E}[A+B] = \mathbb{E}[A] + \mathbb{E}[B]$.
+
+\begin{align*}
+\mathbb{E}[A+B] &= \sum_a \sum_b (a + b) f(a, b) \\
+&= \sum_a \sum_b a f(a, b) + \sum_a \sum_b b f(a, b) \\
+&= \left( \sum_a \sum_b a f(a, b) \right) + \left( \sum_a \sum_b b f(a, b) \right) \\
+&= \sum_a a \left( \sum_b f(a, b) \right) + \sum_b b \left( \sum_a f(a, b) \right) \\
+&= \sum_a a f_A(a) + \sum_b b f_B(b) \\
+&= \mathbb{E}[A] + \mathbb{E}[B]
+\end{align*}
+
+where $f(a, b)$ is the joint probability mass function, and $f_A(a)$ and $f_B(b)$ are the marginal distributions of $A$ and $B$, respectively.
+
+\subsection{Covariance}
+
+\begin{definition}
+For two random variables $X$ and $Y$, the covariance is defined as:
+\[
+\mathrm{Cov}[X, Y] = \mathbb{E}\left[(X - \mathbb{E}[X])(Y - \mathbb{E}[Y])\right]
+\]
+For discrete random variables, this can be written as:
+\[
+\mathrm{Cov}[X, Y] = \sum_x \sum_y (x - \mathbb{E}[X])(y - \mathbb{E}[Y]) \Pr(X = x, Y = y)
+\]
+\end{definition}
+
+\begin{itemize}
+    \item $\mathrm{Cov}(X, Y) > 0$: When $X$ increases, $Y$ tends to increase (positive association).
+    \item $\mathrm{Cov}(X, Y) < 0$: When $X$ increases, $Y$ tends to decrease (negative association).
+    \item $\mathrm{Cov}(X, Y) = 0$: No (linear) association between $X$ and $Y$.
+\end{itemize}
+
+Covariance measures the linear association between two random variables.
+
+\subsection{Variance of a Sum}
+
+For any two random variables $X$ and $Y$,
+\[
+\mathrm{Var}(X + Y) = \mathrm{Var}(X) + 2\,\mathrm{Cov}(X, Y) + \mathrm{Var}(Y)
+\]
+
+\paragraph{Derivation}
+\begin{align*}
+\mathrm{Var}(X + Y) &= \mathbb{E}\left[(X + Y - \mathbb{E}[X + Y])^2\right] \\
+&= \mathbb{E}\left([(X - \mathbb{E}[X]) + (Y - \mathbb{E}[Y])]^2\right) \\
+&= \mathbb{E}\left[(X - \mathbb{E}[X])^2 + 2(X - \mathbb{E}[X])(Y - \mathbb{E}[Y]) + (Y - \mathbb{E}[Y])^2\right] \\
+&= \mathbb{E}[(X - \mathbb{E}[X])^2] + 2\mathbb{E}[(X - \mathbb{E}[X])(Y - \mathbb{E}[Y])] + \mathbb{E}[(Y - \mathbb{E}[Y])^2] \\
+&= \mathrm{Var}(X) + 2\,\mathrm{Cov}(X, Y) + \mathrm{Var}(Y)
+\end{align*}
+
+If $X$ and $Y$ are independent, then $\mathrm{Cov}(X, Y) = 0$, so
+\[
+\mathrm{Var}(X + Y) = \mathrm{Var}(X) + \mathrm{Var}(Y)
+\]
+
+\paragraph{Intuition} If two random variables negatively covary, they will tend to “cancel each other out” and reduce the variance of the sum; if they positively covary, they will tend to magnify the variance of the sum.
+
+\paragraph{Additional Useful Facts about Covariance}
+
+\begin{itemize}
+    \item For constants $a, b, c, d$,
+    \[
+    \mathrm{Cov}(aX + b,\, cY + d) = ac\,\mathrm{Cov}(X, Y)
+    \]
+    \item Covariance is linear in each argument:
+    \[
+    \mathrm{Cov}(X,\, Y+Z) = \mathrm{Cov}(X, Y) + \mathrm{Cov}(X, Z)
+    \]
+    \item If $X$ and $Y$ are independent, then $\mathrm{Cov}(X, Y) = 0$.
+    \item The converse is not true: $\mathrm{Cov}(X, Y) = 0$ does \textbf{not} imply $X$ and $Y$ are independent.
+\end{itemize}
+
+\paragraph{Independence Implies Zero Covariance}
+
+If $X$ and $Y$ are independent, then their joint pmf factors $f(x, y) = f_X(x) f_Y(y)$. Hence,
+
+\begin{align*}
+\mathrm{Cov}[X, Y] &= \sum_x \sum_y (x - \mu_X)(y - \mu_Y) f(x, y) \\
+&= \sum_x \sum_y (x - \mu_X)(y - \mu_Y) f_X(x) f_Y(y) \\
+&= \sum_x (x - \mu_X) f_X(x) \sum_y (y - \mu_Y) f_Y(y) \\
+&= \sum_x (x - \mu_X) f_X(x) \cdot 0 \\
+&= 0
+\end{align*}
+
+where $\mu_X = \mathbb{E}[X]$ and $\mu_Y = \mathbb{E}[Y]$. Thus, independence implies zero covariance.

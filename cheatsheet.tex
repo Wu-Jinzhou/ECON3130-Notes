@@ -1,0 +1,203 @@
+\documentclass[10pt]{article}
+\usepackage[landscape,margin=0.5in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{multicol}
+\usepackage{graphicx}
+\usepackage{enumitem}
+
+\pagestyle{empty}
+
+\setlength{\columnseprule}{0.4pt}
+\setlength{\columnsep}{2em}
+\setlist[itemize]{leftmargin=*,itemsep=0pt,parsep=0pt,topsep=0pt}
+
+\begin{document}
+\begin{multicols*}{3}
+
+\section*{Basic Probability}
+\subsubsection*{Definitions}
+\textbf{Sample Space:} Set of all possible outcomes\\
+\textbf{Event:} Subset of sample space\\
+\textbf{Probability:} Numerical measure of chance
+
+\subsubsection*{Set Operations}
+$A \cap B$ = Both A and B occur\\
+$A \cup B$ = A or B (or both) occur\\
+$A^c$ = A does not occur
+
+\subsubsection*{Probability Rules}
+\textbf{Intersection:} $\Pr(A \cap B) = \Pr(A \mid B) \Pr(B)$\\
+\textbf{Union:} $\Pr(A \cup B) = \Pr(A) + \Pr(B) - \Pr(A \cap B)$\\
+\textbf{Complement:} $\Pr(A^c) = 1 - \Pr(A)$\\
+\textbf{Conditional:} $\Pr(A \mid B) = \frac{\Pr(A \cap B)}{\Pr(B)}$
+
+\subsubsection*{Independence}
+$A$ and $B$ are independent if: $\Pr(A \cap B) = \Pr(A)\Pr(B)$\\
+If independent: $\Pr(A \mid B) = \Pr(A)$
+
+\section*{Discrete Random Variables}
+\subsubsection*{PMF \& CDF}
+\textbf{PMF:} $f(x) = \Pr(X = x)$\\
+\textbf{Expected Value:} $E[X] = \sum_{x \in S} x \cdot f(x)$\\
+\textbf{Variance:} $\text{Var}[X] = E[(X - E[X])^2] = E[X^2] - (E[X])^2$\\
+\textbf{Standard Deviation:} $\text{SD}[X] = \sqrt{\text{Var}[X]}$
+
+\subsubsection*{Linear Transformations}
+$E[aX + b] = aE[X] + b$\\
+$\text{Var}[aX + b] = a^2\text{Var}[X]$
+
+\subsubsection*{Conditional Expectation}
+$E[X \mid Y = y] = \sum_{x} x \cdot \Pr(X = x \mid Y = y)$\\
+\textbf{Law of Iterated Expectations:} $E[E[X \mid Y]] = E[X]$
+
+\section*{Moment-Generating Functions}
+\subsubsection*{Definition}
+$M_X(t) = E[e^{tX}] = \sum_x e^{tx} f(x)$ (discrete)\\
+$M_X(t) = E[e^{tX}] = \int_{-\infty}^{\infty} e^{tx} f(x) dx$ (continuous)
+
+\subsubsection*{Finding Moments}
+$r$-th moment: $\mu_r = E[X^r] = M_X^{(r)}(0)$
+
+\subsubsection*{Standardized Moments}
+$\hat{\mu}_k = \frac{E[(X-\mu)^k]}{E[(X-\mu)^2]^{k/2}}$\\
+\textbf{Skewness:} $\hat{\mu}_3$ (3rd standardized moment)\\
+\textbf{Kurtosis:} $\hat{\mu}_4$ (4th standardized moment)
+
+\section*{Discrete Distributions}
+\subsubsection*{Bernoulli Distribution}
+\textit{Modeling:} Single trial with success/failure outcome
+$X \sim \text{Bernoulli}(p)$\\
+$P(X=1) = p, \quad P(X=0) = 1-p$\\
+$E[X] = p, \quad \text{Var}[X] = p(1-p)$\\
+\textit{Parameter:} $0 < p < 1$ (success probability)
+
+\subsubsection*{Binomial Distribution}
+\textit{Modeling:} Number of successes in n independent trials
+$X \sim \text{Binomial}(n, p)$\\
+$P(X = k) = \binom{n}{k} p^k (1-p)^{n-k}$\\
+$E[X] = np, \quad \text{Var}[X] = np(1-p)$\\
+\textit{Parameters:} $n \geq 1$ (trials), $0 < p < 1$ (success probability)
+
+\subsubsection*{Geometric Distribution}
+\textit{Modeling:} Number of trials until first success
+$X \sim \text{Geometric}(p)$\\
+$P(X = x) = p(1-p)^{x-1}$ for $x = 1, 2, 3, \ldots$\\
+$E[X] = \frac{1}{p}, \quad \text{Var}[X] = \frac{1-p}{p^2}$\\
+\textit{Parameter:} $0 < p < 1$ (success probability)
+
+\subsubsection*{Negative Binomial Distribution}
+\textit{Modeling:} Number of trials until r-th success
+$X \sim \text{NegBin}(r, p)$\\
+$P(X = x) = \binom{x-1}{r-1} p^r (1-p)^{x-r}$ for $x = r, r+1, \ldots$\\
+$E[X] = \frac{r}{p}, \quad \text{Var}[X] = \frac{r(1-p)}{p^2}$\\
+\textit{Parameters:} $r > 0$ (target successes), $0 < p < 1$ (success probability)
+
+\subsubsection*{Poisson Distribution}
+\textit{Modeling:} Number of events in fixed interval (rare events)
+$X \sim \text{Poisson}(\lambda)$\\
+$P(X = k) = \frac{\lambda^k e^{-\lambda}}{k!}$ for $k = 0, 1, 2, \ldots$\\
+$E[X] = \lambda, \quad \text{Var}[X] = \lambda$\\
+\textit{Parameter:} $\lambda > 0$ (rate/mean)
+
+\section*{Continuous Random Variables}
+\subsubsection*{PDF \& CDF}
+\textbf{PDF:} $f(x) \geq 0$ and $\int_S f(x)dx = 1$\\
+\textbf{CDF:} $F(a) = \Pr(X \leq a) = \int_{-\infty}^{a} f(x) dx$\\
+\textbf{Expected Value:} $E[X] = \int_{-\infty}^{\infty} x f(x) dx$\\
+\textbf{Variance:} $\text{Var}[X] = \int_{-\infty}^{\infty} (x - E[X])^2 f(x) dx$
+
+\subsubsection*{Quantiles}
+$p$-th quantile $\pi_p$: $p = \int_{-\infty}^{\pi_p} f(x) dx$
+
+\section*{Uniform Distribution}
+\textit{Modeling:} Equal probability over interval [a,b]
+$X \sim \text{Uniform}(a, b)$\\
+$f(x) = \begin{cases} \frac{1}{b-a} & \text{if } a < x < b \\ 0 & \text{otherwise} \end{cases}$\\
+$F(x) = \begin{cases} 0 & \text{if } x < a \\ \frac{x-a}{b-a} & \text{if } a \leq x < b \\ 1 & \text{if } x \geq b \end{cases}$\\
+$E[X] = \frac{a+b}{2}, \quad \text{Var}[X] = \frac{(b-a)^2}{12}$
+
+\section*{Normal Distribution}
+\textit{Modeling:} Bell-shaped distribution, many natural phenomena
+\subsubsection*{Standard Normal}
+$Z \sim N(0, 1)$\\
+$f(z) = \frac{1}{\sqrt{2\pi}} e^{-z^2/2}$
+
+\subsubsection*{General Normal}
+$X \sim N(\mu, \sigma^2)$\\
+$f(x) = \frac{1}{\sqrt{2\pi\sigma^2}} \exp\left( -\frac{(x-\mu)^2}{2\sigma^2} \right)$\\
+$E[X] = \mu, \quad \text{Var}[X] = \sigma^2$
+
+\subsubsection*{Standardization}
+If $X \sim N(\mu, \sigma^2)$, then $Z = \frac{X - \mu}{\sigma} \sim N(0, 1)$
+
+\subsubsection*{MGF of Normal}
+$M(t) = \exp\left( \mu t + \frac{\sigma^2 t^2}{2} \right)$
+
+\subsubsection*{Empirical Rule}
+68\% within $\mu \pm \sigma$\\
+95\% within $\mu \pm 2\sigma$\\
+99.7\% within $\mu \pm 3\sigma$
+
+\subsubsection*{Linear Combinations}
+If $X \sim N(\mu_1, \sigma_1^2)$ and $Y \sim N(\mu_2, \sigma_2^2)$ are independent:\\
+$X + Y \sim N(\mu_1 + \mu_2, \sigma_1^2 + \sigma_2^2)$\\
+$a + bZ \sim N(a, b^2)$ where $Z \sim N(0,1)$
+
+\section*{Exponential Distribution}
+\textit{Modeling:} Time between events in Poisson process
+\textit{Parameter:} $\lambda > 0$ (rate), $\theta = 1/\lambda$ (scale parameter)
+$W \sim \text{Exponential}(\lambda)$\\
+$f(w) = \begin{cases} \lambda e^{-\lambda w} & \text{if } w \geq 0 \\ 0 & \text{otherwise} \end{cases}$\\
+$F(w) = \begin{cases} 0 & \text{if } w < 0 \\ 1 - e^{-\lambda w} & \text{if } w \geq 0 \end{cases}$\\
+$E[W] = \frac{1}{\lambda} = \theta, \quad \text{Var}[W] = \frac{1}{\lambda^2} = \theta^2$
+
+\section*{Gamma Distribution}
+\textit{Modeling:} Time until $\alpha$-th event in Poisson process
+\textit{Parameters:} $\alpha > 0$ (shape), $\theta > 0$ (scale), $\theta = 1/\lambda$
+$X \sim \text{Gamma}(\alpha, \theta)$\\
+$f(x) = \frac{1}{\Gamma(\alpha)\theta^\alpha} x^{\alpha-1} e^{-x/\theta}$ for $x \geq 0$\\
+$E[X] = \alpha\theta, \quad \text{Var}[X] = \alpha\theta^2$\\
+\textbf{Gamma Function:} $\Gamma(t) = \int_0^\infty y^{t-1} e^{-y} dy$\\
+\textbf{Recurrence:} $\Gamma(t) = (t-1)\Gamma(t-1)$, $\Gamma(1) = 1$\\
+\textbf{Special Values:} $\Gamma(n) = (n-1)!$ for integer $n$, $\Gamma(\frac{1}{2}) = \sqrt{\pi}$
+
+\section*{Special Cases \& Relationships}
+\subsubsection*{Special Cases}
+\textbf{Exponential:} $\text{Gamma}(1, \theta) = \text{Exponential}(\lambda)$ where $\theta = 1/\lambda$\\
+\textbf{Geometric:} $\text{NegBin}(1, p) = \text{Geometric}(p)$
+
+\subsubsection*{Limiting Relationships}
+\textbf{Binomial to Poisson:} $\text{Binomial}(n,p) \to \text{Poisson}(\lambda)$ as $n \to \infty$, $p \to 0$, $np \to \lambda$
+
+\subsubsection*{Memoryless Property}
+\textbf{Exponential:} $\Pr(X > s+t \mid X > s) = \Pr(X > t)$\\
+\textbf{Geometric:} $\Pr(X > k+j \mid X > k) = \Pr(X > j)$
+
+\section*{Useful Formulas}
+\subsubsection*{Variance Identity}
+$\text{Var}[X] = E[X^2] - (E[X])^2$
+
+\subsubsection*{Combinatorics}
+$\binom{n}{k} = \frac{n!}{k!(n-k)!}$
+
+\subsubsection*{DeMorgan's Laws}
+$(A \cup B)^c = A^c \cap B^c$\\
+$(A \cap B)^c = A^c \cup B^c$
+
+\subsubsection*{Set Laws}
+\textbf{Commutativity:} $A \cup B = B \cup A$, $A \cap B = B \cap A$\\
+\textbf{Associativity:} $(A \cup B) \cup C = A \cup (B \cup C)$\\
+\textbf{Distributive:} $A \cap (B \cup C) = (A \cap B) \cup (A \cap C)$
+
+\section*{Key Concepts}
+\subsubsection*{Monty Hall Problem}
+Always switch! Switching gives $\frac{2}{3}$ probability vs $\frac{1}{3}$ for staying.
+
+\subsubsection*{Bayes' Theorem}
+$\Pr(A \mid B) = \frac{\Pr(B \mid A)\Pr(A)}{\Pr(B)}$
+
+\subsubsection*{Law of Total Probability}
+$\Pr(A) = \sum_i \Pr(A \mid B_i)\Pr(B_i)$ where $\{B_i\}$ partition the sample space.
+
+\end{multicols*}
+\end{document}
