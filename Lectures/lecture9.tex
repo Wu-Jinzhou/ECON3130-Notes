@@ -1,0 +1,47 @@
+\section{Bivariate Distributions Continued}
+\textbf{Date:} \underline{Oct 6, 2025}
+
+\subsection{Correlation Coefficient}
+
+\begin{itemize}
+    \item Covariance varies with the measurement scale of the variables.
+    \item The correlation coefficient $\rho$ is scale-invariant.
+    \item $\rho$ ranges from $-1$ (perfect negative linear association) to $1$ (perfect positive linear association).
+    \item $\rho = 0$ indicates no linear relationship.
+\end{itemize}
+
+\[
+\rho = \frac{\operatorname{Cov}(X,Y)}{\operatorname{SD}(X)\operatorname{SD}(Y)}
+\]
+
+\subsection{Conditional Distributions}
+
+\begin{itemize}
+    \item For two discrete random variables $X$ and $Y$, the conditional probability mass function of $X$ given $Y$ is:
+    \[
+    g(x|y) = \frac{f(x, y)}{f_Y(y)}, \quad \text{provided that } f_Y(y) > 0
+    \]
+    \item $f(x, y)$ is the joint probability mass function of $X$ and $Y$.
+    \item $f_Y(y)$ is the marginal probability mass function of $Y$.
+    \item $g(x|y)$ is not defined for values of $y$ where $f_Y(y) = 0$.
+\end{itemize}
+
+If $X$ and $Y$ are independent, then $g(x|y) = f_X(x)$ for all $y$ such that $f_Y(y) > 0$.
+
+\subsection{Continuous Bivariate Distributions}
+
+\begin{itemize}
+    \item A joint probability density function (pdf) $f(x, y)$ for continuous random variables $X$ and $Y$ must satisfy:
+    \begin{enumerate}
+        \item $f(x, y) \geq 0$, and $f(x, y) = 0$ when $(x, y) \notin S$, where $S$ is the sample space.
+        \item $\displaystyle \int_{-\infty}^{\infty} \int_{-\infty}^{\infty} f(x, y) \, dx \, dy = 1$
+        \item For any region $A$, $\displaystyle \Pr[(X, Y) \in A] = \iint_A f(x, y) \, dx \, dy$
+    \end{enumerate}
+    \item The marginal pdfs are obtained by integrating out the other variable:
+    \[
+    f_X(x) = \int_{-\infty}^{\infty} f(x, y) \, dy, \qquad
+    f_Y(y) = \int_{-\infty}^{\infty} f(x, y) \, dx
+    \]
+    \item Independence: $X$ and $Y$ are independent if and only if $f(x, y) = f_X(x) f_Y(y)$ for all $(x, y)$.
+\end{itemize}
+

@@ -1,0 +1,68 @@
+\section{The Central Limit Theorem}
+\textbf{Date:} \underline{Oct 20, 2025}
+
+\subsection{Sample Mean}
+
+Suppose we have $n$ random variables $X_i$ that are independent and identically distributed (iid) with mean $\mu$ and standard deviation $\sigma$.
+
+Define the sample mean as:
+\[
+\overline{X} = \frac{1}{n} \sum_{i=1}^{n} X_i
+\]
+
+The expected value and variance of the sample mean are:
+\[
+E[\overline{X}] = \mu \qquad Var[\overline{X}] = \frac{\sigma^2}{n}
+\]
+As $n \to \infty$, $Var[\overline{X}] \to 0$.
+
+\textbf{Law of Large Numbers (LLN):} As $n$ increases, the sample mean $\overline{X}$ converges to the population mean $\mu$.
+
+\textbf{Central Limit Theorem (CLT):} As $n$ increases, the distribution of $\overline{X}$ approaches a normal distribution, regardless of the underlying distribution of $X_i$.
+
+\subsection{Markov's Inequality}
+
+For a \textbf{nonnegative} random variable $X$ and any $a > 0$,
+\[
+\Pr(X \geq a) \leq \frac{E[X]}{a}
+\]
+
+\textbf{Proof:}
+
+Let $f(x)$ be the probability mass function of $X$.
+\begin{align*}
+E[X] &= \sum_x x f(x) \\
+    &= \sum_{x \geq a} x f(x) + \sum_{x < a} x f(x) \\
+    &\geq \sum_{x \geq a} x f(x) \\
+    &\geq \sum_{x \geq a} a f(x) \\
+    &= a \sum_{x \geq a} f(x) \\
+    &= a \Pr(X \geq a)
+\end{align*}
+Therefore,
+\[
+\Pr(X \geq a) \leq \frac{E[X]}{a}
+\]
+
+\subsection{Chebyshev's Inequality}
+
+For any random variable $X$ and any $r > 0$,
+\[
+\Pr(|X - E[X]| \geq r) \leq \frac{Var[X]}{r^2}
+\]
+
+\textbf{Proof:}
+
+Define $A = \{x : |x - E[X]| \geq r\}$.
+
+\begin{align*}
+Var[X] &= \sum_x (x - E[X])^2 f(x) \\
+&= \sum_{x \in A} (x - E[X])^2 f(x) + \sum_{x \notin A} (x - E[X])^2 f(x) \\
+&\geq \sum_{x \in A} (x - E[X])^2 f(x) \\
+&\geq \sum_{x \in A} r^2 f(x) \\
+&= r^2 \sum_{x \in A} f(x) = r^2 \Pr(A) = r^2 \Pr(|X - E[X]| \geq r)
+\end{align*}
+
+Therefore,
+\[
+\frac{Var[X]}{r^2} \geq \Pr(|X - E[X]| \geq r)
+\]

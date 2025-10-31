@@ -1,0 +1,102 @@
+\section{Functions of Random Variables}
+\textbf{Date:} \underline{Oct 8, 2025}
+
+\subsection{Expectations}
+
+\[
+    E[X] = \int_{-\infty}^{\infty} \int_{-\infty}^{\infty} x f(x, y) \, dy \, dx
+\]
+
+\subsection{The Bivariate Normal Distribution}
+
+\[
+    f(x, y) = \frac{1}{2\pi \sigma_X \sigma_Y \sqrt{1 - \rho^2}} \exp \left[ -\frac{q(x, y)}{2} \right]
+\]
+where
+\[
+    q(x, y) = \frac{1}{1 - \rho^2} \left[ \left( \frac{x - \mu_X}{\sigma_X} \right)^2 - 2\rho \left( \frac{x - \mu_X}{\sigma_X} \right) \left( \frac{y - \mu_Y}{\sigma_Y} \right) + \left( \frac{y - \mu_Y}{\sigma_Y} \right)^2 \right]
+\]
+\begin{itemize}
+    \item $\mu_X, \mu_Y$ are the means of $X$ and $Y$
+    \item $\sigma_X, \sigma_Y$ are the standard deviations
+    \item $\rho$ is the correlation coefficient between $X$ and $Y$
+\end{itemize}
+
+\subsection{Conditional Expectation of the Bivariate Normal}
+
+If $X$ and $Y$ are bivariate normal:
+\begin{itemize}
+    \item The marginal distributions of $X$ and $Y$ are also normal.
+    \item $X+Y$ and $X$ are jointly normal (as are $X+Y$ and $Y$).
+    \item The conditional distribution $Y|X$ is also normal with:
+    \begin{align*}
+        E[Y|x] &= \mu_Y + \rho \frac{\sigma_Y}{\sigma_X} (x - \mu_X) \\
+               &= \mu_Y - \rho \frac{\sigma_Y}{\sigma_X} \mu_X + \rho \frac{\sigma_Y}{\sigma_X} x
+    \end{align*}
+    Since $\rho = \frac{\sigma_{XY}}{\sigma_X \sigma_Y}$, we can substitute to get:
+    \[
+        E[Y|x] = \mu_Y - \frac{\sigma_{XY}}{\sigma_X^2} \mu_X + \frac{\sigma_{XY}}{\sigma_X^2} x
+    \]
+    where $\sigma_{XY}$ is the covariance between $X$ and $Y$.
+    
+    And $Var(Y|x) = \sigma_Y^2 (1 - \rho^2)$.
+    \item $X$ and $Y$ being Normal does not imply the joint distribution is Bivariate Normal.
+\end{itemize}
+
+\subsection{Functions of a Random Variable}
+
+\subsubsection{Distribution Function Technique}
+
+If $Y = u(X)$, then
+\[
+    G(y) = \Pr(Y \leq y) = \Pr(u(X) \leq y)
+\]
+and the density is
+\[
+    g(y) = G'(y)
+\]
+Suppose $X \sim N(0, 1)$ and $Y = \exp(X)$ (log-normal distribution). Let $\Phi(x)$ be the cdf and $\phi(x)$ the pdf of the standard normal. Then $\Phi'(x) = \phi(x)$.
+\[
+    G(y) = \Pr(\exp(X) \leq y) = \Pr(X \leq \ln y) = \Phi(\ln y)
+\]
+\[
+    g(y) = G'(y) = \Phi'(\ln y) \cdot \frac{1}{y} = \phi(\ln y) \cdot \frac{1}{y}
+\]
+for $y > 0$; otherwise, $g(y) = 0$.
+
+\subsubsection{Change-of-Variable Technique}
+
+If $Y = u(X)$, define $v()$ such that $X = v(Y)$.
+
+Suppose $c_1 < x < c_2$ and $d_1 = u(c_1) < y < d_2 = u(c_2)$ ($v()$ is increasing),
+\[
+    G(y) = \int_{c_1}^{v(y)} f(x) dx, \qquad d_1 < y < d_2
+\]
+\[
+    G'(y) = g(y) = f(v(y)) \cdot v'(y), \qquad d_1 < y < d_2
+\]
+
+\textbf{Log-normal example:}
+
+$u(x) = \exp(x)$, $v(y) = \ln(y)$, $v'(y) = 1/y$
+
+\[
+    g(y) = \phi(\ln y) \cdot \frac{1}{y} \qquad \text{when } y > 0
+\]
+
+
+Suppose $c_1 < x < c_2$ and $d_1 = u(c_1) > y > d_2 = u(c_2)$ ($v()$ is decreasing),
+\[
+    G(y) = \int_{v(y)}^{c_2} f(x) dx, \qquad d_2 < y < d_1
+\]
+\[
+    G'(y) = g(y) = f(v(y)) \cdot (-v'(y)), \qquad d_2 < y < d_1
+\]
+
+Note: The negative sign appears because $v'(y) < 0$ when $v()$ is decreasing.
+
+In general, we have:
+\[
+    g(y) = f(v(y)) \cdot |v'(y)|, \qquad y \in S_Y
+\]
+

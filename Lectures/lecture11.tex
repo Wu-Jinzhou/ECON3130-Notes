@@ -1,0 +1,63 @@
+\section{More Functions of Random Variables}
+\textbf{Date:} \underline{Oct 15, 2025}
+
+\subsection{Cauchy Distribution}
+
+\begin{definition}[Cauchy Distribution]
+Let $W \sim U(-\pi/2, \pi/2)$, i.e., $W$ is uniformly distributed between $-\pi/2$ and $\pi/2$. Define $X = \tan W$. Then $X$ has the standard Cauchy distribution.
+\end{definition}
+
+The probability density function (pdf) of the standard Cauchy distribution is:
+\[
+f(x) = \frac{1}{\pi (1 + x^2)}, \quad x \in \mathbb{R}
+\]
+
+\textbf{Properties:}
+\begin{itemize}
+    \item The Cauchy distribution is symmetric about $x=0$.
+    \item It has much heavier tails than the normal distribution.
+    \item Neither the mean nor the variance exists.
+    \item The median and mode are both $0$.
+\end{itemize}
+
+\textbf{Derivation of the PDF:}
+
+Let $W \sim U(-\pi/2, \pi/2)$, so its pdf is
+\[
+f_W(w) = \frac{1}{\pi}, \quad w \in \left(-\frac{\pi}{2}, \frac{\pi}{2}\right)
+\]
+
+Define $X = \tan W$. To find the pdf of $X$, use the change of variables formula:
+\[
+g_X(x) = f_W(v(x)) \left| v'(x) \right|
+\]
+
+where $v(x) = \arctan x$ and $v'(x) = \frac{1}{1 + x^2}$.
+
+Substituting, we get:
+\[
+g_X(x) = f_W(\arctan x) \cdot \frac{1}{1 + x^2} = \frac{1}{\pi} \cdot \frac{1}{1 + x^2} = \frac{1}{\pi (1 + x^2)}
+\]
+
+\textbf{Notes:}
+\begin{enumerate}
+    \item The graph of the pdf is called the witch of Agnesi.
+    \item $X$ is the ratio of two independent standard normals.
+    \item $X$ is a $t$ distribution with one degree of freedom.
+\end{enumerate}
+
+\subsection{Change-of-Variable Technique (2 Variables)}
+
+Suppose $Y_1 = u_1(X_1, X_2)$ and $Y_2 = u_2(X_1, X_2)$, and we can invert these to get $X_1 = v_1(Y_1, Y_2)$ and $X_2 = v_2(Y_1, Y_2)$. Then, the joint pdf of $(Y_1, Y_2)$ is given by:
+\[
+g(y_1, y_2) = |J| \, f\big(v_1(y_1, y_2), v_2(y_1, y_2)\big)
+\]
+where $f$ is the joint pdf of $(X_1, X_2)$, and $J$ is the Jacobian determinant:
+\[
+J = 
+\begin{vmatrix}
+\frac{\partial v_1}{\partial y_1} & \frac{\partial v_1}{\partial y_2} \\
+\frac{\partial v_2}{\partial y_1} & \frac{\partial v_2}{\partial y_2}
+\end{vmatrix}
+\]
+

@@ -76,6 +76,13 @@ variables have the same variance.
     \item The probability of a success, p, is constant across trials.
 \end{itemize}
 
+\paragraph{Normal approximation to the Binomial}
+When the number of trials $n$ is large, the Binomial distribution can be approximated by a Normal distribution with the same mean and variance:
+\begin{align*}
+    X \sim \text{Binomial}(n, p) \approx N(np, np(1-p))
+\end{align*}
+This approximation is most accurate when $np \geq 10$ and $n(1-p) \geq 10$.
+
 \paragraph{Binomial probability mass function (pmf)}
 The probability mass function (pmf) for a Binomial random variable $X$ is:
 \begin{align*}

@@ -1,20 +1,19 @@
 \documentclass[10pt]{article}
-\usepackage[landscape,margin=0.5in]{geometry}
-\usepackage{amsmath,amssymb,amsthm}
+\usepackage[margin=0.5in]{geometry}
 \usepackage{multicol}
-\usepackage{graphicx}
+\usepackage{amsmath, amssymb}
 \usepackage{enumitem}
-
+\setlist{nosep}
+\setlength{\columnsep}{0.15in}
+\setlength{\multicolsep}{0pt}
+\setlength{\parindent}{0pt}
 \pagestyle{empty}
 
-\setlength{\columnseprule}{0.4pt}
-\setlength{\columnsep}{2em}
-\setlist[itemize]{leftmargin=*,itemsep=0pt,parsep=0pt,topsep=0pt}
-
 \begin{document}
-\begin{multicols*}{3}
+\footnotesize
+\begin{multicols}{2}
 
-\section*{Basic Probability}
+\subsection*{Basic Probability}
 \subsubsection*{Definitions}
 \textbf{Sample Space:} Set of all possible outcomes\\
 \textbf{Event:} Subset of sample space\\
@@ -26,178 +25,226 @@ $A \cup B$ = A or B (or both) occur\\
 $A^c$ = A does not occur
 
 \subsubsection*{Probability Rules}
-\textbf{Intersection:} $\Pr(A \cap B) = \Pr(A \mid B) \Pr(B)$\\
+\textbf{Intersection:} $\Pr(A \cap B) = \Pr(A \mid B)\Pr(B)$\\
 \textbf{Union:} $\Pr(A \cup B) = \Pr(A) + \Pr(B) - \Pr(A \cap B)$\\
 \textbf{Complement:} $\Pr(A^c) = 1 - \Pr(A)$\\
 \textbf{Conditional:} $\Pr(A \mid B) = \frac{\Pr(A \cap B)}{\Pr(B)}$
 
 \subsubsection*{Independence}
-$A$ and $B$ are independent if: $\Pr(A \cap B) = \Pr(A)\Pr(B)$\\
+$A$ and $B$ independent $\Leftrightarrow \Pr(A \cap B) = \Pr(A)\Pr(B)$\\
 If independent: $\Pr(A \mid B) = \Pr(A)$
 
-\section*{Discrete Random Variables}
+\subsection*{Discrete Random Variables}
 \subsubsection*{PMF \& CDF}
 \textbf{PMF:} $f(x) = \Pr(X = x)$\\
-\textbf{Expected Value:} $E[X] = \sum_{x \in S} x \cdot f(x)$\\
-\textbf{Variance:} $\text{Var}[X] = E[(X - E[X])^2] = E[X^2] - (E[X])^2$\\
-\textbf{Standard Deviation:} $\text{SD}[X] = \sqrt{\text{Var}[X]}$
+\textbf{CDF:} $F(a) = \Pr(X \le a) = \sum_{x \le a} f(x)$\\
+\textbf{Expected Value:} $E[X] = \sum_{x \in S} x f(x)$\\
+\textbf{Variance:} $\operatorname{Var}[X] = E[(X - E[X])^2] = E[X^2] - (E[X])^2$
 
 \subsubsection*{Linear Transformations}
 $E[aX + b] = aE[X] + b$\\
-$\text{Var}[aX + b] = a^2\text{Var}[X]$
+$\operatorname{Var}[aX + b] = a^2 \operatorname{Var}[X]$
 
 \subsubsection*{Conditional Expectation}
-$E[X \mid Y = y] = \sum_{x} x \cdot \Pr(X = x \mid Y = y)$\\
+$E[X \mid Y = y] = \sum_{x} x \Pr(X = x \mid Y = y)$\\
 \textbf{Law of Iterated Expectations:} $E[E[X \mid Y]] = E[X]$
 
-\section*{Moment-Generating Functions}
+\subsection*{Moment-Generating Functions}
 \subsubsection*{Definition}
 $M_X(t) = E[e^{tX}] = \sum_x e^{tx} f(x)$ (discrete)\\
-$M_X(t) = E[e^{tX}] = \int_{-\infty}^{\infty} e^{tx} f(x) dx$ (continuous)
+$M_X(t) = \int_{-\infty}^{\infty} e^{tx} f(x) dx$ (continuous)
 
 \subsubsection*{Finding Moments}
 $r$-th moment: $\mu_r = E[X^r] = M_X^{(r)}(0)$
 
 \subsubsection*{Standardized Moments}
 $\hat{\mu}_k = \frac{E[(X-\mu)^k]}{E[(X-\mu)^2]^{k/2}}$\\
-\textbf{Skewness:} $\hat{\mu}_3$ (3rd standardized moment)\\
-\textbf{Kurtosis:} $\hat{\mu}_4$ (4th standardized moment)
+\textbf{Skewness:} $\hat{\mu}_3$\\
+\textbf{Kurtosis:} $\hat{\mu}_4$
 
-\section*{Discrete Distributions}
-\subsubsection*{Bernoulli Distribution}
-\textit{Modeling:} Single trial with success/failure outcome
-$X \sim \text{Bernoulli}(p)$\\
-$P(X=1) = p, \quad P(X=0) = 1-p$\\
-$E[X] = p, \quad \text{Var}[X] = p(1-p)$\\
-\textit{Parameter:} $0 < p < 1$ (success probability)
+\subsection*{Discrete Distributions}
+\subsubsection*{Bernoulli}
+$X \sim \operatorname{Bernoulli}(p)$, $P(X=1) = p$, $P(X=0) = 1-p$\\
+$E[X] = p$, $\operatorname{Var}[X] = p(1-p)$
 
-\subsubsection*{Binomial Distribution}
-\textit{Modeling:} Number of successes in n independent trials
-$X \sim \text{Binomial}(n, p)$\\
+\subsubsection*{Binomial}
+$X \sim \operatorname{Binomial}(n,p)$\\
 $P(X = k) = \binom{n}{k} p^k (1-p)^{n-k}$\\
-$E[X] = np, \quad \text{Var}[X] = np(1-p)$\\
-\textit{Parameters:} $n \geq 1$ (trials), $0 < p < 1$ (success probability)
+$E[X] = np$, $\operatorname{Var}[X] = np(1-p)$
 
-\subsubsection*{Geometric Distribution}
-\textit{Modeling:} Number of trials until first success
-$X \sim \text{Geometric}(p)$\\
-$P(X = x) = p(1-p)^{x-1}$ for $x = 1, 2, 3, \ldots$\\
-$E[X] = \frac{1}{p}, \quad \text{Var}[X] = \frac{1-p}{p^2}$\\
-\textit{Parameter:} $0 < p < 1$ (success probability)
+\subsubsection*{Geometric}
+$X \sim \operatorname{Geometric}(p)$ counts trials to first success\\
+$P(X = x) = p(1-p)^{x-1}$, $x = 1,2,\ldots$\\
+$E[X] = \frac{1}{p}$, $\operatorname{Var}[X] = \frac{1-p}{p^2}$
 
-\subsubsection*{Negative Binomial Distribution}
-\textit{Modeling:} Number of trials until r-th success
-$X \sim \text{NegBin}(r, p)$\\
-$P(X = x) = \binom{x-1}{r-1} p^r (1-p)^{x-r}$ for $x = r, r+1, \ldots$\\
-$E[X] = \frac{r}{p}, \quad \text{Var}[X] = \frac{r(1-p)}{p^2}$\\
-\textit{Parameters:} $r > 0$ (target successes), $0 < p < 1$ (success probability)
+\subsubsection*{Negative Binomial}
+$X \sim \operatorname{NegBin}(r,p)$ counts trials to $r$-th success\\
+$P(X = x) = \binom{x-1}{r-1} p^r (1-p)^{x-r}$\\
+$E[X] = \frac{r}{p}$, $\operatorname{Var}[X] = \frac{r(1-p)}{p^2}$
 
-\subsubsection*{Poisson Distribution}
-\textit{Modeling:} Number of events in fixed interval (rare events)
-$X \sim \text{Poisson}(\lambda)$\\
-$P(X = k) = \frac{\lambda^k e^{-\lambda}}{k!}$ for $k = 0, 1, 2, \ldots$\\
-$E[X] = \lambda, \quad \text{Var}[X] = \lambda$\\
-\textit{Parameter:} $\lambda > 0$ (rate/mean)
+\subsubsection*{Poisson}
+$X \sim \operatorname{Poisson}(\lambda)$\\
+$P(X = k) = \frac{\lambda^k e^{-\lambda}}{k!}$\\
+$E[X] = \lambda$, $\operatorname{Var}[X] = \lambda$
 
-\section*{Continuous Random Variables}
+\subsection*{Continuous Random Variables}
 \subsubsection*{PDF \& CDF}
-\textbf{PDF:} $f(x) \geq 0$ and $\int_S f(x)dx = 1$\\
-\textbf{CDF:} $F(a) = \Pr(X \leq a) = \int_{-\infty}^{a} f(x) dx$\\
+\textbf{PDF:} $f(x) \ge 0$, $\int_S f(x) dx = 1$\\
+\textbf{CDF:} $F(a) = \Pr(X \le a) = \int_{-\infty}^{a} f(x) dx$\\
 \textbf{Expected Value:} $E[X] = \int_{-\infty}^{\infty} x f(x) dx$\\
-\textbf{Variance:} $\text{Var}[X] = \int_{-\infty}^{\infty} (x - E[X])^2 f(x) dx$
+\textbf{Variance:} $\operatorname{Var}[X] = \int_{-\infty}^{\infty} (x - E[X])^2 f(x) dx$
 
 \subsubsection*{Quantiles}
-$p$-th quantile $\pi_p$: $p = \int_{-\infty}^{\pi_p} f(x) dx$
+$p$-th quantile $\pi_p$ satisfies $p = \int_{-\infty}^{\pi_p} f(x) dx$
 
-\section*{Uniform Distribution}
-\textit{Modeling:} Equal probability over interval [a,b]
-$X \sim \text{Uniform}(a, b)$\\
-$f(x) = \begin{cases} \frac{1}{b-a} & \text{if } a < x < b \\ 0 & \text{otherwise} \end{cases}$\\
-$F(x) = \begin{cases} 0 & \text{if } x < a \\ \frac{x-a}{b-a} & \text{if } a \leq x < b \\ 1 & \text{if } x \geq b \end{cases}$\\
-$E[X] = \frac{a+b}{2}, \quad \text{Var}[X] = \frac{(b-a)^2}{12}$
+\subsection*{Continuous Distributions}
+\subsubsection*{Uniform $[a,b]$}
+$f(x) = \frac{1}{b-a}$ for $a < x < b$, else $0$\\
+$F(x) = 0$ if $x < a$, $\frac{x-a}{b-a}$ if $a \le x < b$, $1$ if $x \ge b$\\
+$E[X] = \frac{a+b}{2}$, $\operatorname{Var}[X] = \frac{(b-a)^2}{12}$
 
-\section*{Normal Distribution}
-\textit{Modeling:} Bell-shaped distribution, many natural phenomena
-\subsubsection*{Standard Normal}
-$Z \sim N(0, 1)$\\
-$f(z) = \frac{1}{\sqrt{2\pi}} e^{-z^2/2}$
+\subsubsection*{Normal}
+$Z \sim N(0,1)$ has $f(z) = \frac{1}{\sqrt{2\pi}} e^{-z^2/2}$\\
+$X \sim N(\mu,\sigma^2)$ has $f(x) = \frac{1}{\sqrt{2\pi\sigma^2}} \exp\!\left(-\frac{(x-\mu)^2}{2\sigma^2}\right)$\\
+Standardize: $Z = \frac{X-\mu}{\sigma} \sim N(0,1)$\\
+$M_X(t) = \exp\left(\mu t + \frac{\sigma^2 t^2}{2}\right)$\\
+Empirical rule: $68/95/99.7\%$ within $\mu \pm 1/2/3\sigma$
 
-\subsubsection*{General Normal}
-$X \sim N(\mu, \sigma^2)$\\
-$f(x) = \frac{1}{\sqrt{2\pi\sigma^2}} \exp\left( -\frac{(x-\mu)^2}{2\sigma^2} \right)$\\
-$E[X] = \mu, \quad \text{Var}[X] = \sigma^2$
+\subsubsection*{Exponential}
+$W \sim \operatorname{Exp}(\lambda)$ with $f(w) = \lambda e^{-\lambda w}$ for $w \ge 0$\\
+$F(w) = 1 - e^{-\lambda w}$, $E[W] = 1/\lambda$, $\operatorname{Var}[W] = 1/\lambda^2$\\
+Memoryless: $\Pr(W > s+t \mid W > s) = \Pr(W > t)$
 
-\subsubsection*{Standardization}
-If $X \sim N(\mu, \sigma^2)$, then $Z = \frac{X - \mu}{\sigma} \sim N(0, 1)$
+\subsubsection*{Gamma}
+$X \sim \operatorname{Gamma}(\alpha,\theta)$\\
+$f(x) = \frac{1}{\Gamma(\alpha)\theta^\alpha} x^{\alpha-1} e^{-x/\theta}$ for $x \ge 0$\\
+$E[X] = \alpha\theta$, $\operatorname{Var}[X] = \alpha\theta^2$\\
+$\Gamma(t) = \int_0^\infty y^{t-1} e^{-y} dy$, $\Gamma(t) = (t-1)\Gamma(t-1)$
 
-\subsubsection*{MGF of Normal}
-$M(t) = \exp\left( \mu t + \frac{\sigma^2 t^2}{2} \right)$
+\subsection*{Special Cases \& Relationships}
+\textbf{Exponential:} $\operatorname{Gamma}(1,\theta) = \operatorname{Exp}(\lambda)$, $\theta = 1/\lambda$\\
+\textbf{Geometric:} $\operatorname{NegBin}(1,p) = \operatorname{Geom}(p)$\\
+\textbf{Binomial} $\to$ \textbf{Poisson:} $n \to \infty$, $p \to 0$, $np \to \lambda$
 
-\subsubsection*{Empirical Rule}
-68\% within $\mu \pm \sigma$\\
-95\% within $\mu \pm 2\sigma$\\
-99.7\% within $\mu \pm 3\sigma$
+\subsection*{Useful Formulas}
+\textbf{Variance Identity:} $\operatorname{Var}[X] = E[X^2] - (E[X])^2$\\
+\textbf{Combinatorics:} $\binom{n}{k} = \frac{n!}{k!(n-k)!}$\\
+\textbf{DeMorgan's Laws:} $(A \cup B)^c = A^c \cap B^c$, $(A \cap B)^c = A^c \cup B^c$
 
-\subsubsection*{Linear Combinations}
-If $X \sim N(\mu_1, \sigma_1^2)$ and $Y \sim N(\mu_2, \sigma_2^2)$ are independent:\\
-$X + Y \sim N(\mu_1 + \mu_2, \sigma_1^2 + \sigma_2^2)$\\
-$a + bZ \sim N(a, b^2)$ where $Z \sim N(0,1)$
+\subsection*{Bivariate Distributions}
+\subsubsection*{Expectations \& Covariance}
+$E[X+Y] = E[X] + E[Y]$\\
+$\operatorname{Cov}[X,Y] = E[(X - E[X])(Y - E[Y])]$\\
+Interpretation: $>0$ positive association, $<0$ negative, $=0$ no linear link\\
+$\operatorname{Cov}(aX + b, cY + d) = ac\,\operatorname{Cov}(X,Y)$\\
+$\operatorname{Cov}(X, Y+Z) = \operatorname{Cov}(X,Y) + \operatorname{Cov}(X,Z)$\\
+Independence $\Rightarrow \operatorname{Cov}(X,Y) = 0$, converse need not hold
 
-\section*{Exponential Distribution}
-\textit{Modeling:} Time between events in Poisson process
-\textit{Parameter:} $\lambda > 0$ (rate), $\theta = 1/\lambda$ (scale parameter)
-$W \sim \text{Exponential}(\lambda)$\\
-$f(w) = \begin{cases} \lambda e^{-\lambda w} & \text{if } w \geq 0 \\ 0 & \text{otherwise} \end{cases}$\\
-$F(w) = \begin{cases} 0 & \text{if } w < 0 \\ 1 - e^{-\lambda w} & \text{if } w \geq 0 \end{cases}$\\
-$E[W] = \frac{1}{\lambda} = \theta, \quad \text{Var}[W] = \frac{1}{\lambda^2} = \theta^2$
+\subsubsection*{Variance of a Sum}
+$\operatorname{Var}(X + Y) = \operatorname{Var}(X) + \operatorname{Var}(Y) + 2\operatorname{Cov}(X,Y)$\\
+If $X$ and $Y$ independent: $\operatorname{Var}(X+Y) = \operatorname{Var}(X) + \operatorname{Var}(Y)$
 
-\section*{Gamma Distribution}
-\textit{Modeling:} Time until $\alpha$-th event in Poisson process
-\textit{Parameters:} $\alpha > 0$ (shape), $\theta > 0$ (scale), $\theta = 1/\lambda$
-$X \sim \text{Gamma}(\alpha, \theta)$\\
-$f(x) = \frac{1}{\Gamma(\alpha)\theta^\alpha} x^{\alpha-1} e^{-x/\theta}$ for $x \geq 0$\\
-$E[X] = \alpha\theta, \quad \text{Var}[X] = \alpha\theta^2$\\
-\textbf{Gamma Function:} $\Gamma(t) = \int_0^\infty y^{t-1} e^{-y} dy$\\
-\textbf{Recurrence:} $\Gamma(t) = (t-1)\Gamma(t-1)$, $\Gamma(1) = 1$\\
-\textbf{Special Values:} $\Gamma(n) = (n-1)!$ for integer $n$, $\Gamma(\frac{1}{2}) = \sqrt{\pi}$
+\subsubsection*{Correlation Coefficient}
+$\rho = \frac{\operatorname{Cov}(X,Y)}{\operatorname{SD}(X)\operatorname{SD}(Y)}$\\
+Scale-free measure, $\rho \in [-1,1]$, $\rho = 0$ means no linear association
 
-\section*{Special Cases \& Relationships}
-\subsubsection*{Special Cases}
-\textbf{Exponential:} $\text{Gamma}(1, \theta) = \text{Exponential}(\lambda)$ where $\theta = 1/\lambda$\\
-\textbf{Geometric:} $\text{NegBin}(1, p) = \text{Geometric}(p)$
+\subsubsection*{Conditional Distributions}
+\begin{itemize}
+    \item Discrete: $g(x \mid y) = \frac{f(x,y)}{f_Y(y)}$ for $f_Y(y) > 0$
+    \item Independence $\Rightarrow g(x \mid y) = f_X(x)$
+    \item Continuous joint pdf $f(x,y)$: $f(x,y) \ge 0$, $\iint f(x,y) dx dy = 1$
+    \item Continuous marginals: $f_X(x) = \int_{-\infty}^{\infty} f(x,y) dy$, $f_Y(y) = \int_{-\infty}^{\infty} f(x,y) dx$
+    \item $X \perp Y$ iff $f(x,y) = f_X(x)f_Y(y)$
+\end{itemize}
 
-\subsubsection*{Limiting Relationships}
-\textbf{Binomial to Poisson:} $\text{Binomial}(n,p) \to \text{Poisson}(\lambda)$ as $n \to \infty$, $p \to 0$, $np \to \lambda$
+\subsection*{Bivariate Normal}
+\textbf{PDF:}
+$f(x,y) = \frac{1}{2\pi \sigma_X \sigma_Y \sqrt{1-\rho^2}} \exp\!\left(-\frac{q(x,y)}{2}\right)$\\
+$q(x,y) = \frac{1}{1-\rho^2} \left[\left(\frac{x-\mu_X}{\sigma_X}\right)^2 - 2\rho \frac{(x-\mu_X)(y-\mu_Y)}{\sigma_X\sigma_Y} + \left(\frac{y-\mu_Y}{\sigma_Y}\right)^2\right]$\\
+Marginals are normal with means $\mu_X,\mu_Y$ and variances $\sigma_X^2,\sigma_Y^2$\\
+$X+Y$ is normal when $(X,Y)$ jointly normal\\
+Conditional $Y|X=x$ normal with $E[Y|x] = \mu_Y + \rho \frac{\sigma_Y}{\sigma_X}(x-\mu_X)$\\
+$\operatorname{Var}(Y|x) = \sigma_Y^2(1-\rho^2)$\\
+$\sigma_{XY} = \rho \sigma_X \sigma_Y$ so $E[Y|x] = \mu_Y + \frac{\sigma_{XY}}{\sigma_X^2}(x-\mu_X)$
 
-\subsubsection*{Memoryless Property}
-\textbf{Exponential:} $\Pr(X > s+t \mid X > s) = \Pr(X > t)$\\
-\textbf{Geometric:} $\Pr(X > k+j \mid X > k) = \Pr(X > j)$
+\subsection*{Functions of Random Variables}
+\subsubsection*{Distribution Function Technique}
+If $Y = u(X)$, $G(y) = \Pr(Y \le y) = \Pr(u(X) \le y)$, density $g(y) = G'(y)$\\
+Example: $X \sim N(0,1)$, $Y = e^X$ (log-normal) gives $G(y) = \Phi(\ln y)$, $g(y) = \phi(\ln y)\tfrac{1}{y}$ for $y>0$
 
-\section*{Useful Formulas}
-\subsubsection*{Variance Identity}
-$\text{Var}[X] = E[X^2] - (E[X])^2$
+\subsubsection*{Change-of-Variable (1 Variable)}
+% Let $Y = u(X)$ with inverse $X = v(Y)$ over support. Then $g(y) = f(v(y)) \left|v'(y)\right|$\\
+% If $v$ increasing: $g(y) = f(v(y)) v'(y)$; decreasing: extra minus absorbed by absolute value
 
-\subsubsection*{Combinatorics}
-$\binom{n}{k} = \frac{n!}{k!(n-k)!}$
+If $Y = u(X)$, define $v()$ such that $X = v(Y)$.
 
-\subsubsection*{DeMorgan's Laws}
-$(A \cup B)^c = A^c \cap B^c$\\
-$(A \cap B)^c = A^c \cup B^c$
+Suppose $c_1 < x < c_2$ and $d_1 = u(c_1) < y < d_2 = u(c_2)$ ($v()$ is increasing),
+\[
+    G(y) = \int_{c_1}^{v(y)} f(x) dx, \qquad d_1 < y < d_2
+\]
+\[
+    G'(y) = g(y) = f(v(y)) \cdot v'(y), \qquad d_1 < y < d_2
+\]
 
-\subsubsection*{Set Laws}
-\textbf{Commutativity:} $A \cup B = B \cup A$, $A \cap B = B \cap A$\\
-\textbf{Associativity:} $(A \cup B) \cup C = A \cup (B \cup C)$\\
-\textbf{Distributive:} $A \cap (B \cup C) = (A \cap B) \cup (A \cap C)$
+\textbf{Log-normal example:}
 
-\section*{Key Concepts}
-\subsubsection*{Monty Hall Problem}
-Always switch! Switching gives $\frac{2}{3}$ probability vs $\frac{1}{3}$ for staying.
+$u(x) = \exp(x)$, $v(y) = \ln(y)$, $v'(y) = 1/y$
 
-\subsubsection*{Bayes' Theorem}
-$\Pr(A \mid B) = \frac{\Pr(B \mid A)\Pr(A)}{\Pr(B)}$
+\[
+    g(y) = \phi(\ln y) \cdot \frac{1}{y} \qquad \text{when } y > 0
+\]
 
-\subsubsection*{Law of Total Probability}
-$\Pr(A) = \sum_i \Pr(A \mid B_i)\Pr(B_i)$ where $\{B_i\}$ partition the sample space.
 
-\end{multicols*}
+Suppose $c_1 < x < c_2$ and $d_1 = u(c_1) > y > d_2 = u(c_2)$ ($v()$ is decreasing),
+\[
+    G(y) = \int_{v(y)}^{c_2} f(x) dx, \qquad d_2 < y < d_1
+\]
+\[
+    G'(y) = g(y) = f(v(y)) \cdot (-v'(y)), \qquad d_2 < y < d_1
+\]
+
+Note: The negative sign appears because $v'(y) < 0$ when $v()$ is decreasing.
+
+In general, we have:
+\[
+    g(y) = f(v(y)) \cdot |v'(y)|, \qquad y \in S_Y
+\]
+
+\subsection*{Cauchy Distribution}
+$W \sim U(-\pi/2,\pi/2)$, $X = \tan W$ gives standard Cauchy\\
+$f_X(x) = \frac{1}{\pi(1+x^2)}$, heavy tails, symmetric about $0$\\
+Median = mode = $0$; mean and variance do not exist\\
+Equivalent views: ratio of two independent standard normals; $t$ with $1$ degree of freedom\\
+Graph of pdf known as the witch of Agnesi
+
+\subsection*{Multivariate Transformations}
+For $(X_1,X_2)$ with joint pdf $f$, let $Y_1 = u_1(X_1,X_2)$, $Y_2 = u_2(X_1,X_2)$ invertible to $X_i = v_i(Y_1,Y_2)$\\
+Joint pdf $g(y_1,y_2) = \left|\begin{smallmatrix} \frac{\partial v_1}{\partial y_1} & \frac{\partial v_1}{\partial y_2} \\[2pt] \frac{\partial v_2}{\partial y_1} & \frac{\partial v_2}{\partial y_2} \end{smallmatrix}\right| f\!\left(v_1(y_1,y_2), v_2(y_1,y_2)\right)$\\
+Jacobian determinant captures area/volume distortion from the transformation
+
+\subsection*{Limit Theorems \& Inequalities}
+\subsubsection*{Sample Mean}
+$\overline{X} = \frac{1}{n} \sum_{i=1}^n X_i$ for iid $X_i$ with mean $\mu$, variance $\sigma^2$\\
+$E[\overline{X}] = \mu$, $\operatorname{Var}[\overline{X}] = \frac{\sigma^2}{n}$ $\to 0$ as $n \to \infty$
+
+\subsubsection*{Law of Large Numbers}
+Sample mean converges in probability to $\mu$ as $n$ grows
+
+\subsubsection*{Central Limit Theorem}
+Standardized mean $W = \frac{\overline{X} - \mu}{\sigma/\sqrt{n}} \xrightarrow{d} N(0,1)$ for large $n$\\
+Justifies normal approximations even when data not normal, provided finite mean/variance
+
+\subsubsection*{Inequalities}
+\textbf{Markov:} For nonnegative $X$, $\Pr(X \ge a) \le \frac{E[X]}{a}$\\
+\textbf{Chebyshev:} $\Pr(|X - E[X]| \ge r) \le \frac{\operatorname{Var}[X]}{r^2}$
+
+\subsubsection*{MGF Method Insight}
+If mgfs $M_n(t)$ converge to $M(t)$ near $0$, then $X_n \Rightarrow X$ with mgf $M(t)$; used to establish the CLT limit
+
+\subsection*{Key Concepts}
+\textbf{Monty Hall Problem:} Switching doors wins with probability $\frac{2}{3}$\\
+\textbf{Bayes' Theorem:} $\Pr(A \mid B) = \frac{\Pr(B \mid A)\Pr(A)}{\Pr(B)}$\\
+\textbf{Total Probability:} $\Pr(A) = \sum_i \Pr(A \mid B_i)\Pr(B_i)$ for partition $\{B_i\}$
+
+\end{multicols}
 \end{document}
