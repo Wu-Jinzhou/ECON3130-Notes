@@ -1,0 +1,565 @@
+INTRODUCTION TO PROBABILITY
+AND STATISTICS
+ECON 3130
+Module 14, Lecture 2
+
+      Bivariate Nonparametric Tests
+                            December 1, 2025
+
+
+
+                                               1
+                                                             2
+
+
+
+
+Today’s Agenda
+• Review univariate Chi-square tests
+   • Does an observed sample come from a known multinomial
+     distribution?
+   • Generalizing this idea to test if a sample comes from any known
+     distribution
+
+
+• Bivariate tests
+   • Do two samples come from the same multinomial
+     distribution?
+   • Bivariate chi-square test
+   • Fisher’s exact test
+
+
+• Median tests
+   • one sample
+   • two samples
+                                                                   3
+                                     k
+                                     X
+ Chocolate (33)
+                                       (Yi      npi )2     2
+                       Qk 1 =                          ⇡   (k 1)
+                                     i=1
+                                               npi
+                        Strawberry (10)
+
+
+
+
+Vanilla (35)
+
+
+    Suppose we want to test whether our 78
+    observations come from a population
+    where there are an equal number of
+    chocolate-lovers, strawberry-lovers, and
+    vanilla-lovers.
+
+    Under this null hypothesis, what is the
+    value of the test statistic?
+                                                                 4
+                                     k
+                                     X (Yi    npi )2     2
+                  Qk 1 =                             ⇡   (k 1)
+                                     i=1
+                                             npi
+Are these draws from a standard normal?
+ 1. 2.430705       26.    1.090769
+ 2. 1.251157       27.    1.200561
+ 3. .3572548       28.    .0480066
+ 4. -2.066558      29.    2.092003
+ 5. -.8750394      30.   -.4450375
+ 6. 1.034191       31.   -.1857076
+ 7. -.2872248      32.    -1.86535
+ 8. .6198588       33.   -.8496379
+ 9. -2.174419      34.   -.0722358
+10. -1.218149      35.   -.0948151
+11. 1.314441       36.    .7266674
+12. 1.599179       37.   -1.039816
+13. -.4328256      38.     .516456
+14. .8821267       39.   -1.099257
+15. -1.15378       40.    1.109026
+16. .9025559       41.    .1608445
+17. -.5599837      42.    1.228532
+18. -2.942492      43.    .2408259
+19. -2.786407      44.   -.5084514
+20. -.7338845      45.    .3723959
+21. -.5541787      46.   -.6170998
+22. 2.923579       47.   -.8989058
+23. -.2548099      48.   -1.624997
+24. -.9737498      49.   -.7831129
+25. .0245174       50.    .0394615
+                                                                                  5
+                                     k
+                                     X (Yi                 npi )2         2
+                  Qk 1 =                                          ⇡       (k 1)
+                                     i=1
+                                                          npi
+Are these draws from a standard normal?
+ 1. 2.430705       26.    1.090769
+
+
+
+
+                                              .4
+ 2. 1.251157       27.    1.200561
+ 3. .3572548       28.    .0480066
+
+
+
+
+                                              .3
+ 4. -2.066558      29.    2.092003
+ 5. -.8750394      30.   -.4450375
+
+
+
+
+                                           Density
+ 6. 1.034191       31.   -.1857076
+
+
+
+
+                                            .2
+ 7. -.2872248      32.    -1.86535
+ 8. .6198588       33.   -.8496379
+
+
+
+                                              .1
+ 9. -2.174419      34.   -.0722358
+10. -1.218149      35.   -.0948151
+11. 1.314441       36.    .7266674            0      -4    -2         0   2
+12. 1.599179       37.   -1.039816                              foo
+
+
+13. -.4328256      38.     .516456
+14. .8821267       39.   -1.099257
+15. -1.15378       40.    1.109026
+16. .9025559       41.    .1608445
+17. -.5599837      42.    1.228532
+18. -2.942492      43.    .2408259
+19. -2.786407      44.   -.5084514
+20. -.7338845      45.    .3723959
+21. -.5541787      46.   -.6170998
+22. 2.923579       47.   -.8989058
+23. -.2548099      48.   -1.624997
+24. -.9737498      49.   -.7831129
+25. .0245174       50.    .0394615
+                                                                   6
+                                       k
+                                       X (Yi    npi )2     2
+                    Qk 1 =                             ⇡   (k 1)
+                                       i=1
+                                               npi
+Let’s use a Chi-square test to test standard normality.
+ 1. 2.430705         26.    1.090769
+ 2. 1.251157         27.    1.200561
+ 3. .3572548         28.    .0480066
+ 4. -2.066558        29.    2.092003
+ 5. -.8750394        30.   -.4450375
+ 6. 1.034191         31.   -.1857076
+ 7. -.2872248        32.    -1.86535
+ 8. .6198588         33.   -.8496379
+ 9. -2.174419        34.   -.0722358
+10. -1.218149        35.   -.0948151
+11. 1.314441         36.    .7266674
+12. 1.599179         37.   -1.039816
+13. -.4328256        38.     .516456
+14. .8821267         39.   -1.099257
+15. -1.15378         40.    1.109026
+16. .9025559         41.    .1608445
+17. -.5599837        42.    1.228532
+18. -2.942492        43.    .2408259
+19. -2.786407        44.   -.5084514
+20. -.7338845        45.    .3723959
+21. -.5541787        46.   -.6170998
+22. 2.923579         47.   -.8989058
+23. -.2548099        48.   -1.624997
+24. -.9737498        49.   -.7831129
+25. .0245174         50.    .0394615
+                                    8
+
+
+
+
+Testing equality of distributions
+                                                  9
+
+
+
+
+   Testing equality of distributions
+                             J=2 groups
+                        Male   Female     Total
+
+K=3      Vanilla        22       13        35
+values   Chocolate      13       20        33
+         Strawberry      6       4         10
+
+         Total          41       37        78
+
+                   Observed counts (Yij’s)
+                                                  10
+
+
+
+
+   Testing equality of distributions
+                             J=2 groups
+                        Male   Female     Total
+
+K=3      Vanilla        22       13        35
+values   Chocolate      13       20        33
+         Strawberry      6       4         10
+
+         Total          41       37        78
+
+                   Observed counts (Yij’s)
+
+   H0: The distributions of the values
+        are the same across groups
+                                                                             11
+
+
+
+
+   Testing equality of distributions
+                             J=2 groups
+                        Male   Female     Total
+
+K=3      Vanilla        22       13        35
+values   Chocolate      13       20        33
+         Strawberry      6       4         10
+
+         Total          41       37        78
+
+                   Observed counts (Yij’s)
+
+   H0: The distributions of the values
+        are the same across groups
+
+
+     Assuming H0 is true, estimate the fraction of males in the population
+     that like vanilla ice cream.
+                                                                                  12
+
+
+
+
+   Testing equality of distributions
+                             J=2 groups
+                        Male   Female     Total                   Male   Female   Total
+
+K=3      Vanilla        22       13        35        Vanilla
+values   Chocolate      13       20        33        Chocolate
+         Strawberry      6       4         10        Strawberry
+
+         Total          41       37        78        Total
+
+                   Observed counts (Yij’s)           Expected counts under H0 (Eij’s)
+
+   H0: The distributions of the values            What are the expected counts?
+        are the same across groups
+                                                  Can you write down a formula?
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               13
+
+
+
+
+   Testing equality of distributions
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  J=2 groups
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            Male       Female      Total                       Male   Female   Total
+
+K=3                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          Vanilla        22           13         35            Vanilla
+values                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       Chocolate      13           20         33            Chocolate
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             Strawberry      6           4          10            Strawberry
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             Total          41           37         78            Total
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       Observed counts (Yij’s)                    Expected counts under H0 (Eij’s)
+
+   H0: The distributions of the values
+        are the same across groups
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              J X
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              X K
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  (Yij             Eij )2         2
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      What’s Q in this case?
+   Q=                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         ⇠   ((J 1)⇥(K 1))
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              j=1 i=1
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 Eij
+    <latexit sha1_base64="JRPFmutiV/Kru+e8hWGhTA9pEtA=">AAACTnicbZFLSwMxEMez9VXrq+rRS7AI24Nltyp6EQQRRC8K1gfddsmm2Taa7C5JVihhP6EX8ebH8OJBEU23e/A1EPjNf2aY5J8gYVQqx3m2ShOTU9Mz5dnK3PzC4lJ1eeVSxqnApIVjFovrAEnCaERaiipGrhNBEA8YuQruDkf1q3siJI2jCzVMSIejfkRDipEykl8l53AfejLlvr7dd7OuPsmKlObpqUlDgbC2b4x0m8FNeJRDvdvM9BhHE5RDDw9ot+lr2z7ZdOueopxI+9RgPfOrNafh5AH/gltADRRx5lefvF6MU04ihRmSsu06iepoJBTFjGQVL5UkQfgO9UnbYITMro7O7cjghlF6MIyFOZGCufp9QiMu5ZAHppMjNZC/ayPxv1o7VeFeR9MoSRWJ8HhRmDKoYjjyFvaoIFixoQGEBTV3hXiAjHvK/EDFmOD+fvJfuGw23K3Gzvl27aBZ2FEGa2Ad2MAFu+AAHIMz0AIYPIAX8AberUfr1fqwPsetJauYWQU/olT+Au1Islg=</latexit>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        14
+
+
+
+
+   Another example
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   J=3 groups
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        Vanilla    Choc.     Straw     Total                  Vanilla   Choc.   Straw    Total
+
+K=2                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          Male         22            13    6         41           Male
+values                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       Female       13            20    4         37           Female
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             Total        35            33    10        78           Total
+
+
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      Observed counts (Yij’s)                        Expected counts under H0 (Eij’s)
+
+   H0: The distributions of the values
+        are the same across groups
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              J X
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              X K
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  (Yij              Eij )2           2
+   Q=                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        ⇠       ((J 1)⇥(K 1))
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              j=1 i=1
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  Eij
+    <latexit sha1_base64="JRPFmutiV/Kru+e8hWGhTA9pEtA=">AAACTnicbZFLSwMxEMez9VXrq+rRS7AI24Nltyp6EQQRRC8K1gfddsmm2Taa7C5JVihhP6EX8ebH8OJBEU23e/A1EPjNf2aY5J8gYVQqx3m2ShOTU9Mz5dnK3PzC4lJ1eeVSxqnApIVjFovrAEnCaERaiipGrhNBEA8YuQruDkf1q3siJI2jCzVMSIejfkRDipEykl8l53AfejLlvr7dd7OuPsmKlObpqUlDgbC2b4x0m8FNeJRDvdvM9BhHE5RDDw9ot+lr2z7ZdOueopxI+9RgPfOrNafh5AH/gltADRRx5lefvF6MU04ihRmSsu06iepoJBTFjGQVL5UkQfgO9UnbYITMro7O7cjghlF6MIyFOZGCufp9QiMu5ZAHppMjNZC/ayPxv1o7VeFeR9MoSRWJ8HhRmDKoYjjyFvaoIFixoQGEBTV3hXiAjHvK/EDFmOD+fvJfuGw23K3Gzvl27aBZ2FEGa2Ad2MAFu+AAHIMz0AIYPIAX8AberUfr1fqwPsetJauYWQU/olT+Au1Islg=</latexit>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 15
+
+
+
+
+   Another example
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   J=3 groups
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        Vanilla    Choc.     Straw     Total                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           Vanilla   Choc.   Straw    Total
+
+K=2                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          Male         22            13    6         41                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    Male      18.4     17.3     5.3
+values                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       Female       13            20    4         37                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    Female    16.6     15.7     4.7
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             Total        35            33    10        78                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    Total
+
+
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      Observed counts (Yij’s)                        Expected counts under H0 (Eij’s)
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           PJ                   K
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            j=1 Yij
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                X
+   H0: The distributions of the values                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               p̂i =          , Eij = p̂i   Ykj
+        are the same across groups                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            N
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     <latexit sha1_base64="xhi3K5RnKmrLsIIEgqINXYmtFlM=">AAACRHicbVDJSgMxAM24W7eqRy/BIniQMuOCXgRBBFGQCrZVOnXIpBmbTmYxyQgl5OO8+AHe/AIvHhTxKqbTIlp9EHi8hSTPTxkV0rafrJHRsfGJyanpwszs3PxCcXGpJpKMY1LFCUv4pY8EYTQmVUklI5cpJyjyGan74WHPr98RLmgSX8huSpoRuolpQDGSRvKKDbeNpEq1R+E+dAOOsHJFFnmqs+/oa3Wi4ZWnaEdrdaY3oHuboRY8ypVe/rvb74R55zTvhB3tFUt22c4B/xJnQEpggIpXfHRbCc4iEkvMkBANx05lUyEuKWZEF9xMkBThEN2QhqExiohoqnwEDdeM0oJBws2JJczVnw2FIiG6kW+SEZJtMez1xP+8RiaDvaaicZpJEuP+RUHGoExgb1HYopxgybqGIMypeSvEbWSWlGb3ghnBGf7yX1LbLDtb5Z3z7dLB5mCOKbACVsE6cMAuOADHoAKqAIN78AxewZv1YL1Y79ZHPzpiDTrL4Beszy9kJbI+</latexit>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 k=1
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              J X
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              X K
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  (Yij              Eij )2           2
+   Q=                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        ⇠       ((J 1)⇥(K 1))
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              j=1 i=1
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  Eij
+    <latexit sha1_base64="JRPFmutiV/Kru+e8hWGhTA9pEtA=">AAACTnicbZFLSwMxEMez9VXrq+rRS7AI24Nltyp6EQQRRC8K1gfddsmm2Taa7C5JVihhP6EX8ebH8OJBEU23e/A1EPjNf2aY5J8gYVQqx3m2ShOTU9Mz5dnK3PzC4lJ1eeVSxqnApIVjFovrAEnCaERaiipGrhNBEA8YuQruDkf1q3siJI2jCzVMSIejfkRDipEykl8l53AfejLlvr7dd7OuPsmKlObpqUlDgbC2b4x0m8FNeJRDvdvM9BhHE5RDDw9ot+lr2z7ZdOueopxI+9RgPfOrNafh5AH/gltADRRx5lefvF6MU04ihRmSsu06iepoJBTFjGQVL5UkQfgO9UnbYITMro7O7cjghlF6MIyFOZGCufp9QiMu5ZAHppMjNZC/ayPxv1o7VeFeR9MoSRWJ8HhRmDKoYjjyFvaoIFixoQGEBTV3hXiAjHvK/EDFmOD+fvJfuGw23K3Gzvl27aBZ2FEGa2Ad2MAFu+AAHIMz0AIYPIAX8AberUfr1fqwPsetJauYWQU/olT+Au1Islg=</latexit>
+                                                                                       16
+
+
+
+
+   Another example
+                            J=3 groups
+                  Vanilla   Choc.   Straw   Total            Vanilla   Choc.   Straw    Total
+
+K=2      Male       22       13      6       41     Male      18.4     17.3     5.3
+values   Female     13       20      4       37     Female    16.6     15.7     4.7
+         Total      35       33      10      78     Total
+
+
+
+
+    Switching groups and values gives you the same answer.
+    You’re just rotating the table of counts 90 degrees.
+                                                  17
+
+
+
+
+Chi-square test in Stata
+      tabulate var1 var2 ,chi2
+
+. tab fav male ,chi2
+
+           |         male
+ favflavor |         0          1 |     Total
+-----------+----------------------+----------
+Strawberry |         4          6 |        10
+ Chocolate |        20         13 |        33
+   Vanilla |        13         22 |        35
+-----------+----------------------+----------
+     Total |        37         41 |        78
+
+          Pearson chi2(2) =      4.0045   Pr = 0.135
+                                                       18
+
+
+
+
+Fisher’s Exact Test
+A good rule of thumb is that the χ2 test works well if you
+have at least 5 observations in each cell.
+
+Fisher’s Exact Test does not rely on the CLT.
+                                                       19
+
+
+
+
+Fisher’s Exact Test
+A good rule of thumb is that the χ2 test works well if you
+have at least 5 observations in each cell.
+
+Fisher’s Exact Test does not rely on the CLT.
+
+BUT it’s computationally intensive to compute with more
+than a few groups and/or possible values.
+                                                      20
+
+
+
+
+Fisher’s exact test in Stata
+        tabulate var1 var2 ,exact
+
+. tab fav male ,chi2 exact
+
+Enumerating sample-space combinations:
+stage 3: enumerations = 1
+stage 2: enumerations = 6
+stage 1: enumerations = 0
+
+           |         male
+ favflavor |         0          1 |     Total
+-----------+----------------------+----------
+Strawberry |         4          6 |        10
+ Chocolate |        20         13 |        33
+   Vanilla |        13         22 |        35
+-----------+----------------------+----------
+     Total |        37         41 |        78
+
+          Pearson chi2(2) =   4.0045     Pr = 0.135
+           Fisher's exact =                   0.147
+                                                         21
+
+
+
+
+Testing the median
+
+                       H0: Median(X) = m0
+
+Under H0, we expect half our sample above and half below m0
+C = count of observations below m0.
+
+Under H0, C~Binomial(n,0.5)
+
+if c<n/2, p-value will be Pr(C ≤ c or C ≥ n/2+(n/2-c))
+if c>n/2, p-value will be Pr(C ≤ n/2-(c-n/2) or C ≥ c)
+                                                              22
+
+                                       C = count of observations below m0.
+
+Testing the median
+Suppose we have 10 observations:
+
+                      4, 3, 2, 1, 9, 4, 1, 4, 6, 9
+
+Test H0: median=7, ↵ = 0.05
+
+(First compute C and remember under H0, C~Binomial(n,0.5))
+
+A) Reject
+
+B) Do not reject
+                                                                   23
+
+
+
+
+Median test for two populations
+• t-test is invalid for small samples when original data is not normally
+ distributed
+• t-tests are not robust to outliers when original data is highly skewed
+
+• Medians are far more robust to outliers than means
+                                                                   24
+
+
+
+
+Median test for two populations
+• t-test is invalid for small samples when original data is not normally
+ distributed
+• t-tests are not robust to outliers when original data is highly skewed
+
+• Medians are far more robust to outliers than means
+
+Step 1: Combine the two samples and compute the pooled median
+Step 2: Count observations below and above the pooled median in
+        each sample
+Step 3: Create 2x2 table with counts and do a Chi-squared test that
+        distributions are the same.
+                                                                25
+
+
+
+
+Median test for two populations
+Step 1: Combine the two samples and compute the pooled median
+Step 2: Count observations below and above the pooled median in
+        each sample
+Step 3: Create 2x2 table with counts and do a Chi-squared test that
+        distributions are the same.
+Sample A: 1 3 5 7 9 11 13 15 17 300
+
+Sample B: 6 8 10 12 14 16 18 20 22 296 500
+
+Test the hypothesis that the populations have the same median
+
+A)   Reject
+
+B)   Do not reject
+                                                                     26
+
+
+
+
+What we’ve learned
+The Chi-square test is incredibly powerful.
+  • Univariate Chi-square tests whether your data comes from a particular
+    multivariate distribution
+  • Bivariate Chi-square tests equality of distributions
+                                                                     27
+
+
+
+
+What we’ve learned
+The Chi-square test is incredibly powerful.
+  • Univariate Chi-square tests whether your data comes from a particular
+    multivariate distribution
+  • Bivariate Chi-square tests equality of distributions
+
+
+
+
+Fisher’s exact test works well when some cell counts are small
+  • BUT don’t try it with a large number of groups and/or values
+                                                                     28
+
+
+
+
+What we’ve learned
+The Chi-square test is incredibly powerful.
+  • Univariate Chi-square tests whether your data comes from a particular
+    multivariate distribution
+  • Bivariate Chi-square tests equality of distributions
+
+
+
+
+Fisher’s exact test works well when some cell counts are small
+  • BUT don’t try it with a large number of groups and/or values
+
+
+
+
+When it’s not reasonable to test means, you can test medians
+

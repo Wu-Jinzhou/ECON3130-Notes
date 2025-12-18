@@ -1,0 +1,103 @@
+\section{Estimation and Consistency}
+\textbf{Date:} \underline{Nov 5, 2025}
+
+\subsection{Quality of Estimates}
+\begin{itemize}
+    \item Let $\overline{X}$ be a random variable centered on the population mean.
+    \item How do we get the standard deviation of $\overline{X}$?
+    \item \textbf{Method 1}: Resample 100 times and look at the standard deviation of the observed distribution of $\overline{X}$. (Expensive)
+    \item \textbf{Method 2}: Rely on the Central Limit Theorem (CLT). Since sample means are approximately normally distributed with variance $\sigma^2/n$ when $n$ is large. (Cheap)
+    \item \textbf{Note}:
+    \begin{itemize}
+        \item The SD of an estimator usually depends on unknown population parameters (like $\sigma$).
+        \item When we plug in estimates for these parameters, we call it the \textbf{Standard Error (SE)}.
+        \[ SD(X_i) \neq s \neq SE(\overline{X}) \]
+    \end{itemize}
+\end{itemize}
+
+\subsection{Example: Virginia Governor's Election 2021}
+\begin{itemize}
+    \item \textbf{Poll}: October 20-26, 2021, Washington Post/GMU polled 1,107 registered voters.
+    \item \textbf{Result}: Youngkin support estimate $\hat{p} = 0.45$.
+    \item \textbf{Model}: $X_i = 1$ if individual $i$ supports Youngkin, 0 otherwise.
+    \item Then $\hat{p} = \overline{X}$, and (approximately, by the CLT) $\overline{X} \sim N\!\left(p,\frac{p(1-p)}{n}\right)$.
+    \item \textbf{Standard Error}:
+    \[
+        SD(\hat{p}) = \sqrt{\frac{\sigma^2}{n}}=\sqrt{\frac{p(1-p)}{n}}
+        \approx \sqrt{\frac{\hat{p}(1-\hat{p})}{n}} = \sqrt{\frac{0.45(1-0.45)}{1107}} = 0.015
+    \]
+    \[
+        SD(\hat{p}) \approx \sqrt{\frac{\hat{p}(1-\hat{p})}{n}} = \sqrt{\frac{0.45(1-0.45)}{1107}} = 0.015
+    \]
+    \item \textbf{True SD example}: If $p=0.50$, then $SD(\hat{p}) = \sqrt{\frac{0.50(1-0.50)}{1107}} = 0.015$.
+    \[
+        \text{True}\, SD(\hat{p}) = \sqrt{\frac{p(1-p)}{n}} = \sqrt{\frac{0.50(1-0.50)}{1107}} = 0.015
+    \]
+    \item \textbf{Margin of Error}: $\approx \pm 3$ percentage points (approx. 2 SEs for 95\% confidence).
+    \item \textbf{Outcome}: Youngkin actually won with more support. The poll was off by 5.6 points.
+    \item \textbf{Probability Calculation}: If the true $p=0.506$, then using $SD(\hat{p})\approx 0.015$,
+    \[
+        \overline{X} \sim N(0.506, 0.015^2)
+    \]
+    and the probability of observing a result at least as extreme as $0.45$ (two-sided around $0.506$) is:
+    \[
+        \Pr(\overline{X} \leq 0.45 \cup \overline{X} \geq 0.562)
+        = 2 \times (1-\Pr(\overline{X} \leq 0.562))
+        = 2 \times \left(1-\Pr\!\left(Z \leq \frac{0.562-0.506}{0.015}\right)\right)
+    \]
+    \[
+        = 2 \times (1-\Pr(Z \leq \frac{0.562 - 0.506}{0.015}))
+        = 2 \times (1-\Pr(Z \leq 3.73)) = 0.0002
+    \]
+\end{itemize}
+
+\subsection{Convergence in Probability}
+\begin{itemize}
+    \item Let $S_1, S_2, \ldots, S_n, \ldots$ be a sequence of random variables.
+    \item $S_n \xrightarrow{p} \mu$ if and only if $\lim_{n \to \infty} Pr(|S_n - \mu| \ge \epsilon) = 0$ for all $\epsilon > 0$.
+    \item Typically denoted as:
+    \begin{itemize}
+        \item $\text{plim } S_n = \mu$
+        \item $S_n$ converges in probability to $\mu$.
+        \item $S_n$ is a \textbf{consistent estimator} of $\mu$.
+    \end{itemize}
+\end{itemize}
+
+\subsection{Law of Large Numbers (LLN)}
+\begin{itemize}
+    \item If $Y_1, \ldots, Y_n$ are i.i.d., $E[Y_i] = \mu$, and $Var[Y_i] < \infty$, then:
+    \[ \overline{Y} \xrightarrow{p} \mu \]
+    \item That is, $\overline{Y}$ is a consistent estimator of $\mu$.
+\end{itemize}
+
+\subsection{Chebyshev's Inequality}
+\begin{itemize}
+    \item For any random variable $X$ and any $r > 0$:
+    \[ Pr(|X - E[X]| \ge r) \le \frac{Var[X]}{r^2} \]
+    \item \textbf{Proving LLN}:
+    \[ Var[\overline{Y}] = \frac{\sigma^2}{n} \]
+    \[ Pr(|\overline{Y} - \mu| \ge r) \le \frac{\sigma^2/n}{r^2} \to 0 \text{ as } n \to \infty \]
+\end{itemize}
+
+\subsection{Examples: Bias vs. Consistency}
+\begin{itemize}
+    \item Let $X_1,\dots,X_n$ be i.i.d. with $E[X_i]=\mu$.
+    \item $\overline{X}$ is unbiased and consistent for $\mu$.
+    \item $X_1$ is unbiased for $\mu$, but not consistent (it does not converge to $\mu$ as $n\to\infty$).
+    \item $\frac{1}{n+1}\sum_{i=1}^n X_i = \frac{n}{n+1}\overline{X}$ is biased for finite $n$, but consistent for $\mu$.
+\end{itemize}
+
+\subsection{Consistency Guidelines}
+\begin{itemize}
+    \item \textbf{Generalized Chebyshev's Inequality}: For any random variable $W$, $Pr(|W| \ge r) \le E[W^2]/r^2$.
+    \item To prove an estimator $\tilde{Y}$ is consistent for $\mu$, define $W = \tilde{Y} - \mu$.
+    \item \textbf{Mean Squared Error (MSE)}: $E[(\tilde{Y} - \mu)^2] = Bias(\tilde{Y})^2 + Var(\tilde{Y})$.
+    \item \textbf{Sufficient Condition}: If $MSE \to 0$ as $n \to \infty$, the estimator is consistent.
+    \item Equivalently, for an estimator sequence $\theta_n$,
+    \[
+        \lim_{n \rightarrow \infty} E[\theta_n] = \mu
+        \quad \text{and} \quad
+        \lim_{n \rightarrow \infty} \mathrm{Var}[\theta_n] = 0
+        \;\;\Rightarrow\;\; \theta_n \xrightarrow{p} \mu.
+    \]
+\end{itemize}

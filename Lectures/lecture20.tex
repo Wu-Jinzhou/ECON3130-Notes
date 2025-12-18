@@ -1,0 +1,69 @@
+\section{Univariate Nonparametric Tests}
+\textbf{Date:} \underline{Nov 24, 2025}
+
+\subsection{Review of Distributions}
+We have covered several distributions derived from the Normal distribution:
+\begin{itemize}
+    \item \textbf{Chi-square Distribution ($\chi^2_k$)}:
+        \begin{itemize}
+            \item If $Z_1, \dots, Z_k \sim N(0,1)$ are independent, then $X = \sum_{i=1}^k Z_i^2 \sim \chi^2_k$.
+            \item Notation: $V \sim \chi^2(n)$.
+            \item Mean: $k$, Variance: $2k$.
+            \item PDF:
+            \[
+                f_k(x) = \frac{1}{2^{k/2} \Gamma(k/2)}x^{k/2 -1}e^{-x/2}, \quad x>0.
+            \]
+        \end{itemize}
+    \item \textbf{F Distribution ($F_{m,n}$)}:
+        \begin{itemize}
+            \item If $U \sim \chi^2_m$ and $V \sim \chi^2_n$ are independent, then $X = \frac{U/m}{V/n} \sim F_{m,n}$.
+            \item Used for testing equality of variances ($H_0: \sigma_1^2 = \sigma_2^2$).
+        \end{itemize}
+    \item \textbf{Student's t Distribution ($t_n$)}:
+        \begin{itemize}
+            \item If $Z \sim N(0,1)$ and $U \sim \chi^2_n$ are independent, then $X = \frac{Z}{\sqrt{U/n}} \sim t_n$.
+            \item Used for small sample tests of means.
+        \end{itemize}
+\end{itemize}
+
+\subsection{K-Multinomial Random Variables}
+Let $Y \sim km(n, p_1, p_2, \dots, p_k)$.
+\begin{itemize}
+    \item $Y$ is a vector of $k$ counts ($Y_1, \dots, Y_k$).
+    \item $\sum p_i = 1$.
+    \item $n$ total trials. $Y_k$ is the number of times we observe the $k$-th outcome.
+\end{itemize}
+
+\subsection{The Univariate Chi-square Test}
+We want to test if a sample comes from a specific multinomial distribution (Goodness of Fit).
+\begin{itemize}
+    \item \textbf{Hypothesis}: The data is drawn from a multinomial distribution with probabilities $p_1, \dots, p_k$.
+    \item \textbf{Test Statistic (Pearson's Chi-square)}:
+    \[ Q_{k-1} = \sum_{i=1}^k \frac{(Y_i - n p_i)^2}{n p_i} \sim \chi^2_{k-1} \]
+    \item Here, $Y_i$ is the \textit{Observed} count ($O_i$) and $n p_i$ is the \textit{Expected} count ($E_i$).
+    \[ \chi^2 = \sum \frac{(O - E)^2}{E} \]
+\end{itemize}
+
+\subsection{Proof for k=2}
+For $k=2$, the Chi-square statistic is:
+\[ Q_1 = \frac{(Y_1 - n p_1)^2}{n p_1} + \frac{(Y_2 - n p_2)^2}{n p_2} \]
+Since $Y_2 = n - Y_1$ and $p_2 = 1 - p_1$, this simplifies to:
+\[
+    Q_1
+    = \frac{(Y_1 - n p_1)^2}{n p_1} + \frac{((n-Y_1) - n(1-p_1))^2}{n(1-p_1)}
+    = \frac{(Y_1 - n p_1)^2}{n p_1 (1 - p_1)}.
+\]
+\[ Q_1 = \frac{(Y_1 - n p_1)^2}{n p_1 (1 - p_1)} \]
+This is exactly the square of the z-statistic for a (single) proportion:
+\[
+    z_k = \frac{Y_k - np_k}{\sqrt{np_k(1-p_k)}}.
+\]
+In particular,
+\[
+    z_k^2=\frac{(Y_k-np_k)^2}{np_k(1-p_k)}.
+\]
+\[ z = \frac{\hat{p} - p_0}{\sqrt{\frac{p_0(1-p_0)}{n}}} \implies z^2 = \frac{(Y_1/n - p_1)^2}{p_1(1-p_1)/n} = \frac{(Y_1 - n p_1)^2}{n p_1 (1-p_1)} \]
+Thus, for $k=2$, the Chi-square test is equivalent to the two-sided z-test for proportions, and
+\[
+    Q_1 = z^2 \approx \chi^2(1).
+\]

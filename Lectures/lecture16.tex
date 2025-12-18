@@ -1,0 +1,104 @@
+\section{Maximum Likelihood Estimation and Confidence Intervals}
+\textbf{Date:} \underline{Nov 10, 2025}
+
+\subsection{Maximum Likelihood Estimation (MLE)}
+\begin{itemize}
+    \item \textbf{Setup}:
+    \begin{itemize}
+        \item We have a random sample of i.i.d. observations.
+        \item We know the functional form of the pdf/pmf for each observation, say $f(x_i; \theta)$.
+        \item We do NOT know the parameters $\theta$.
+    \end{itemize}
+    \item \textbf{Likelihood Function}: The joint probability (pdf or pmf) of the whole sample, viewed as a function of the parameters $\theta$.
+    \[ L(\theta) = \prod_{i=1}^n f(x_i; \theta) \]
+    \item \textbf{MLE}: The estimator that maximizes $L(\theta)$ for the observed data.
+    \item \textbf{Log Likelihood}: It is usually easier to maximize the log of the likelihood function.
+    \[
+        \mathcal{L}(\theta) = \log L(\theta) = \sum_{i=1}^{n} \log f(x_i; \theta)
+    \]
+\end{itemize}
+
+\subsection{Examples}
+\subsubsection{Example 1: Normal Distribution $N(\mu, \sigma^2)$}
+\begin{itemize}
+    \item Likelihood:
+    \[
+        L(\mu,\sigma^2) = \prod_{i=1}^{n} \frac{1}{\sqrt{2 \pi \sigma^2}} \exp \left(- \frac{(x_i-\mu)^2}{2 \sigma^2}\right)
+    \]
+    \item Equivalent factorization:
+    \[
+        L(\mu,\sigma^2) = \left(\frac{1}{\sqrt{2 \pi \sigma^2}}\right)^n \prod_{i=1}^{n} \exp\left(-\frac{(x_i-\mu)^2}{2 \sigma^2}\right)
+    \]
+    \item Log likelihood:
+    \[
+        \mathcal{L}(\mu,\sigma^2) = - \frac{n}{2} \ln (2 \pi \sigma^2) - \sum_{i=1}^{n}\frac{(x_i - \mu)^2}{2 \sigma^2}
+    \]
+    \item \textbf{MLE Estimators}:
+    \[
+        \hat{\mu} = \frac{1}{n}\sum_{i=1}^{n} x_i, \qquad \hat{\sigma}^2_{MLE} = \frac{1}{n}\sum_{i=1}^{n} (x_i - \hat{\mu})^2
+    \]
+    \item Note: $\hat{\sigma}^2_{MLE}$ is biased (denominator is $n$ instead of $n-1$), but consistent.
+\end{itemize}
+
+\subsubsection{Example 2: Bernoulli($p$)}
+\begin{itemize}
+    \item PDF: $f(x_i; p) = p^{x_i}(1-p)^{1-x_i}$.
+    \item Likelihood: $L(p) = \prod p^{x_i}(1-p)^{1-x_i} = p^{\sum x_i} (1-p)^{n - \sum x_i}$.
+    \item Log Likelihood:
+    \[ \mathcal{L}(p) = (\sum x_i) \ln(p) + (n-\sum x_i) \ln(1-p) \]
+    \item Maximizing with respect to $p$:
+    \[ \frac{\partial \mathcal{L}}{\partial p} = \frac{\sum x_i}{p} - \frac{n-\sum x_i}{1-p} = 0 \]
+    \[ \Rightarrow \hat{p}_{MLE} = \frac{\sum X_i}{n} = \overline{X} \]
+\end{itemize}
+
+\subsection{Properties of MLE}
+\begin{enumerate}
+    \item \textbf{Consistent}: Converges to true parameter as $n \to \infty$.
+    \item \textbf{Asymptotically Normal}.
+    \item \textbf{Asymptotically Efficient}: Has the Minimum Variance among all consistent estimators (Cramér-Rao Lower Bound).
+\end{enumerate}
+\begin{itemize}
+    \item \textbf{Catch}: You must assume the correct distribution.
+\end{itemize}
+
+\subsection{Confidence Intervals (Large Sample)}
+\begin{itemize}
+    \item From CLT: $\overline{X} \sim N(\mu,\sigma^2/n)$, so $Var(\overline{X}) = \sigma^2/n \approx s^2/n$.
+    \item \textbf{Standard Error}: $SE(\overline{X}) = s/\sqrt{n}$.
+    \item We choose $a,b$ such that:
+    \[
+        \Pr(\overline{X}-a \leq \mu \leq \overline{X}+b) = 0.95,
+    \]
+    i.e. $\Pr(\mu < \overline{X}-a)=0.025$ and $\Pr(\mu > \overline{X}+b)=0.025$.
+    \item 95\% Confidence Interval for $\mu$:
+    \[ \left[ \overline{X} - 1.96 \frac{s}{\sqrt{n}}, \quad \overline{X} + 1.96 \frac{s}{\sqrt{n}} \right] \]
+    \item \textbf{Interpretation}: In repeated sampling, 95\% of the intervals constructed this way will cover the true population mean $\mu$.
+\end{itemize}
+
+\subsection{Example: Consumer Expenditure Survey (2013)}
+\begin{itemize}
+    \item For \texttt{bedroomq}: $n=6679$, $\overline{X}=2.778$, $s=1.074$.
+    \item Standard error:
+    \[
+        SE(\overline{X}) = s/\sqrt{n} = 1.07/\sqrt{6679} = 0.013
+    \]
+\end{itemize}
+
+\subsection{Small Sample Confidence Intervals}
+For large $n$, the CLT implies
+\[
+    \frac{\overline{X}-\mu}{\sigma/\sqrt{n}} \approx N(0,1)
+\]
+for any distribution of $X_i$ with finite variance.
+
+If $X_i \sim N(\mu,\sigma^2)$ and $\sigma$ is unknown, then for any $n>1$,
+\[
+    \frac{\overline{X}-\mu}{s/\sqrt{n}} \sim t_{n-1}.
+\]
+So a $1-\alpha$ confidence interval is:
+\[
+    \overline{X} \pm t_{\alpha/2,\,n-1}\cdot SE(\overline{X}).
+\]
+\begin{itemize}
+    \item Example ($n=10$, $\overline{X}=2.9$, $s=1.1005$): $SE(\overline{X})=1.1005/\sqrt{10}=0.348$ and a 99\% CI uses $t_{0.005,9}$, so half-width $\approx 0.348\cdot t_{0.005,9}\approx 1.131$.
+\end{itemize}

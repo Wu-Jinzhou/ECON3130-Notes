@@ -1,0 +1,115 @@
+\section{More Hypothesis Testing}
+\textbf{Date:} \underline{Nov 19, 2025}
+
+\subsection{Type I and Type II Errors}
+\begin{center}
+\begin{tabular}{|c|c|c|}
+\hline
+ & \textbf{$H_0$ is True} & \textbf{$H_0$ is False} \\
+\hline
+\textbf{Accept $H_0$} & No Error & Type II Error ($\beta$) \\
+\hline
+\textbf{Reject $H_0$} & Type I Error ($\alpha$) & No Error \\
+\hline
+\end{tabular}
+\end{center}
+\begin{itemize}
+    \item \textbf{Type I Error ($\alpha$)}: Rejecting $H_0$ when it is true.
+        \begin{itemize}
+            \item We control this by setting the significance level $\alpha$ (usually 0.05).
+        \end{itemize}
+    \item \textbf{Type II Error ($\beta$)}: Failing to reject $H_0$ when it is false.
+        \begin{itemize}
+            \item Depends on $\alpha$, sample size ($n$), and the true effect size.
+            \item Power of the test = $1 - \beta$.
+        \end{itemize}
+\end{itemize}
+
+\subsection{Test of Equality of Variances}
+Before doing a two-sample t-test (equal variances), we can test if the variances are actually equal.
+\begin{itemize}
+    \item \textbf{Hypotheses}: $H_0: \sigma_1^2 = \sigma_2^2$ vs $H_1: \sigma_1^2 \ne \sigma_2^2$.
+    \item \textbf{Test Statistic}:
+    \[ F = \frac{s_1^2}{s_2^2} \]
+    (Convention: Put the larger sample variance in the numerator so $F \ge 1$).
+    \[
+        H_0: \sigma_1^2 = \sigma_2^2, \qquad F=\frac{s_1^2}{s_2^2}.
+    \]
+    \item \textbf{Distribution}: Under $H_0$ (and normal populations), $F \sim F_{n_1-1, n_2-1}$.
+    \item \textbf{Decision}: Reject if p-value $< \alpha$.
+\end{itemize}
+
+\subsection{Two Sample Test with Unequal Variances (Welch's t-test)}
+If we reject equality of variances, or simply don't want to assume it:
+\begin{itemize}
+    \item In general,
+    \[
+        Var[\overline{X}_1 - \overline{X}_2]
+        = Var[\overline{X}_1] + (-1)^2Var[\overline{X}_2]
+        = \frac{\sigma_1^2}{n_1} + \frac{\sigma_2^2}{n_2} \neq \frac{\sigma^2}{n_1} + \frac{\sigma^2}{n_2}.
+    \]
+    \item Correspondingly,
+    \[
+        \overline{X}_1 - \overline{X}_2 \sim N\left(\mu_1 - \mu_2, \frac{\sigma_1^2}{n_1} + \frac{\sigma_2^2}{n_2}\right).
+    \]
+    \item \textbf{Hypotheses}: $H_0: \mu_1 = \mu_2$.
+    \item \textbf{Test Statistic}:
+    \[ t = \frac{\bar{x}_1 - \bar{x}_2}{\sqrt{\frac{s_1^2}{n_1} + \frac{s_2^2}{n_2}}} \]
+    \item \textbf{Distribution}: Approximate t-distribution with degrees of freedom (Satterthwaite):
+    \[
+        d'=\frac{\left(s_1^2/n_1 + s_2^2/n_2\right)^2}{\frac{\left(s_1^2/n_1\right)^2}{n_1-1} + \frac{\left(s_2^2/n_2\right)^2}{n_2-1}}.
+    \]
+\end{itemize}
+
+\subsection{Tests with Proportions (Large Samples)}
+Since binary outcomes are not normal, we rely on the CLT (large samples).
+\begin{itemize}
+    \item \textbf{One Sample Proportion}:
+        \begin{itemize}
+            \item $H_0: p = p_0$.
+            \item Test Statistic: $z = \frac{\hat{p} - p_0}{\sqrt{\frac{p_0(1-p_0)}{n}}}$.
+        \end{itemize}
+    \item \textbf{Two Independent Proportions}:
+        \begin{itemize}
+            \item $H_0: p_1 = p_2$.
+            \item Pooled proportion: $\hat{p} = \frac{x_1 + x_2}{n_1 + n_2}$.
+            \item Test Statistic:
+            \[ z = \frac{\hat{p}_1 - \hat{p}_2}{\sqrt{\hat{p}(1-\hat{p}) \left( \frac{1}{n_1} + \frac{1}{n_2} \right) }} \]
+        \end{itemize}
+\end{itemize}
+
+\subsection{Big Picture: Which Mean Test?}
+\begin{itemize}
+    \item There are many tests of population means:
+    \begin{itemize}
+        \item One sample vs. two samples
+        \item Small sample vs. large sample
+        \item Two samples: independent vs. paired; equal vs. unequal variance
+    \end{itemize}
+\end{itemize}
+
+\subsection{Formula Summary (Common Cases)}
+\begin{itemize}
+    \item \textbf{One sample mean (large $n$)}:
+    \[
+        z=\frac{\overline{x}-\mu_0}{s/\sqrt{n}} \approx N(0,1).
+    \]
+    \item \textbf{Two independent means (large $n$, unequal variances)}:
+    \[
+        z=\frac{\overline{x}_1-\overline{x}_2}{\sqrt{\frac{s_1^2}{n_1}+\frac{s_2^2}{n_2}}} \approx N(0,1).
+    \]
+    \item \textbf{Two independent means (large $n$, equal variances)}:
+    \[
+        s_p=\sqrt{\frac{(n_1-1)s_1^2+(n_2-1)s_2^2}{n_1+n_2-2}},\qquad
+        z=\frac{\overline{x}_1-\overline{x}_2}{s_p\sqrt{\frac{1}{n_1}+\frac{1}{n_2}}} \approx N(0,1).
+    \]
+    \item \textbf{Two independent binary outcomes (large samples)}:
+    \[
+        \hat{p}=\frac{x_1+x_2}{n_1+n_2},\qquad s=\sqrt{\hat{p}(1-\hat{p})},\qquad
+        z=\frac{\hat{p}_1-\hat{p}_2}{s\sqrt{\frac{1}{n_1}+\frac{1}{n_2}}} \approx N(0,1).
+    \]
+    \item \textbf{Paired samples}:
+    \[
+        t=\frac{\overline{d}}{s_d/\sqrt{n}},\qquad s_d=\sqrt{\frac{1}{n-1}\sum (d_i-\overline{d})^2}.
+    \]
+\end{itemize}

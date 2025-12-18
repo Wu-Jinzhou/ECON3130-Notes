@@ -1,0 +1,74 @@
+\section{Small Sample Hypothesis Testing}
+\textbf{Date:} \underline{Nov 17, 2025}
+
+\subsection{Large Sample Tests Review}
+\begin{itemize}
+    \item \textbf{One Sample}: $H_0: \mu = \mu_0$. Test statistic $z = \frac{\bar{x} - \mu_0}{s/\sqrt{n}}$.
+    \item \textbf{Two Independent Samples}: $H_0: \mu_1 = \mu_2$. Test statistic $z = \frac{\bar{x}_1 - \bar{x}_2}{\sqrt{\frac{s_1^2}{n_1} + \frac{s_2^2}{n_2}}}$.
+    \item If the population SD is known and equal across groups, an alternative form is:
+    \[
+        z=\frac{\overline{x}_1-\overline{x}_2}{\sigma\sqrt{\frac{1}{n_1}+\frac{1}{n_2}}}.
+    \]
+    \item Under an equal-variance model,
+    \[
+        \overline{X}_1 - \overline{X}_2 \sim N\left(\mu_1 - \mu_2,\sigma^2\left(\frac{1}{n_1}+\frac{1}{n_2}\right)\right).
+    \]
+    \item \textbf{Approximation}: Uses Central Limit Theorem (CLT) for $n > 30$. Under $H_0$, $Z \sim N(0,1)$.
+\end{itemize}
+
+\subsection{Small Sample Tests (The t-test)}
+When sample sizes are small ($n < 30$), CLT does not apply.
+\begin{itemize}
+    \item \textbf{Assumptions}: Data are approximately normal, independent, equal variances.
+    \item \textbf{Distribution}: The test statistic follows a t-distribution with $n_1 + n_2 - 2$ degrees of freedom.
+    \item \textbf{One Sample t-test}:
+    \[
+        t=\frac{\overline{x}-\mu_0}{s/\sqrt{n}} \sim t_{n-1} \quad \text{(under $H_0$ and Normal data)}.
+    \]
+    \item \textbf{Test Statistic (Two Independent Samples)}:
+    \[ t = \frac{\bar{x}_1 - \bar{x}_2}{s_p \sqrt{\frac{1}{n_1} + \frac{1}{n_2}}}, \quad s_p = \sqrt{\frac{(n_1-1)s_1^2 + (n_2-1)s_2^2}{n_1+n_2-2}} \]
+    \item As $n \to \infty$, the t-distribution converges to the standard normal distribution using $z$.
+\end{itemize}
+
+\subsection{Example: Two Independent Samples (Small $n$)}
+\begin{itemize}
+    \item Example with $n_1=n_2=14$, $s_p=10$, and sample means $\overline{x}_1=64.4$, $\overline{x}_2=67.9$:
+    \[
+        t_{26}=\frac{64.4-67.9}{10 \sqrt{\frac{1}{14} + \frac{1}{14}}} = -0.926.
+    \]
+    \[
+        t_{26}=-0.926.
+    \]
+\end{itemize}
+
+\subsection{Paired Samples}
+Used when we have pairs of comparable individuals or repeated measures on the same individual (longitudinal).
+\begin{itemize}
+    \item \textbf{Definition}: Let $D_i = X_{1i} - X_{2i}$ be the difference for pair $i$.
+    \item \textbf{Hypothesis}: $H_0: \Delta = 0$ (mean difference is zero).
+    \item \textbf{Test Statistic}:
+    \[ t = \frac{\bar{d}}{s_d / \sqrt{n}} \]
+    where $\bar{d}$ is the mean difference and $s_d$ is the standard deviation of differences.
+    \[
+        s_d=\sqrt{\frac{1}{n-1}\sum_{i=1}^{n}(d_i-\overline{d})^2}.
+    \]
+    \[
+        s_d=\sqrt{\frac{1}{n-1}\sum (d_i-\overline{d})^2}.
+    \]
+    \item \textbf{Distribution}: Under $H_0$, $t \sim t_{n-1}$.
+    \item \textbf{Advantages}: Controls for individual variation, often resulting in lower standard errors compared to independent samples.
+\end{itemize}
+
+\subsection{One-sided vs. Two-sided Tests}
+\begin{itemize}
+    \item \textbf{Two-sided}: $H_0: \mu = \mu_0$ vs $H_1: \mu \ne \mu_0$.
+        \begin{itemize}
+            \item Rejection region split between both tails.
+        \end{itemize}
+    \item \textbf{One-sided}: $H_0: \mu \le \mu_0$ vs $H_1: \mu > \mu_0$ (or vice versa).
+        \begin{itemize}
+            \item Used when we are willing to assume the effect can only go in one direction.
+            \item P-value is half of the two-sided p-value (easier to reject $H_0$).
+            \item \textbf{Note}: The conservative approach is to always use a two-sided test.
+        \end{itemize}
+\end{itemize}

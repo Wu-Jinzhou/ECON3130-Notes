@@ -1,0 +1,52 @@
+\section{Bivariate Nonparametric Tests}
+\textbf{Date:} \underline{Dec 1, 2025}
+
+\subsection{Bivariate Chi-square Test (Test of Independence / Homogeneity)}
+Used to test if two (or more) groups have the same distribution of categorical outcomes.
+\begin{itemize}
+    \item \textbf{Setup}: Data is arranged in a contingency table with $J$ groups (columns) and $K$ values (rows).
+    \item \textbf{Hypothesis}: $H_0$: The distributions of the values are the same across groups.
+    \item \textbf{Expected Counts ($E_{ij}$)}: Under $H_0$, the best estimate for the probability of being in category $i$ is the pooled proportion:
+    \[ \hat{p}_i = \frac{\sum_{j=1}^J Y_{ij}}{N} \]
+    Then, $E_{ij} = \hat{p}_i \times (\text{Total count for Group } j)$.
+    \[
+        E_{ij} = \hat{p}_i \sum_{k=1}^{K} Y_{kj}
+    \]
+    \[
+        \hat{p}_i = \frac{\sum_{j=1}^{J} Y_{ij}}{N}, \quad E_{ij} = \hat{p}_i \sum_{k=1}^{K} Y_{kj}.
+    \]
+    \[ E_{ij} = \frac{(\text{Row Total}_i) \times (\text{Column Total}_j)}{N} \]
+    \item \textbf{Test Statistic}:
+    \[ Q = \sum_{j=1}^J \sum_{i=1}^K \frac{(Y_{ij} - E_{ij})^2}{E_{ij}} \]
+    \item \textbf{Distribution}: Under $H_0$, $Q \sim \chi^2_{(J-1)(K-1)}$.
+    \[
+        Q = \sum_{j=1}^{J} \sum_{i=1}^{K} \frac{(Y_{ij} - E_{ij})^2}{E_{ij}} \sim \chi^2_{((J-1)\times(K-1))}.
+    \]
+    \item \textbf{Condition}: Works well if expected counts in each cell are at least 5.
+\end{itemize}
+
+\subsection{Fisher's Exact Test}
+\begin{itemize}
+    \item Used when sample sizes are small (e.g., cell counts $< 5$) where the Chi-square approximation fails.
+    \item Does not rely on the CLT or large samples.
+    \item Computationally intensive for large tables.
+\end{itemize}
+
+\subsection{Median Tests}
+Useful when data is skewed or has outliers (t-tests might be invalid).
+\subsubsection{One Sample Median Test}
+\begin{itemize}
+    \item $H_0: \text{Median}(X) = m_0$.
+    \item Under $H_0$, we expect 50\% of observations to be below $m_0$.
+    \item Let $C =$ count of observations below $m_0$.
+    \item Under $H_0$, $C \sim \text{Binomial}(n, 0.5)$. We calculate the p-value using the Binomial distribution.
+\end{itemize}
+
+\subsubsection{Two Sample Median Test}
+Tests if two populations have the same median.
+\begin{enumerate}
+    \item Combine the two samples and compute the \textbf{pooled median}.
+    \item For each sample, count the number of observations above and below the pooled median.
+    \item Create a $2 \times 2$ contingency table with these counts.
+    \item Perform a Chi-square test (or Fisher's exact test) on this table.
+\end{enumerate}

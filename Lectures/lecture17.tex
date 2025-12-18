@@ -1,0 +1,79 @@
+\section{Introduction to Hypothesis Testing}
+\textbf{Date:} \underline{Nov 12, 2025}
+
+\subsection{Concepts}
+\begin{itemize}
+    \item \textbf{Goal}: Determine if an observed phenomenon is "real" or just due to chance.
+    \item \textbf{Null Hypothesis ($H_0$)}: The observed difference reflects pure chance variation. (Default assumption).
+    \item \textbf{Alternative Hypothesis ($H_1$ or $H_a$)}: The observed difference is real.
+    \item \textbf{Generic test statistic}:
+    \[
+        z=\frac{\mathrm{Observed} - \mathrm{Expected(Under\; Null)}}{SE(\overline{x})}.
+    \]
+\end{itemize}
+
+\subsection{Example: Quarter of Birth and Schooling (Angrist and Krueger 1991)}
+\begin{itemize}
+    \item \textbf{Question}: Do kids born in the 1st quarter get less schooling?
+    \item \textbf{Data}: 1980 US Census.
+    \item \textbf{Sample}: $n=81,671$ (born in 1st quarter).
+        \begin{itemize}
+            \item Mean schooling $\overline{X} = 12.69$ years.
+            \item Standard deviation $s = 3.310$ years.
+        \end{itemize}
+    \item \textbf{Population}: National average $\mu_0 = 12.77$.
+\end{itemize}
+
+\subsection{One Sample Test (Large Sample)}
+\begin{itemize}
+    \item \textbf{Hypotheses}:
+    \[ H_0: \mu = 12.77 \]
+    \[ H_1: \mu \ne 12.77 \]
+    \item \textbf{Test Statistic}:
+    \[
+        z=\frac{\mathrm{Observed} - \mathrm{Expected(Under\; Null)}}{SE(\overline{x})}
+        = \frac{\overline{x} - \mu_0}{s/\sqrt{n}}
+    \]
+    \item \textbf{Distribution}: Under $H_0$, $Z \sim N(0, 1)$ (approximately suitable for large samples).
+    \item \textbf{Reminder}: The null distribution depends on the data-generating process, e.g.
+    \[
+        X_i \sim \textrm{Normal}(\mu_0,\sigma^2), \quad X \sim \textrm{Binomial}(p=\mu_0,n), \quad X \sim \textrm{Poisson}(\lambda=\mu_0),
+    \]
+    but for sample means we often use a Normal approximation via the CLT:
+    \[
+        \frac{\overline{X}-\mu_0}{SE(\overline{X})} \approx \textrm{Normal}(0,1).
+    \]
+    \item \textbf{Calculation}:
+    \[ z = \frac{12.69 - 12.77}{3.310 / \sqrt{81671}} \approx \frac{-0.08}{0.0116} \approx -6.9 \]
+    \item \textbf{Decision}: Since $|z| > 1.96$, we reject $H_0$ at the 5\% level.
+\end{itemize}
+
+\subsection{Decision Rules and P-values}
+\begin{itemize}
+    \item \textbf{Decision Rule}: Reject if p-value $< \alpha$ (usually $\alpha=0.05$).
+    \item \textbf{P-value}: Probability of observing a test statistic as extreme as the one seen, assuming $H_0$ is true.
+    \item \textbf{Statistical Significance}: If we reject $H_0$, the result is "statistically significant".
+\end{itemize}
+
+\subsection{Two Sample Test (Independent Samples)}
+\begin{itemize}
+    \item \textbf{Setup}: Two populations with means $\mu_1, \mu_2$ and variances $\sigma_1^2, \sigma_2^2$.
+    \item \textbf{Hypotheses}: $H_0: \mu_1 = \mu_2$ vs $H_1: \mu_1 \ne \mu_2$.
+    \item \textbf{Assumption}: Equal variances ($\sigma_1^2 = \sigma_2^2$).
+    \item Under the equal-variance assumption,
+    \[
+        \overline{X_1} - \overline{X_2} \sim N\left(\mu_1-\mu_2,\sigma^2\left(\frac{1}{n_1}+\frac{1}{n_2}\right)\right).
+    \]
+    \item \textbf{Test Statistic}:
+    \[ z = \frac{\overline{X}_1 - \overline{X}_2}{s_p \sqrt{\frac{1}{n_1} + \frac{1}{n_2}}} \]
+    where $s_p$ is the pooled standard deviation:
+    \[ s_p = \sqrt{\frac{(n_1-1)s_1^2 + (n_2-1)s_2^2}{n_1 + n_2 - 2}} \]
+    \item \textbf{Q3 vs Q4 Example}:
+        \begin{itemize}
+            \item Q3: $n_1 = 86,856, \overline{X}_1 = 12.81, s_1 = 3.25$.
+            \item Q4: $n_2 = 80,844, \overline{X}_2 = 12.84, s_2 = 3.24$.
+            \item $z \approx -1.89$.
+            \item $\mathrm{p\text{-}value} = 2 \times \Pr(Z>1.89) = 0.059$.
+            \item Result: Fail to reject $H_0$ at 5\% level (though close).
+        \end{itemize}
+\end{itemize}

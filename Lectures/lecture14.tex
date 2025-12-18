@@ -1,0 +1,130 @@
+\section{Estimation}
+\textbf{Date:} \underline{Nov 3, 2025}
+
+\subsection{Overview}
+\begin{itemize}
+    \item \textbf{Big Picture}: We use random variables to represent uncertain outcomes (e.g., stock returns, household income).
+    \item \textbf{Problem}: Typically, we don't know the probability distribution of interest (e.g., unknown expected value or variance).
+    \item \textbf{Solution}: We estimate these properties with data by computing statistics that are good approximations to the unknowns.
+\end{itemize}
+
+\subsection{Samples and Populations}
+\begin{itemize}
+    \item We collect a \textbf{sample} of representative outcomes.
+    \item We view the sample as a representative subset of some \textbf{population} (the whole class of individuals we want to characterize).
+    \item Two examples:
+    \begin{center}
+    \begin{tabular}{c|c|c}
+        & \textbf{Population} & \textbf{Sample} \\
+        \hline
+        Pet survey & Cornell students & 125 students who responded \\
+        Daily stock returns & Past and future realizations & Past realizations \\
+    \end{tabular}
+    \end{center}
+    \item When working with samples, we need:
+    \begin{enumerate}
+        \item A clear definition of the population.
+        \item A reasonable probability model of how the sample was generated.
+    \end{enumerate}
+    \item \textbf{Comparison}:
+    \begin{center}
+    \begin{tabular}{c|c}
+        \textbf{Population (Unknowns)} & \textbf{Sample (Observed)} \\
+        \hline
+        Random Variable $Y$ & Data $\{y_1, y_2, \ldots, y_N\}$ \\
+        Unknown distribution & Sample histogram \\
+        Mean $\mu = E[Y]$ & Sample average $\bar{y}$ \\
+        Variance $\sigma^2 = E[(Y-\mu)^2]$ & Sample variance $s^2$ \\
+    \end{tabular}
+    \end{center}
+    \item \textbf{Goal}: Statistical Inference --- Saying something about the population using the sample data.
+    \item \textbf{Problems with Sampling}:
+    \begin{enumerate}
+        \item \textbf{Uncertainty}: Because you only have part of the population.
+        \item \textbf{Bias}: Potential biases in the sample (e.g., media/poll bias).
+    \end{enumerate}
+\end{itemize}
+
+\subsection{Estimating Means, Variances, Covariances, Correlations}
+\begin{itemize}
+    \item Population targets:
+    \[
+        \mu = E[Y], \qquad Var(Y)=E[(Y-E[Y])^2], \qquad Cov(X,Y)=E[(X-E[X])(Y-E[Y])].
+    \]
+    \item \textbf{Sample average} (estimator of $E[Y]$):
+    \[
+        \overline{y} = \frac{1}{n} \sum_{i=1}^{n} y_i = \frac{1}{n}(y_1 + y_2 + ... + y_n)
+    \]
+    \item \textbf{Sample variance} (estimator of $Var(Y)$):
+    \[
+        s^2 = \frac{1}{n-1} \sum_{i=1}^{n} (y_i - \overline{y})^2
+    \]
+    \item \textbf{Sample covariance} (estimator of $Cov(X,Y)$):
+    \[
+        s_{xy} = \frac{1}{n-1} \sum_{i=1}^{n} (x_i - \overline{x})(y_i - \overline{y})
+    \]
+    \item \textbf{Sample correlation}:
+    \[
+        r = \frac{s_{xy}}{s_x s_y}
+    \]
+    \item \textbf{Note}: The $n-1$ denominator is used for the same reason in both variance and covariance estimation.
+\end{itemize}
+
+\subsection{Example: Portfolio Analysis}
+\begin{itemize}
+    \item Consider holding a mix of two assets: "Experts' portfolio" and "Eli Lilly stock".
+    \item Does holding a mix reduce risk?
+    \item Given:
+    \begin{itemize}
+        \item Experts: $Var = 522.16$
+        \item Eli Lilly: $Var = 327$
+        \item $Cov(\text{Experts}, \text{Eli}) = 103.54$
+        \item Weights: $w_E = 0.65$, $w_L = 0.35$
+    \end{itemize}
+    \item Variance of a two-asset mix (generic weights $w$ and $1-w$):
+    \[
+        \begin{aligned}
+            Var(w\cdot \text{Eli} + (1-w)\cdot \text{Experts})
+            &= w^2 Var(\text{Eli}) + (1-w)^2 Var(\text{Experts}) \\
+            &\quad + 2w(1-w)Cov(\text{Eli}, \text{Experts})
+        \end{aligned}
+    \]
+    \item Variance of the mix:
+    \[
+        Var(Mix) = (0.65)^2 (522.16) + (0.35)^2 (327) + 2(0.65)(0.35)(103.54) = 307.65
+    \]
+    \item Expected return of the mix:
+    \[
+        E[Mix] = 0.65(10.31) + 0.35(6.37) = 8.931
+    \]
+    \item Correlation between Experts and Eli Lilly:
+    \[
+        \mathrm{Corr}(\text{Experts}, \text{Eli}) \approx 0.25
+    \]
+    \item \textbf{Bottom Line}: A mixed portfolio often has lower variance than either component, even when they are positively correlated.
+    \item \textbf{Financial Lessons}:
+    \begin{enumerate}
+        \item Optimal holdings depend on risk-return preferences.
+        \item Some portfolios are sub-optimal for any investor.
+    \end{enumerate}
+\end{itemize}
+
+\subsection{Quality of Estimates}
+\begin{itemize}
+    \item How good are our estimates?
+    \item Let $\overline{X}$ be a random variable centered on the population mean.
+    \item How do we get the standard deviation of $\overline{X}$?
+    \begin{itemize}
+        \item \textbf{Method 1}: Resample many times (Expensive).
+        \item \textbf{Method 2}: Rely on Central Limit Theorem (CLT) since sample means are approximately normally distributed when $n$ is large (Cheap).
+    \end{itemize}
+    \item \textbf{Standard Error (SE)}: The standard deviation of an estimator (like $\overline{X}$), estimated by plugging in sample estimates for unknown parameters (like $\sigma$).
+    \[
+        SE(\overline{X}) = \frac{s}{\sqrt{n}}
+    \]
+    \item \textbf{Example (Birthweight)}:
+    \begin{itemize}
+        \item Sample A ($n=100, s=24$): $SE(\overline{X}) = s/\sqrt{n} = 24/10 = 2.4$.
+        \item Sample B ($n=400, s=24$): $SE(\overline{X}) = s/\sqrt{n} = 24/20 = 1.2$.
+    \end{itemize}
+\end{itemize}

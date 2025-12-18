@@ -1,16 +1,90 @@
 \documentclass[10pt]{article}
 \usepackage[margin=0.5in]{geometry}
 \usepackage{multicol}
+\usepackage[utf8]{inputenc}
 \usepackage{amsmath, amssymb}
 \usepackage{enumitem}
-\setlist{nosep}
-\setlength{\columnsep}{0.15in}
-\setlength{\multicolsep}{0pt}
-\setlength{\parindent}{0pt}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{environ}
+\usepackage{titlesec}
+
+% --- Global spacing: keep things tight for a cheatsheet ---
+\linespread{0.92}
+
+% Paragraph spacing.
 \pagestyle{empty}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0pt}
+
+% List spacing.
+\setlist[itemize]{topsep=1pt,itemsep=0pt,parsep=0pt,partopsep=0pt,leftmargin=*}
+\setlist[enumerate]{topsep=1pt,itemsep=0pt,parsep=0pt,partopsep=0pt,leftmargin=*}
+\setlist[description]{topsep=1pt,itemsep=0pt,parsep=0pt,partopsep=0pt,leftmargin=1.5em}
+
+% Display math spacing.
+\setlength{\abovedisplayskip}{3pt}
+\setlength{\belowdisplayskip}{3pt}
+\setlength{\abovedisplayshortskip}{2pt}
+\setlength{\belowdisplayshortskip}{2pt}
+\setlength{\jot}{2pt}
+
+% Section/subsection spacing.
+\titleformat{\section}{\small\bfseries}{\thesection}{0.5em}{}
+\titleformat{\subsection}{\footnotesize\bfseries}{\thesubsection}{0.5em}{}
+\titleformat{\subsubsection}{\scriptsize\bfseries}{\thesubsubsection}{0.5em}{}
+\titlespacing*{\section}{0pt}{0.6ex}{0.3ex}
+\titlespacing*{\subsection}{0pt}{0.5ex}{0.2ex}
+\titlespacing*{\subsubsection}{0pt}{0.4ex}{0.1ex}
+
+% Multicol spacing.
+\setlength{\multicolsep}{0pt}
+\setlength{\premulticols}{0pt}
+\setlength{\postmulticols}{0pt}
+
+% --- Minimal theorem-style environments used in notes ---
+\usepackage{amsthm}
+\theoremstyle{definition}
+\newtheorem*{definition}{Definition}
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+\theoremstyle{plain}
+\newtheorem*{theorem}{Theorem}
+\newtheorem*{solution}{Solution}
+
+% --- Flatten custom "box" environments into plain text/quote ---
+\newenvironment{tightquote}{%
+    \list{}{\leftmargin=1em\rightmargin=1em\topsep=0pt\partopsep=0pt\parsep=0pt\itemsep=0pt}%
+    \item\relax\small
+}{%
+    \endlist
+}
+\newenvironment{algobox}{\par\noindent\textbf{Algorithm.}\begin{tightquote}}{\end{tightquote}}
+\newenvironment{defbox}{\par\noindent\textbf{Definition.}\begin{tightquote}}{\end{tightquote}}
+\newenvironment{embox}{\par\noindent\begin{tightquote}}{\end{tightquote}}
+
+% --- Remove graphics and tables (cheatsheet version) ---
+% Drop all images.
+\renewcommand{\includegraphics}[2][]{}
+% Drop float/table content entirely.
+\RenewEnviron{figure}{}
+\RenewEnviron{figure*}{}
+\RenewEnviron{table}{}
+\RenewEnviron{table*}{}
+\RenewEnviron{tabular}{}
+\RenewEnviron{tabular*}{}
 
 \begin{document}
-\footnotesize
+
+\begin{center}
+    \normalsize ECON 3130 \hfill \today
+\end{center}
+
+\vspace{-1em}
+\hrule
+\vspace{0.5em}
+
+\raggedcolumns
 \begin{multicols}{2}
 
 \subsection*{Basic Probability}
@@ -56,6 +130,13 @@ $M_X(t) = \int_{-\infty}^{\infty} e^{tx} f(x) dx$ (continuous)
 
 \subsubsection*{Finding Moments}
 $r$-th moment: $\mu_r = E[X^r] = M_X^{(r)}(0)$
+
+\subsubsection*{Common MGFs (quick)}
+Bernoulli($p$): $M(t)=(1-p)+pe^t$\\
+Binomial($n,p$): $M(t)=(1-p+pe^t)^n$\\
+Poisson($\lambda$): $M(t)=\exp(\lambda(e^t-1))$\\
+Exponential($\lambda$): $M(t)=\frac{\lambda}{\lambda-t}$ for $t<\lambda$\\
+Gamma($\alpha,\theta$): $M(t)=(1-\theta t)^{-\alpha}$ for $t<1/\theta$
 
 \subsubsection*{Standardized Moments}
 $\hat{\mu}_k = \frac{E[(X-\mu)^k]}{E[(X-\mu)^2]^{k/2}}$\\
@@ -172,6 +253,13 @@ $\sigma_{XY} = \rho \sigma_X \sigma_Y$ so $E[Y|x] = \mu_Y + \frac{\sigma_{XY}}{\
 If $Y = u(X)$, $G(y) = \Pr(Y \le y) = \Pr(u(X) \le y)$, density $g(y) = G'(y)$\\
 Example: $X \sim N(0,1)$, $Y = e^X$ (log-normal) gives $G(y) = \Phi(\ln y)$, $g(y) = \phi(\ln y)\tfrac{1}{y}$ for $y>0$
 
+\subsubsection*{Change-of-Variable (shortcut)}
+If $Y=u(X)$ is one-to-one on its support and $X=v(Y)$ is the inverse, then
+\[
+    g_Y(y)=f_X(v(y))\cdot |v'(y)| \quad (y\in S_Y).
+\]
+Equivalent form (when $u$ differentiable, monotone): $g_Y(y)=\frac{f_X(x)}{|u'(x)|}$ evaluated at $x=v(y)$.
+
 \subsubsection*{Change-of-Variable (1 Variable)}
 % Let $Y = u(X)$ with inverse $X = v(Y)$ over support. Then $g(y) = f(v(y)) \left|v'(y)\right|$\\
 % If $v$ increasing: $g(y) = f(v(y)) v'(y)$; decreasing: extra minus absorbed by absolute value
@@ -210,6 +298,20 @@ In general, we have:
     g(y) = f(v(y)) \cdot |v'(y)|, \qquad y \in S_Y
 \]
 
+\subsubsection*{Non-monotone / many-to-one case}
+If $y=u(x)$ has multiple inverse branches $\{x_j(y)\}$ over the support, then
+\[
+    g_Y(y)=\sum_{j} f_X(x_j(y))\cdot \left|\frac{d}{dy}x_j(y)\right|.
+\]
+Example: $Y=X^2$ with $X$ continuous,
+\[
+    g_Y(y)=\frac{f_X(\sqrt{y})+f_X(-\sqrt{y})}{2\sqrt{y}},\quad y>0.
+\]
+
+\subsubsection*{Quick examples}
+Linear: if $Y=aX+b$ ($a\ne 0$), then $g_Y(y)=\frac{1}{|a|}f_X\!\left(\frac{y-b}{a}\right)$.\\
+Min/max CDF trick: if $M=\max(X_1,\dots,X_n)$ iid with CDF $F$, then $F_M(m)=F(m)^n$; if $m=\min$, $F_m(m)=1-(1-F(m))^n$.
+
 \subsection*{Cauchy Distribution}
 $W \sim U(-\pi/2,\pi/2)$, $X = \tan W$ gives standard Cauchy\\
 $f_X(x) = \frac{1}{\pi(1+x^2)}$, heavy tails, symmetric about $0$\\
@@ -221,6 +323,10 @@ Graph of pdf known as the witch of Agnesi
 For $(X_1,X_2)$ with joint pdf $f$, let $Y_1 = u_1(X_1,X_2)$, $Y_2 = u_2(X_1,X_2)$ invertible to $X_i = v_i(Y_1,Y_2)$\\
 Joint pdf $g(y_1,y_2) = \left|\begin{smallmatrix} \frac{\partial v_1}{\partial y_1} & \frac{\partial v_1}{\partial y_2} \\[2pt] \frac{\partial v_2}{\partial y_1} & \frac{\partial v_2}{\partial y_2} \end{smallmatrix}\right| f\!\left(v_1(y_1,y_2), v_2(y_1,y_2)\right)$\\
 Jacobian determinant captures area/volume distortion from the transformation
+
+\subsubsection*{Common Jacobians}
+Sum/difference: $U=X+Y$, $V=X-Y$ $\Rightarrow$ $x=\frac{u+v}{2}$, $y=\frac{u-v}{2}$, $|J|=\left|\frac{\partial(x,y)}{\partial(u,v)}\right|=\frac{1}{2}$.\\
+Polar (from $(X,Y)$ to $(R,\Theta)$): $x=r\cos\theta$, $y=r\sin\theta$, $|J|=r$.
 
 \subsection*{Limit Theorems \& Inequalities}
 \subsubsection*{Sample Mean}
@@ -241,10 +347,648 @@ Justifies normal approximations even when data not normal, provided finite mean/
 \subsubsection*{MGF Method Insight}
 If mgfs $M_n(t)$ converge to $M(t)$ near $0$, then $X_n \Rightarrow X$ with mgf $M(t)$; used to establish the CLT limit
 
+\subsection*{Quick Approximations (Pre Lec 14)}
+\subsubsection*{Normal approximation}
+If $X\sim Binomial(n,p)$ with large $n$ and $np,n(1-p)$ not too small:
+\[
+    \frac{X-np}{\sqrt{np(1-p)}} \approx N(0,1)
+    \qquad
+    X\approx N(np,\ np(1-p))
+\]
+\subsubsection*{Poisson approximation}
+If $X\sim Binomial(n,p)$ with $n$ large and $p$ small, $\lambda=np$:
+\[
+    X\approx Poisson(\lambda)
+    \quad\Rightarrow\quad
+    \Pr(X=k)\approx \frac{\lambda^k e^{-\lambda}}{k!}
+\]
+\subsubsection*{Sums of independent r.v.'s}
+For independent $X_i$: $E[\sum X_i]=\sum E[X_i]$, $Var(\sum X_i)=\sum Var(X_i)$ (no covariances).
+
 \subsection*{Key Concepts}
 \textbf{Monty Hall Problem:} Switching doors wins with probability $\frac{2}{3}$\\
 \textbf{Bayes' Theorem:} $\Pr(A \mid B) = \frac{\Pr(B \mid A)\Pr(A)}{\Pr(B)}$\\
 \textbf{Total Probability:} $\Pr(A) = \sum_i \Pr(A \mid B_i)\Pr(B_i)$ for partition $\{B_i\}$
 
+\subsection*{Estimation (Lec 14)}
+\subsubsection*{Population vs. Sample (Sample analog principle)}
+Population (unknown): $Y$, distribution, $\mu=E[Y]$, $\sigma^2=Var(Y)$, $Cov(X,Y)$, $Corr(X,Y)$\\
+Sample (data): $\{y_1,\dots,y_n\}$, histogram, $\overline{y}$, $s^2$, $s_{xy}$, $r$
+
+\subsubsection*{Core estimators}
+\[
+    \overline{y}=\frac{1}{n}\sum_{i=1}^{n}y_i
+    \qquad
+    s^2=\frac{1}{n-1}\sum_{i=1}^{n}(y_i-\overline{y})^2
+\]
+\[
+    s^2=\frac{\sum_{i=1}^{n}y_i^2-n\overline{y}^{\,2}}{n-1}
+\]
+\[
+    s_{xy}=\frac{1}{n-1}\sum_{i=1}^{n}(x_i-\overline{x})(y_i-\overline{y})
+    \qquad
+    r=\frac{s_{xy}}{s_x s_y}
+\]
+\[
+    s_{xy}=\frac{\sum_{i=1}^{n}x_i y_i-n\overline{x}\,\overline{y}}{n-1}
+\]
+\textbf{SE (standard error):} SD of an estimator, estimated by plugging in sample estimates.
+\[
+    SE(\overline{X})=\frac{s}{\sqrt{n}}
+\]
+\[
+    \text{(true) } SD(\overline{X})=\frac{\sigma}{\sqrt{n}},\quad Var(\overline{X})=\frac{\sigma^2}{n}.
+\]
+95\% ``rule of thumb'': margin of error $\approx 2\cdot SE$.
+
+\subsubsection*{Portfolio / linear combo}
+\[
+    E[aX+bY]=aE[X]+bE[Y]
+\]
+\[
+    Var(aX+bY)=a^2Var(X)+b^2Var(Y)+2ab\,Cov(X,Y)
+\]
+\[
+    \begin{aligned}
+        Var(wX+(1-w)Y)
+        &= w^2Var(X)+(1-w)^2Var(Y) \\
+        &\quad +2w(1-w)Cov(X,Y)
+    \end{aligned}
+\]
+\textbf{Interpretation:} diversification can reduce variance even if $Corr(X,Y)>0$ (unless perfect correlation).
+
+\subsubsection*{Variance-minimizing mix (2 assets)}
+For $P=wX+(1-w)Y$ with $Var(X)=\sigma_X^2$, $Var(Y)=\sigma_Y^2$, $Cov(X,Y)=\sigma_{XY}$:
+\[
+    Var(P)=w^2\sigma_X^2+(1-w)^2\sigma_Y^2+2w(1-w)\sigma_{XY}.
+\]
+Minimum-variance weight on $X$:
+\[
+    w^*=\frac{\sigma_Y^2-\sigma_{XY}}{\sigma_X^2+\sigma_Y^2-2\sigma_{XY}}
+    =\frac{\sigma_Y^2-\rho\sigma_X\sigma_Y}{\sigma_X^2+\sigma_Y^2-2\rho\sigma_X\sigma_Y}.
+\]
+
+\subsubsection*{Sampling + bias (what can go wrong?)}
+\textbf{Uncertainty:} sample $\neq$ population.\\
+\textbf{Bias:} sample not representative (nonrandom selection, nonresponse, measurement error).\\
+\textbf{Sampling designs:} simple random sample; stratified sample; cluster sample.
+
+\subsubsection*{Unbiasedness vs. consistency}
+Unbiased: $E[\hat{\theta}]=\theta$. Consistent: $\hat{\theta}\xrightarrow{p}\theta$.\\
+Examples for $E[X_i]=\mu$:
+\begin{itemize}
+    \item $\overline{X}$ is unbiased and consistent.
+    \item $X_1$ is unbiased but not consistent.
+    \item $\frac{1}{n+1}\sum_{i=1}^{n}X_i=\frac{n}{n+1}\overline{X}$ is biased but consistent.
+\end{itemize}
+
+\subsubsection*{Why $n-1$ in $s^2$ and $s_{xy}$?}
+Using $\overline{y}$ costs one degree of freedom (Bessel correction); $s^2$ is unbiased for $\sigma^2$ under iid sampling.
+
+\subsection*{Consistency \& Convergence (Lec 15)}
+\subsubsection*{Convergence in probability}
+$S_n \xrightarrow{p} \mu$ iff $\lim_{n\to\infty}\Pr(|S_n-\mu|\ge \epsilon)=0$ for all $\epsilon>0$.\\
+Notation: $\text{plim }S_n=\mu$; ``$S_n$ consistent for $\mu$''.
+
+\subsubsection*{LLN + Chebyshev}
+If $Y_1,\dots,Y_n$ iid, $E[Y_i]=\mu$, $Var(Y_i)=\sigma^2<\infty$, then $\overline{Y}\xrightarrow{p}\mu$.\\
+Chebyshev: $\Pr(|X-E[X]|\ge r)\le \frac{Var(X)}{r^2}$.
+\[
+    Var(\overline{Y})=\frac{\sigma^2}{n}
+    \Rightarrow
+    \Pr(|\overline{Y}-\mu|\ge r)\le \frac{\sigma^2/n}{r^2}\to 0
+\]
+
+\subsubsection*{Generalized Chebyshev + MSE trick}
+Generalized Chebyshev: for any $W$, $\Pr(|W|\ge r)\le \frac{E[W^2]}{r^2}$.\\
+To prove $\tilde{Y}\xrightarrow{p}\mu$: set $W=\tilde{Y}-\mu$ and show $E[W^2]\to 0$.\\
+MSE: $E[(\tilde{Y}-\mu)^2]=Bias(\tilde{Y})^2+Var(\tilde{Y})$.\\
+Sufficient: $MSE\to 0$ $\Rightarrow$ consistent.\\
+For a sequence $\theta_n$:
+\[
+    \lim_{n\to\infty}E[\theta_n]=\mu,\ \lim_{n\to\infty}Var(\theta_n)=0 \Rightarrow \theta_n\xrightarrow{p}\mu
+\]
+
+\subsubsection*{SE for a sample proportion}
+If $X_i\in\{0,1\}$, $p=E[X_i]$, $\hat{p}=\overline{X}$:
+\[
+    SD(\hat{p})=\sqrt{\frac{p(1-p)}{n}}
+    \approx \sqrt{\frac{\hat{p}(1-\hat{p})}{n}}
+\]
+\[
+    \hat{p}\approx N\!\left(p,\frac{p(1-p)}{n}\right)\quad \text{(CLT)}.
+\]
+
+\subsection*{Maximum Likelihood (Lec 16)}
+\subsubsection*{Likelihood / log-likelihood}
+Given iid sample $x_1,\dots,x_n$ with pdf/pmf $f(x_i;\theta)$:
+\[
+    L(\theta)=\prod_{i=1}^{n}f(x_i;\theta),\qquad
+    \mathcal{L}(\theta)=\log L(\theta)=\sum_{i=1}^{n}\log f(x_i;\theta)
+\]
+MLE: $\hat{\theta}=\arg\max_\theta L(\theta)$ (equivalently maximize $\mathcal{L}$).
+
+\subsubsection*{Normal MLE ($X_i\sim N(\mu,\sigma^2)$)}
+\[
+    \hat{\mu}=\overline{X},\qquad
+    \hat{\sigma}^2_{MLE}=\frac{1}{n}\sum_{i=1}^{n}(x_i-\hat{\mu})^2
+\]
+Note: $\hat{\sigma}^2_{MLE}$ biased (uses $n$), but consistent.
+
+\subsubsection*{Bernoulli MLE ($X_i\sim Bern(p)$)}
+\[
+    L(p)=\prod p^{x_i}(1-p)^{1-x_i}
+    \Rightarrow
+    \hat{p}_{MLE}=\overline{X}
+\]
+\textbf{Asymptotics (high level):} MLEs are consistent, asymptotically normal, and asymptotically efficient (under correct specification).
+
+\subsection*{Confidence Intervals (Lec 16)}
+\subsubsection*{Large sample CI for a mean}
+By CLT, $\overline{X}\approx N(\mu,\sigma^2/n)$ and $Var(\overline{X})=\sigma^2/n\approx s^2/n$.
+\[
+    CI_{1-\alpha}:\ \overline{X}\pm z_{\alpha/2}\cdot \frac{s}{\sqrt{n}}
+\]
+Common: 95\% uses $z_{0.025}\approx 1.96$.
+
+\subsubsection*{One-sided confidence bounds (Practice 1)}
+Upper $(1-\alpha)$ bound: $\mu \le \overline{X}+z_{1-\alpha}\cdot SE(\overline{X})$.\\
+Lower $(1-\alpha)$ bound: $\mu \ge \overline{X}-z_{1-\alpha}\cdot SE(\overline{X})$.\\
+For a proportion: replace $SE(\overline{X})$ by $\sqrt{\hat{p}(1-\hat{p})/n}$ (CI) or $\sqrt{p_0(1-p_0)/n}$ (test).
+
+\subsubsection*{Small sample CI for a mean (Normal data)}
+If $X_i\sim N(\mu,\sigma^2)$ and $\sigma$ unknown, for any $n>1$:
+\[
+    \frac{\overline{X}-\mu}{s/\sqrt{n}} \sim t_{n-1}
+    \Rightarrow
+    \overline{X}\pm t_{\alpha/2,n-1}\cdot \frac{s}{\sqrt{n}}
+\]
+
+\subsubsection*{CI for a difference in means (independent samples)}
+Large $n$:
+\[
+    (\overline{X}_1-\overline{X}_2)\pm z_{\alpha/2}\sqrt{\frac{s_1^2}{n_1}+\frac{s_2^2}{n_2}}
+\]
+Small $n$, equal variances (Normal):
+\[
+    (\overline{X}_1-\overline{X}_2)\pm t_{\alpha/2,n_1+n_2-2}\cdot s_p\sqrt{\frac{1}{n_1}+\frac{1}{n_2}}
+\]
+
+\subsubsection*{CI for a proportion (large $n$)}
+\[
+    \hat{p}\pm z_{\alpha/2}\sqrt{\frac{\hat{p}(1-\hat{p})}{n}}
+\]
+
+\subsubsection*{Interpretation}
+Method yields coverage in repeated samples: $\Pr(\mu\in CI)=1-\alpha$ (not: ``$\Pr(\mu\in CI\mid data)$'').
+
+\subsection*{Hypothesis Testing Basics (Lec 17)}
+\subsubsection*{General structure}
+\textbf{Null $H_0$} vs \textbf{alternative $H_a$}; choose significance level $\alpha$.\\
+Test statistic $T$; p-value $=\Pr(\text{as/extreme as }T\mid H_0)$.\\
+Decision: reject if p-value $<\alpha$.
+
+\subsubsection*{Type I / II and power}
+Type I error: reject true $H_0$ (probability $\alpha$).\\
+Type II error: fail to reject false $H_0$ (probability $\beta$).\\
+Power $=1-\beta$ increases with larger $n$, larger effect size, larger $\alpha$.
+
+\subsubsection*{One-sample mean test (large $n$)}
+\[
+    H_0:\mu=\mu_0,\qquad
+    z=\frac{\overline{x}-\mu_0}{s/\sqrt{n}}\approx N(0,1)\ (H_0)
+\]
+Two-sided at 5\%: reject if $|z|>1.96$.\\
+p-value (two-sided): $2(1-\Phi(|z|))$.
+
+\subsubsection*{One-sided vs. two-sided}
+Right-tail: $H_a:\mu>\mu_0$, reject for large $z$; p-value $=1-\Phi(z)$.\\
+Left-tail: $H_a:\mu<\mu_0$, reject for small $z$; p-value $=\Phi(z)$.\\
+Two-sided is the conservative default unless direction is justified \emph{a priori}.
+
+\subsubsection*{CI $\leftrightarrow$ test link}
+For many large-sample mean/proportion settings: reject $H_0$ at level $\alpha$ iff the $(1-\alpha)$ CI excludes the null value.
+
+\subsubsection*{Power + sample size (Practice 2: Catalogs)}
+One-sided test $H_0:\mu=\mu_0$ vs $H_a:\mu>\mu_0$, known $\sigma$:
+reject if $\overline{X}>\mu_0+z_{1-\alpha}\frac{\sigma}{\sqrt{n}}$.\\
+If true mean is $\mu_1=\mu_0+\delta$, then power is
+\[
+    1-\beta
+    =\Pr(\text{reject}\mid \mu=\mu_1)
+    =1-\Phi\!\left(z_{1-\alpha}-\frac{\delta\sqrt{n}}{\sigma}\right).
+\]
+Solve for $n$:
+\[
+    n=\left(\frac{(z_{1-\alpha}+z_{1-\beta})\sigma}{\delta}\right)^2.
+\]
+
+\subsection*{Two-Sample Tests (Lec 17--19)}
+\subsubsection*{Independent samples (means)}
+Equal-variance pooled SD:
+\[
+    s_p=\sqrt{\frac{(n_1-1)s_1^2+(n_2-1)s_2^2}{n_1+n_2-2}}
+\]
+Large-sample equal-variance z:
+\[
+    z=\frac{\overline{x}_1-\overline{x}_2}{s_p\sqrt{\frac{1}{n_1}+\frac{1}{n_2}}}\approx N(0,1)
+\]
+Unequal-variance (large $n$) z:
+\[
+    z=\frac{\overline{x}_1-\overline{x}_2}{\sqrt{\frac{s_1^2}{n_1}+\frac{s_2^2}{n_2}}}\approx N(0,1)
+\]
+
+\subsubsection*{Small sample t-tests}
+One-sample: $t=\frac{\overline{x}-\mu_0}{s/\sqrt{n}}\sim t_{n-1}$ (Normal data).\\
+Two-sample equal-var: $t=\frac{\overline{x}_1-\overline{x}_2}{s_p\sqrt{\frac{1}{n_1}+\frac{1}{n_2}}}\sim t_{n_1+n_2-2}$.\\
+Welch (unequal var):
+\[
+    t=\frac{\overline{x}_1-\overline{x}_2}{\sqrt{\frac{s_1^2}{n_1}+\frac{s_2^2}{n_2}}}\approx t_{d'}
+    \quad
+    d'=\frac{\left(\frac{s_1^2}{n_1}+\frac{s_2^2}{n_2}\right)^2}{\frac{\left(\frac{s_1^2}{n_1}\right)^2}{n_1-1}+\frac{\left(\frac{s_2^2}{n_2}\right)^2}{n_2-1}}
+\]
+
+\subsubsection*{Useful $t$ critical values (5\%)}
+One-sided ($t_{0.95,df}$): df 4: 2.132;\; df 9: 1.833;\; df 14: 1.761;\; df 29: 1.699;\; df $\infty$: 1.645.\\
+Two-sided ($t_{0.975,df}$): df 4: 2.776;\; df 9: 2.262;\; df 14: 2.145;\; df 29: 2.045;\; df $\infty$: 1.96.
+
+\subsubsection*{Paired samples}
+Differences $d_i=x_{1i}-x_{2i}$, $\overline{d}=\frac{1}{n}\sum d_i$:
+\[
+    s_d=\sqrt{\frac{1}{n-1}\sum (d_i-\overline{d})^2},
+    \qquad
+    t=\frac{\overline{d}}{s_d/\sqrt{n}}\sim t_{n-1}
+\]
+
+\subsubsection*{Equality of variances (F test)}
+\[
+    H_0:\sigma_1^2=\sigma_2^2,\qquad F=\frac{s_1^2}{s_2^2}\sim F_{n_1-1,n_2-1}\ (H_0)
+\]
+Convention: put the larger sample variance in numerator so $F\ge 1$ (then use appropriate tail).
+
+\subsubsection*{Tests with proportions (large samples)}
+One proportion:
+\[
+    z=\frac{\hat{p}-p_0}{\sqrt{\frac{p_0(1-p_0)}{n}}}\approx N(0,1)
+\]
+Interpretation: use $p_0$ in the SE under $H_0$.\\
+95\% CI for $p$ (plug-in):
+\[
+    \hat{p}\pm 1.96\sqrt{\frac{\hat{p}(1-\hat{p})}{n}}
+\]
+Two proportions (independent):
+\[
+    \hat{p}=\frac{x_1+x_2}{n_1+n_2},\qquad
+    z=\frac{\hat{p}_1-\hat{p}_2}{\sqrt{\hat{p}(1-\hat{p})\left(\frac{1}{n_1}+\frac{1}{n_2}\right)}}\approx N(0,1)
+\]
+Note: pooled $\hat{p}$ is used for the SE \emph{under $H_0:p_1=p_2$}.\\
+CI for $(p_1-p_2)$ (plug-in, large $n$):
+\[
+    (\hat{p}_1-\hat{p}_2)\pm z_{\alpha/2}\sqrt{\frac{\hat{p}_1(1-\hat{p}_1)}{n_1}+\frac{\hat{p}_2(1-\hat{p}_2)}{n_2}}.
+\]
+
+\subsection*{Univariate Nonparametric Tests}
+
+\subsubsection*{Review of Distributions}
+We have covered several distributions derived from the Normal distribution:
+\begin{itemize}
+    \item \textbf{Chi-square Distribution ($\chi^2_k$)}:
+        \begin{itemize}
+            \item If $Z_1, \dots, Z_k \sim N(0,1)$ are independent, then $X = \sum_{i=1}^k Z_i^2 \sim \chi^2_k$.
+            \item Notation: $V \sim \chi^2(n)$.
+            \item Mean: $k$, Variance: $2k$.
+            \item PDF:
+            \[
+                f_k(x) = \frac{1}{2^{k/2} \Gamma(k/2)}x^{k/2 -1}e^{-x/2}, \quad x>0.
+            \]
+        \end{itemize}
+    \item \textbf{F Distribution ($F_{m,n}$)}:
+        \begin{itemize}
+            \item If $U \sim \chi^2_m$ and $V \sim \chi^2_n$ are independent, then $X = \frac{U/m}{V/n} \sim F_{m,n}$.
+            \item Used for testing equality of variances ($H_0: \sigma_1^2 = \sigma_2^2$).
+        \end{itemize}
+    \item \textbf{Student's t Distribution ($t_n$)}:
+        \begin{itemize}
+            \item If $Z \sim N(0,1)$ and $U \sim \chi^2_n$ are independent, then $X = \frac{Z}{\sqrt{U/n}} \sim t_n$.
+            \item Used for small sample tests of means.
+        \end{itemize}
+\end{itemize}
+
+\subsubsection*{K-Multinomial Random Variables}
+Let $Y \sim km(n, p_1, p_2, \dots, p_k)$.
+\begin{itemize}
+    \item $Y$ is a vector of $k$ counts ($Y_1, \dots, Y_k$).
+    \item $\sum p_i = 1$.
+    \item $n$ total trials. $Y_k$ is the number of times we observe the $k$-th outcome.
+\end{itemize}
+
+\subsubsection*{The Univariate Chi-square Test}
+We want to test if a sample comes from a specific multinomial distribution (Goodness of Fit).
+\begin{itemize}
+    \item \textbf{Hypothesis}: The data is drawn from a multinomial distribution with probabilities $p_1, \dots, p_k$.
+    \item \textbf{Test Statistic (Pearson's Chi-square)}:
+    \[ Q_{k-1} = \sum_{i=1}^k \frac{(Y_i - n p_i)^2}{n p_i} \sim \chi^2_{k-1} \]
+    \item Here, $Y_i$ is the \textit{Observed} count ($O_i$) and $n p_i$ is the \textit{Expected} count ($E_i$).
+    \[ \chi^2 = \sum \frac{(O - E)^2}{E} \]
+\end{itemize}
+
+\subsubsection*{Proof for k=2}
+For $k=2$, the Chi-square statistic is:
+\[ Q_1 = \frac{(Y_1 - n p_1)^2}{n p_1} + \frac{(Y_2 - n p_2)^2}{n p_2} \]
+Since $Y_2 = n - Y_1$ and $p_2 = 1 - p_1$, this simplifies to:
+\[
+    Q_1
+    = \frac{(Y_1 - n p_1)^2}{n p_1} + \frac{((n-Y_1) - n(1-p_1))^2}{n(1-p_1)}
+    = \frac{(Y_1 - n p_1)^2}{n p_1 (1 - p_1)}.
+\]
+\[ Q_1 = \frac{(Y_1 - n p_1)^2}{n p_1 (1 - p_1)} \]
+This is exactly the square of the z-statistic for a (single) proportion:
+\[
+    z_k = \frac{Y_k - np_k}{\sqrt{np_k(1-p_k)}}.
+\]
+In particular,
+\[
+    z_k^2=\frac{(Y_k-np_k)^2}{np_k(1-p_k)}.
+\]
+\[ z = \frac{\hat{p} - p_0}{\sqrt{\frac{p_0(1-p_0)}{n}}} \implies z^2 = \frac{(Y_1/n - p_1)^2}{p_1(1-p_1)/n} = \frac{(Y_1 - n p_1)^2}{n p_1 (1-p_1)} \]
+Thus, for $k=2$, the Chi-square test is equivalent to the two-sided z-test for proportions, and
+\[
+    Q_1 = z^2 \approx \chi^2(1).
+\]
+
+\subsection*{Bivariate Nonparametric Tests}
+
+
+\subsubsection*{Bivariate Chi-square Test (Test of Independence / Homogeneity)}
+Used to test if two (or more) groups have the same distribution of categorical outcomes.
+\begin{itemize}
+    \item \textbf{Setup}: Data is arranged in a contingency table with $J$ groups (columns) and $K$ values (rows).
+    \item \textbf{Hypothesis}: $H_0$: The distributions of the values are the same across groups.
+    \item \textbf{Expected Counts ($E_{ij}$)}: Under $H_0$, the best estimate for the probability of being in category $i$ is the pooled proportion:
+    \[ \hat{p}_i = \frac{\sum_{j=1}^J Y_{ij}}{N} \]
+    Then, $E_{ij} = \hat{p}_i \times (\text{Total count for Group } j)$.
+    \[
+        E_{ij} = \hat{p}_i \sum_{k=1}^{K} Y_{kj}
+    \]
+    \[
+        \hat{p}_i = \frac{\sum_{j=1}^{J} Y_{ij}}{N}, \quad E_{ij} = \hat{p}_i \sum_{k=1}^{K} Y_{kj}.
+    \]
+    \[ E_{ij} = \frac{(\text{Row Total}_i) \times (\text{Column Total}_j)}{N} \]
+    \item \textbf{Test Statistic}:
+    \[ Q = \sum_{j=1}^J \sum_{i=1}^K \frac{(Y_{ij} - E_{ij})^2}{E_{ij}} \]
+    \item \textbf{Distribution}: Under $H_0$, $Q \sim \chi^2_{(J-1)(K-1)}$.
+    \[
+        Q = \sum_{j=1}^{J} \sum_{i=1}^{K} \frac{(Y_{ij} - E_{ij})^2}{E_{ij}} \sim \chi^2_{((J-1)\times(K-1))}.
+    \]
+    \item \textbf{Condition}: Works well if expected counts in each cell are at least 5.
+\end{itemize}
+
+\subsubsection*{Fisher's Exact Test}
+\begin{itemize}
+    \item Used when sample sizes are small (e.g., cell counts $< 5$) where the Chi-square approximation fails.
+    \item Does not rely on the CLT or large samples.
+    \item Computationally intensive for large tables.
+\end{itemize}
+
+\subsubsection*{Median Tests}
+Useful when data is skewed or has outliers (t-tests might be invalid).
+\subsubsection{One Sample Median Test}
+\begin{itemize}
+    \item $H_0: \text{Median}(X) = m_0$.
+    \item Under $H_0$, we expect 50\% of observations to be below $m_0$.
+    \item Let $C =$ count of observations below $m_0$.
+    \item Under $H_0$, $C \sim \text{Binomial}(n, 0.5)$. We calculate the p-value using the Binomial distribution.
+\end{itemize}
+
+\subsubsubsection*{Two Sample Median Test}
+Tests if two populations have the same median.
+\begin{enumerate}
+    \item Combine the two samples and compute the \textbf{pooled median}.
+    \item For each sample, count the number of observations above and below the pooled median.
+    \item Create a $2 \times 2$ contingency table with these counts.
+    \item Perform a Chi-square test (or Fisher's exact test) on this table.
+\end{enumerate}
+
+
+\subsection*{Which Test? (Lec 17--21)}
+\subsubsection*{Mean / proportion decision guide}
+\textbf{One sample:}
+Normal data + small $n$ $\Rightarrow$ one-sample $t$; large $n$ $\Rightarrow$ $z$ (CLT).\\
+Binary outcome $\Rightarrow$ one-sample proportion $z$ (large $n$).\\
+\textbf{Two samples:}
+Paired $\Rightarrow$ paired $t$ on differences.\\
+Independent means: equal var? pooled $t$ (small $n$) / pooled $z$ (large $n$); unequal var $\Rightarrow$ Welch $t$ / unequal-var $z$.\\
+Two proportions $\Rightarrow$ two-proportion $z$ (pooled SE under $H_0$).
+
+\subsubsection*{Categorical outcomes guide}
+One multinomial sample vs known $p_i$ $\Rightarrow$ $\chi^2$ GOF.\\
+Two-way table (independence/homogeneity) $\Rightarrow$ $\chi^2$ with df $(J-1)(K-1)$.\\
+Small expected cell counts $\Rightarrow$ Fisher's exact.
+
+\subsubsection*{P-values (quick)}
+Two-sided: $p=2(1-\Phi(|z|))$ for $z$; similarly $p=2(1-F_{t,df}(|t|))$ for $t$.\\
+Right-tail: $p=1-\Phi(z)$; left-tail: $p=\Phi(z)$.
+
+\subsubsection*{Critical values (common)}
+$z_{0.10}\approx 1.28$ (80\% CI), $z_{0.05}\approx 1.645$ (90\% CI), $z_{0.025}\approx 1.96$ (95\% CI), $z_{0.005}\approx 2.576$ (99\% CI).
+
+\subsection*{Inference Templates (Lec 14--21)}
+\subsubsection*{Test/CI workflow}
+1) Write $H_0,H_a$ and choose $\alpha$.\;
+2) Compute statistic.\;
+3) Get p-value (or compare to critical value).\;
+4) State decision + interpretation in context.
+
+\subsubsection*{Standard errors (common)}
+\textbf{Mean:} $SE(\overline{X})=s/\sqrt{n}$.\\
+\textbf{Diff of means (indep):} $SE(\overline{X}_1-\overline{X}_2)=\sqrt{s_1^2/n_1+s_2^2/n_2}$.\\
+\textbf{Proportion:} $SE(\hat{p})\approx \sqrt{\hat{p}(1-\hat{p})/n}$.\\
+\textbf{Diff of proportions:}
+\[
+    SE(\hat{p}_1-\hat{p}_2)\approx \sqrt{\frac{\hat{p}_1(1-\hat{p}_1)}{n_1}+\frac{\hat{p}_2(1-\hat{p}_2)}{n_2}}
+\]
+
+\subsubsection*{Useful null distributions from Normal data}
+If $X_i\sim N(\mu,\sigma^2)$ iid:
+\[
+    \frac{\overline{X}-\mu}{\sigma/\sqrt{n}}\sim N(0,1),\qquad
+    \frac{\overline{X}-\mu}{s/\sqrt{n}}\sim t_{n-1}
+\]
+\[
+    \frac{(n-1)s^2}{\sigma^2}\sim \chi^2_{n-1}
+\]
+If $X_i$ and $Y_j$ are Normal samples with variances $\sigma_1^2,\sigma_2^2$:
+\[
+    \frac{s_1^2/\sigma_1^2}{s_2^2/\sigma_2^2}\sim F_{n_1-1,n_2-1}
+\]
+
+\subsubsection*{Two-sided $t$ p-value template}
+If $t_{df}$ computed, then $p=2(1-F_{t,df}(|t|))$.
+
+\subsubsection*{$\chi^2$ df reminders}
+GOF with $k$ categories: df $=k-1$.\\
+Independence with $K\times J$ table: df $=(K-1)(J-1)$.\\
+If you estimate parameters in GOF, subtract those estimated parameters from df.
+
+\subsubsection*{Useful $\chi^2$ critical values}
+At 5\%: df 1: 3.841;\; df 2: 5.991;\; df 3: 7.815;\; df 4: 9.488;\; df 5: 11.070;\; df 6: 12.592.\\
+At 1\%: df 1: 6.635;\; df 2: 9.210;\; df 3: 11.345;\; df 4: 13.277.
+
+\subsubsection*{Common interpretation pitfalls}
+Fail to reject $\neq$ accept $H_0$.\\
+Statistical significance $\neq$ practical significance.\\
+Small p-value means data unlikely under $H_0$ (not: $H_0$ is unlikely).\\
+CI width shrinks like $1/\sqrt{n}$.
+
+\subsection*{Computation Recipes (Lec 14--21)}
+\subsubsection*{1-sample mean ($H_0:\mu=\mu_0$)}
+Compute $\overline{x}$, $s$, $n$.\\
+Large $n$: $z=\frac{\overline{x}-\mu_0}{s/\sqrt{n}}$.\\
+Small $n$ (Normal): $t=\frac{\overline{x}-\mu_0}{s/\sqrt{n}}$ with df $n-1$.\\
+Two-sided p-value: $2(1-\Phi(|z|))$ or $2(1-F_{t,df}(|t|))$.
+
+\subsubsection*{2 independent means ($H_0:\mu_1=\mu_2$)}
+Compute $\overline{x}_1,\overline{x}_2,s_1,s_2,n_1,n_2$.\\
+Large $n$: $z=\frac{\overline{x}_1-\overline{x}_2}{\sqrt{s_1^2/n_1+s_2^2/n_2}}$.\\
+Small $n$ (Normal): pooled $t$ if equal variances; Welch $t$ otherwise.
+
+\subsubsection*{Paired means ($H_0:\Delta=0$)}
+Compute differences $d_i=x_{1i}-x_{2i}$, then test $H_0:E[d]=0$ via $t=\frac{\overline{d}}{s_d/\sqrt{n}}$.
+
+\subsubsection*{1-sample proportion ($H_0:p=p_0$)}
+Compute $\hat{p}=x/n$. Use $z=\frac{\hat{p}-p_0}{\sqrt{p_0(1-p_0)/n}}$ (SE under $H_0$).
+
+\subsubsection*{2 proportions ($H_0:p_1=p_2$)}
+Compute $\hat{p}_1=x_1/n_1$, $\hat{p}_2=x_2/n_2$, pooled $\hat{p}=\frac{x_1+x_2}{n_1+n_2}$, then
+\[
+    z=\frac{\hat{p}_1-\hat{p}_2}{\sqrt{\hat{p}(1-\hat{p})\left(\frac{1}{n_1}+\frac{1}{n_2}\right)}}.
+\]
+
+\subsubsection*{$\chi^2$ GOF}
+Compute expected counts $E_i=np_i$ from null model, then
+\[
+    Q=\sum_{i=1}^{k}\frac{(O_i-E_i)^2}{E_i},\quad df=k-1.
+\]
+
+\subsubsection*{$\chi^2$ independence / homogeneity}
+Compute row totals, column totals, $N$, then $E_{ij}=\frac{(\text{row }i)(\text{col }j)}{N}$ and
+\[
+    Q=\sum_{i,j}\frac{(O_{ij}-E_{ij})^2}{E_{ij}},\quad df=(K-1)(J-1).
+\]
+
+\subsection*{Randomized Experiments (Lec 22)}
+\subsubsection*{Potential outcomes}
+$Y_{0i}$: outcome if not treated; $Y_{1i}$: outcome if treated; $D_i\in\{0,1\}$ treatment indicator.
+\[
+    Y_i=(1-D_i)Y_{0i}+D_iY_{1i}=Y_{0i}+(Y_{1i}-Y_{0i})D_i
+\]
+
+\subsubsection*{Causal estimands}
+ATE: $E[Y_{1i}-Y_{0i}]$.\\
+TT: $E[Y_{1i}-Y_{0i}\mid D_i=1]$.
+
+\subsubsection*{Selection bias decomposition}
+Observed difference (``confounding comparison''):
+\[
+    E[Y_i\mid D_i=1]-E[Y_i\mid D_i=0]=TT+SB
+\]
+where $TT=E[Y_{1i}-Y_{0i}\mid D_i=1]$ and $SB=E[Y_{0i}\mid D_i=1]-E[Y_{0i}\mid D_i=0]$.
+Random assignment $\Rightarrow (Y_{0i},Y_{1i})\perp D_i \Rightarrow SB=0$, so diff-in-means identifies ATE.
+
+\subsubsection*{ITT (intent-to-treat)}
+If $Z_i$ is random assignment (offer/encouragement), ITT is:
+\[
+    ITT=E[Y_i\mid Z_i=1]-E[Y_i\mid Z_i=0]
+\]
+Useful under non-compliance (keeps randomization intact).
+
+\subsubsection*{Diff-in-means estimator (simple RCT)}
+With treated group $T$ and control group $C$:
+\[
+    \widehat{ATE}=\overline{Y}_T-\overline{Y}_C,\qquad
+    SE(\widehat{ATE})\approx \sqrt{\frac{s_T^2}{n_T}+\frac{s_C^2}{n_C}}
+\]
+
+\subsubsection*{Compliance language}
+$Z_i$ = assigned; $D_i$ = received. If perfect compliance ($D_i=Z_i$), then ITT = ATE. If not, ITT remains valid for the effect of \emph{assignment}.
+
+\subsubsection*{Heterogeneous effects + balance checks}
+Treatment effects may vary across subgroups; randomization implies groups should look similar on \emph{baseline} covariates in expectation (can check with comparisons).
+
+\subsubsection*{Why randomization helps}
+Random assignment makes treatment independent of unobserved determinants of $Y$ (``exogenous variation''): treated and control are comparable in expectation.
+
+\subsubsection*{Breza et al. (2021) design (example)}
+Two-stage randomization (county $\rightarrow$ zipcode) enables causal measurement with large-scale online ad delivery; primary outcomes measured at county/zip levels.
+
+\subsubsection*{What observational studies compute (HBR effect)}
+Often reported:
+\[
+    E[Y_i\mid D_i=1]-E[Y_i\mid D_i=0]
+\]
+This is a \textbf{confounding comparison} unless treatment is as-good-as-random.
+
+\subsubsection*{Observed outcome identity}
+Even though $(Y_{0i},Y_{1i})$ are both defined for each $i$, we only observe one of them:
+\[
+    Y_i = Y_{0i} + (Y_{1i}-Y_{0i})D_i.
+\]
+
+\subsubsection*{Full decomposition (TT + selection bias)}
+Let $\Delta_i=Y_{1i}-Y_{0i}$. Define $TT=E[\Delta_i\mid D_i=1]$\\
+and $SB=E[Y_{0i}\mid D_i=1]-E[Y_{0i}\mid D_i=0]$. Then
+\[
+    E[Y_i\mid D_i=1]-E[Y_i\mid D_i=0]=TT+SB.
+\]
+
+\subsubsection*{Key equalities under random assignment}
+If $D_i$ is randomly assigned (independent of $(Y_{0i},Y_{1i})$), then
+\[
+    \begin{aligned}
+        E[Y_{0i}\mid D_i=1]&=E[Y_{0i}\mid D_i=0] \\
+        \Rightarrow\quad E[Y_i\mid D_i=1]-E[Y_i\mid D_i=0]&=ATE.
+    \end{aligned}
+\]
+
+\subsubsection*{Stylized example (why confounding can be huge)}
+If the causal effect is modest (e.g., $ATE\approx 5$) but treated units have much higher baseline outcomes $Y_{0i}$, then $SB$ can be large and the observational difference can be huge even when the true causal effect is small.
+
+\subsubsection*{Practical checklist for randomized experiments}
+\begin{itemize}
+    \item Define population + unit of randomization (individual / cluster).
+    \item Define treatment $D_i$ and outcomes $Y_i$ (timing matters).
+    \item Verify balance: compare baseline covariates across treatment/control (means, proportions, $\chi^2$ tables).
+    \item Handle non-compliance: report ITT (effect of assignment).
+    \item Consider spillovers: if treatment affects untreated units, simple comparisons may not recover the desired ATE.
+\end{itemize}
+
+\subsubsection*{Two-stage randomization intuition (Breza)}
+Stage 1 creates \textbf{different treatment intensities} (high vs low) at the county level; stage 2 randomizes treatment at the zipcode level within counties.\\
+Comparisons can identify intent-to-treat effects of being in treated zipcodes and can be used to study spillovers when intensity varies.
+
+\subsubsection*{ATE vs TT (heterogeneous effects)}
+If treatment effects vary across people, then $ATE=E[Y_{1i}-Y_{0i}]$ may differ from $TT=E[Y_{1i}-Y_{0i}\mid D_i=1]$ because the treated subset can be different.
+
+\subsubsection*{How to check randomization (balance)}
+Pick baseline variables measured \emph{before} treatment. Compare treatment vs control: mean differences ($t/z$ tests), proportions (two-proportion $z$), and categorical distributions ($\chi^2$/Fisher).\\
+Interpretation: you expect some imbalance by chance; systematic imbalance suggests randomization problems or attrition.
+
+\subsubsection*{Noncompliance}
+If assignment $Z_i$ does not equal receipt $D_i$, report ITT (effect of $Z_i$). ``As-treated'' comparisons reintroduce selection bias.
+\textbf{If you need the effect of actually receiving treatment:} under additional assumptions, a common ``treatment-on-treated'' estimand is
+\[
+    \frac{ITT}{E[D_i\mid Z_i=1]-E[D_i\mid Z_i=0]}.
+\]
+
+\subsubsection*{Online ads: why ``targeted search'' is tricky}
+If ads are shown because a user searches for relevant keywords, then $D_i$ is correlated with purchase intent, so $E[Y_{0i}\mid D_i=1] > E[Y_{0i}\mid D_i=0]$ (positive selection bias). Randomized field experiments create exogenous variation in $D_i$.
+
+\subsubsection*{Breza et al. (2021) outcomes (as reported in lecture)}
+\begin{itemize}
+    \item Travel: average distance traveled decreased by about $0.993$ percentage points in high-intensity counties vs low-intensity counties (pre-holiday window).
+    \item COVID: treated zipcodes saw about a $3.5\%$ reduction in infections vs controls (measured post-holiday).
+\end{itemize}
+
 \end{multicols}
+
 \end{document}

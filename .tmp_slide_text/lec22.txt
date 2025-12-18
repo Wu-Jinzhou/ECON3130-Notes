@@ -1,0 +1,652 @@
+INTRODUCTION TO PROBABILITY
+AND STATISTICS
+ECON 3130
+Module 15, Lecture 1
+
+          Randomized Experiments
+                            December 3, 2025
+
+
+
+                                               1
+                                                 2
+
+
+
+
+Today’s Agenda
+• Define and work with randomized experiments and the
+  associated jargon:
+ •   Average Treatment Effect (ATE)
+ •   Treatment-on-the-Treated (TT)
+ •   Selection Bias (SB)
+ •   Heterogeneous Treatment Effects
+ •   Intent-to-Treat (ITT)
+
+
+• Two Case studies: Online Advertising
+                                 3
+
+
+
+
+Two Extra Credit Opportunities
+                                         4
+
+
+
+
+  Two Extra Credit Opportunities
+1. Review Quiz: ½ point if you take it
+  • Opens this evening
+  • Closes Sunday, Dec 7 at 11:59pm
+                                                        5
+
+
+
+
+  Two Extra Credit Opportunities
+1. Review Quiz: ½ point if you take it
+  • Opens this evening
+  • Closes Sunday, Dec 7 at 11:59pm
+
+2. Course Evaluation: ½ point if more than 90% of class takes it
+  • Open now!
+  • Closes next Thursday night (Dec 11)
+                                                                 6
+
+
+
+
+Advertising Effectiveness
+      What effects, if any, does advertising have?
+
+Question is of interest for many reasons:
+
+    • Businesses: how much to spend on advertising? (e.g., Coke,
+      Pfizer, Victoria’s Secret, etc.)
+
+    • Psychology/Marketing: how does advertising make us
+      feel/respond?
+
+    • Economists: what role does advertising play? Is it informative? Is
+      it persuasive? Is it wasteful? Is it just a signal of something else?
+                                                                 7
+
+
+
+
+Advertising Effectiveness
+      What effects, if any, does advertising have?
+
+Question is of interest for many reasons:
+
+    • Businesses: how much to spend on advertising? (e.g., Coke,
+      Pfizer, Victoria’s Secret, etc.)
+
+    • Psychology/Marketing: how does advertising make us
+      feel/respond?
+
+    • Economists: what role does advertising play? Is it informative? Is
+      it persuasive? Is it wasteful? Is it just a signal of something else?
+
+Let’s look at two studies and see if we can find some answers.
+                                                                     8
+
+
+First study:
+
+In 2008, comScore tracked about 2 million people’s behavior on the Internet
+and matched it to their off-line purchasing.
+
+For several brands, divided their sample into four groups:
+
+    1. Didn’t see any ads (“Control Group”)
+    2. Saw only online display ads
+    3. Saw only targeted search ads
+    4. Saw both display and search ads
+
+Looked at three outcomes:
+
+    1. Visits to advertised brand’s website
+    2. Sales revenue from online buyers
+    3. Sales revenue from off-line buyers
+                                                                              9
+
+
+First study:
+
+
+
+
+1.   What do we learn from these results?
+2.   What could explain the observed differences in sales from groups that saw no ads, and
+     groups that saw search ads?
+3.   Does your answer depend on how the search engine (e.g., Google) targets ads?
+                                                                              10
+
+
+
+
+1.   What do we learn from these results?
+
+
+
+2.   What could explain the observed differences in sales from groups that saw no ads, and
+     groups that saw search ads?
+
+
+
+3.   Does your answer depend on how the search engine (e.g., Google) targets ads?
+                                                                   11
+
+
+
+
+Notation
+Let
+
+  Y0i = sales to consumer i if he/she was hypothetically not shown an ad
+  Y1i = sales to consumer i if he/she was hypothetically shown an ad
+
+
+Y0i and Y1i are defined for every person in your study,
+regardless of whether they actually saw an ad.
+                                                                   12
+
+
+
+
+Notation
+Let
+
+  Y0i = sales to consumer i if he/she was hypothetically not shown an ad
+  Y1i = sales to consumer i if he/she was hypothetically shown an ad
+
+
+Let Di = {0,1} reflect whether individual i actually saw an ad.
+
+i.e., Di = 1 if consumer i did see an ad.
+      Di = 0 if consumer i did not see an ad.
+                                                              13
+
+
+
+
+Treatment effects
+What do we want to know?
+What we (and HBR) would really like to know is: Suppose we
+chose a random person from the population and showed
+them an ad. How much more revenue should we expect to
+get? Using our notation,
+                           E[ Y1i - Y0i ]
+
+This expression is often called the average treatment effect.
+
+(Y1i - Y0i) is the treatment effect for consumer i, and the
+expected value averages across all consumers
+                                                                14
+
+
+
+
+Stylized Example of Treatment Effects
+ Suppose we are studying the effect of online advertising for
+ Sony headphones.
+
+          i                  Y0i                  Y1i
+         1                   50                   50
+         2                   40                   40
+         3                   100                  110
+         4                   150                 160
+                                                                15
+
+
+
+
+Stylized Example of Treatment Effects
+ Suppose we are studying the effect of online advertising for
+ Sony headphones.
+
+          i                  Y0i                  Y1i
+         1                   50                   50
+         2                   40                   40
+                                                                 Music lovers
+         3                   100                  110
+         4                   150                 160
+                                                                16
+
+
+
+
+Stylized Example of Treatment Effects
+ Suppose we are studying the effect of online advertising for
+ Sony headphones.
+
+          i                  Y0i                  Y1i
+         1                   50                   50
+         2                   40                   40
+                                                                 Music lovers
+         3                   100                  110
+         4                   150                 160
+
+
+   What’s the estimated average treatment effect?
+                                                                      17
+
+
+Stylized Example of Treatment Effects
+ What do we observe in the HBR study?
+ In the HBR study, we observe Y1i for people who saw an ad, but not Y0i.
+ Similarly, we observe Y0i for people who did not see an ad, but not Y1i.
+ Thus, we observe a variable Yi, defined as
+
+                   Yi = Y0i + (Y1i – Y0i)*Di
+
+           i         Y0i         Y1i           Di         Yi
+           1         50           50           0         50
+           2         40           40           0         40
+           3         100         110           1         110
+           4         150         160           1         160
+                                                                      18
+
+
+Stylized Example of Treatment Effects
+ What do we observe in the HBR study?
+ In the HBR study, we observe Y1i for people who saw an ad, but not Y0i.
+ Similarly, we observe Y0i for people who did not see an ad, but not Y1i.
+ Thus, we observe a variable Yi, defined as
+
+                    Yi = Y0i + (Y1i – Y0i)*Di
+
+            i         Y0i          Y1i          Di           Yi
+           1           50          50            0           50
+           2           40          40            0           40
+           3          100         110            1           110
+           4          150         160            1           160
+
+ So what result is the HBR study reporting?
+ The HBR study computed average revenue across those consumers who
+ saw an ad minus average revenue across those consumers who did not:
+          “HBR effect”: E[Yi | Di = 1 ] – E[ Yi | Di = 0 ]
+                                                                          19
+
+
+Stylized Example of Treatment Effects
+ What do we observe in the HBR study?
+ In the HBR study, we observe Y1i for people who saw an ad, but not Y0i.
+ Similarly, we observe Y0i for people who did not see an ad, but not Y1i.
+ Thus, we observe a variable Yi, defined as
+
+                    Yi = Y0i + (Y1i – Y0i)*Di
+
+            i         Y0i         Y1i           Di           Yi
+            1          50          50           0            50
+            2          40          40           0            40
+            3         100         110           1           110
+            4         150         160           1           160
+
+ So what result is the HBR study reporting?
+ The HBR study computed average revenue across those consumers who
+ saw an ad minus average revenue across those consumers who did not:
+         “HBR effect”: E[Yi | Di = 1 ] – E[ Yi | Di = 0 ] = 110 +160 − 50 + 40 = 90
+                                                                2         2
+                                                            20
+
+
+
+
+Stylized Example of Treatment Effects
+ In general,                                  “HBR Effect”
+                                              (also called the
+         E[Yi | Di = 1 ] – E[ Yi | Di = 0 ]
+                                              “Confounding Comparison”)
+                                                                           21
+
+
+
+
+Stylized Example of Treatment Effects
+ In general,                                                “HBR Effect”
+         E[Yi | Di = 1 ] – E[ Yi | Di = 0 ]
+
+                   = E[Y1i | Di = 1 ] – E[ Y0i | Di = 0 ]
+                                                                           22
+
+
+
+
+Stylized Example of Treatment Effects
+ In general,                                                “HBR Effect”
+         E[Yi | Di = 1 ] – E[ Yi | Di = 0 ]
+
+                   = E[Y1i | Di = 1 ] – E[ Y0i | Di = 0 ]
+                                                             Average Treatment Effect
+                              ≠ E[ Y1i - Y0i ]
+                                         23
+
+
+
+
+(E[Y0i | Di = 1 ] – E[ Y0i | Di = 0 ])
+                                                                     24
+
+
+
+
+(E[Y0i | Di = 1 ] – E[ Y0i | Di = 0 ])
+
+                   “selection bias” (tells you about subset chosen
+                                     relative to the rest)
+                                                                     25
+
+
+
+
+(E[Y0i | Di = 1 ] – E[ Y0i | Di = 0 ])
+
+                   “selection bias” (tells you about subset chosen
+                                     relative to the rest)
+
+
+
+
+(E[Y1i | Di = 1 ] – E[ Y0i | Di = 1 ])
+                                                                         26
+
+
+
+
+   (E[Y0i | Di = 1 ] – E[ Y0i | Di = 0 ])
+
+                       “selection bias” (tells you about subset chosen
+                                         relative to the rest)
+
+
+
+
+    (E[Y1i | Di = 1 ] – E[ Y0i | Di = 1 ])
+
+
+
+
+“treatment on the treated” (treatment effect for subset)
+                                                                                27
+
+
+
+
+What IS the HBR Effect?
+         E[Yi | Di = 1 ] – E[ Yi | Di = 0 ] = E[Y1i | Di = 1 ] – E[ Y0i | Di = 0 ]
+
+                                                  ≠ E[ Y1i - Y0i ]
+
+
+
+Let’s try just adding the selection bias to the treatment on the treated.
+                                                                                     28
+
+
+
+
+  What IS the HBR Effect?
+              E[Yi | Di = 1 ] – E[ Yi | Di = 0 ] = E[Y1i | Di = 1 ] – E[ Y0i | Di = 0 ]
+
+                                                       ≠ E[ Y1i - Y0i ]
+
+
+“treatment on the treated” (treatment effect for subset)
+
+                     (E[Y1i | Di = 1 ] – E[ Y0i | Di = 1 ])
+                                            “selection bias” (tells you about subset chosen
+                                                              relative to the rest)
+                        + (E[Y0i | Di = 1 ] – E[ Y0i | Di = 0 ])
+
+
+
+                        =
+                                                                                     29
+
+
+
+
+  What IS the HBR Effect?
+              E[Yi | Di = 1 ] – E[ Yi | Di = 0 ] = E[Y1i | Di = 1 ] – E[ Y0i | Di = 0 ]
+
+                                                       ≠ E[ Y1i - Y0i ]
+
+
+“treatment on the treated” (treatment effect for subset)
+
+                     (E[Y1i | Di = 1 ] – E[ Y0i | Di = 1 ])
+                                            “selection bias” (tells you about subset chosen
+                                                              relative to the rest)
+                        + (E[Y0i | Di = 1 ] – E[ Y0i | Di = 0 ])
+
+
+
+                        = E[Y1i | Di = 1 ] – E[ Y0i | Di = 0 ]
+                                                                        30
+
+
+
+
+What to do
+We have two distinct problems:
+   1.   Treatment effect measured is for a subset, not the whole population.
+   2.   Number computed also reflects selection bias, so we may not be computing a
+        treatment effect at all.
+                                                                        31
+
+
+
+
+What to do
+We have two distinct problems:
+   1.   Treatment effect measured is for a subset, not the whole population.
+   2.   Number computed also reflects selection bias, so we may not be computing a
+        treatment effect at all.
+
+
+One Solution:
+  Suppose we could control who sees an ad and who doesn’t. Then we could assign the
+  treatment randomly, independent of the outcome.
+                                                                              32
+
+
+
+
+What to do
+We have two distinct problems:
+   1.    Treatment effect measured is for a subset, not the whole population.
+   2.    Number computed also reflects selection bias, so we may not be computing a
+         treatment effect at all.
+
+
+One Solution:
+  Suppose we could control who sees an ad and who doesn’t. Then we could assign the
+  treatment randomly, independent of the outcome.
+  If Yi and Di are independent, then recall that the conditional expectation equals the
+  unconditional expectation, and doing the computation as HBR study did would now
+  give the correct result. Independence gives us this:
+
+  E[Yi | Di = 1 ] – E[ Yi | Di = 0 ] = E[Y1i | Di = 1 ] – E[ Y0i | Di = 0 ]
+                                                    = E[Y1i] – E[ Y0i]
+                                                    = E[ Y1i - Y0i ]
+                                                                                   33
+
+
+
+
+What to do
+We have two distinct problems:
+   1.    Treatment effect measured is for a subset, not the whole population.
+   2.    Number computed also reflects selection bias, so we may not be computing a
+         treatment effect at all.
+
+
+One Solution:
+  Suppose we could control who sees an ad and who doesn’t. Then we could assign the
+  treatment randomly, independent of the outcome.
+  If Yi and Di are independent, then recall that the conditional expectation equals the
+  unconditional expectation, and doing the computation as HBR study did would now
+  give the correct result. Independence gives us this:
+
+  E[Yi | Di = 1 ] – E[ Yi | Di = 0 ] = E[Y1i | Di = 1 ] – E[ Y0i | Di = 0 ]
+                                                    = E[Y1i] – E[ Y0i]
+                                                    = E[ Y1i - Y0i ]
+
+
+
+                                                                   Average Treatment Effect
+ “HBR effect”
+                                                                                   34
+
+
+
+
+What to do
+We have two distinct problems:
+   1.    Treatment effect measured is for a subset, not the whole population.
+   2.    Number computed also reflects selection bias, so we may not be computing a
+         treatment effect at all.
+
+
+One Solution:
+  Suppose we could control who sees an ad and who doesn’t. Then we could assign the
+  treatment randomly, independent of the outcome.
+  If Yi and Di are independent, then recall that the conditional expectation equals the
+  unconditional expectation, and doing the computation as HBR study did would now
+  give the correct result. Independence gives us this:
+
+  E[Yi | Di = 1 ] – E[ Yi | Di = 0 ] = E[Y1i | Di = 1 ] – E[ Y0i | Di = 0 ]
+                                                    = E[Y1i] – E[ Y0i]
+                                                    = E[ Y1i - Y0i ]
+
+                   If treatment is randomized,
+                   these are the same!                             Average Treatment Effect
+ “HBR effect”
+                                                    35
+
+
+
+
+The Intent-to-Treat Effect (ITT)
+Q: What happens when not everyone randomly assigned to
+   the treatment actually gets the treatment?
+
+A: You call the difference between the treatment group
+   outcome and the control group outcome the ITT.
+                                                                   36
+
+
+
+
+Randomized Field Experiments
+•   One way to achieve independence is to randomize who sees the
+    advertisement.
+
+•   Introduces “exogenous” variation in treatment. i.e., The treatment is
+    independent of any unobserved determinants of the outcome.
+
+•   This has to be done in the field. The idea is to replicate in the field
+    the kind of laboratory experiment that is frequently used in medicine,
+    where patients are randomly assigned a treatment or a placebo.
+
+•   Field experiments are a very active area of
+       •   Economics (especially development)
+       •   Political Science
+       •   Psychology
+       •   Marketing, …
+                                                                37
+
+
+
+
+Breza et al. (2021)
+• Randomized trial to evaluate effectiveness of doctors’ and nurses’
+ social media ads
+
+• Created short video messages to encourage viewers to stay home for
+ the Thanksgiving and Christmas holidays in 2020:
+
+
+
+        “This Thanksgiving, the best way to show your love
+        is to stay home. If you do visit, wear a mask at all
+        times. I'm [Title/ NAME] from [INSTITUTION], and
+        I'm urging you: don't risk spreading COVID. Stay
+        safe, stay home.”
+                                                                  38
+
+
+
+
+Breza et al. (2021) Randomization
+• 820 counties (covering 13 states)
+
+
+• Stage 1 randomization:
+  • Half the counties “high intensity” and half “low intensity”
+
+
+
+• Stage 2 randomization:
+  • 75% of zipcodes in high intensity counties were “Treatment”
+  • 25% of zipcodes in low intensity counties were “Treatment”
+
+
+• Facebook users in treatment zipcodes were sent the ads
+  • 11,954,109 users saw at least one right before Thanksgiving
+  • 23,302,290 users saw at least one right before Christmas
+                                                    39
+
+
+
+
+Breza et al. (2021) Outcomes
+First primary outcome: aggregate holiday travel
+• use mobile phone location data to measure average
+  distance traveled (county-level)
+
+Second primary outcome: COVID-19 infection level
+• use cases recorded in two-week period starting five days
+  post-holiday (zipcode-level)
+                                                                      40
+
+
+
+
+  Breza et al. (2021) Baseline
+
+
+
+
+Do you think they did a good job with the randomization? How would you check
+using statistical analysis?
+                                   41
+
+
+
+
+Breza et al. (2021) Movement Results
+                                42
+
+
+
+
+Breza et al. (2021) COVID Results
+                        43
+
+
+
+
+Breza et al. (2021)
+What have we learned?
+                      44
+
+
+
+
+Breza et al. (2021)
+
